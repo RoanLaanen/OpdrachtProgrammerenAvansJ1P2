@@ -1,15 +1,16 @@
 package com.example.verticalslice;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
-import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.GridPane;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class GUI extends Application {
 
@@ -56,15 +57,49 @@ public class GUI extends Application {
 
         stage.setTitle("BorderPane");
 
-        // create a label
-        HBox dropdownContainer = new HBox();
-        dropdownContainer.setStyle("-fx-background-color: #70d900;");
-        dropdownContainer.setPrefHeight(50);
+        ComboBox<String> comboBox = new ComboBox<>(FXCollections.observableArrayList());
+        comboBox.getSelectionModel().selectFirst();
+        comboBox.prefWidthProperty().bind(stage.widthProperty().divide(3));
+
+        //comboBox.getItems().add("Option 4");
+
+        HBox dropdownContainer = new HBox(comboBox);
+            dropdownContainer.setStyle("-fx-background-color: #70d900;");
+            dropdownContainer.setAlignment(Pos.CENTER);
+            dropdownContainer.setPrefHeight(50);
+
         HBox mainContent = new HBox();
-        mainContent.setStyle("-fx-background-color: #b100ec;");
-        HBox buttonContainer = new HBox();
-        buttonContainer.setStyle("-fx-background-color: #0012d9;");
-        buttonContainer.setPrefHeight(50);
+            mainContent.setStyle("-fx-background-color: #b100ec;");
+
+        Button addButton = new Button("Add");
+            HBox.setHgrow(addButton, Priority.ALWAYS);
+            addButton.setMaxWidth(Double.MAX_VALUE);
+            addButton.setAlignment(Pos.CENTER);
+        AtomicInteger i = new AtomicInteger();
+        addButton.setOnAction(e -> {
+            comboBox.getItems().add("Option " + i.get());
+            i.getAndIncrement();
+            System.out.println(i.get());
+        });
+
+        Button editButton = new Button("Edit");
+            HBox.setHgrow(editButton, Priority.ALWAYS);
+            editButton.setMaxWidth(Double.MAX_VALUE);
+            editButton.setAlignment(Pos.CENTER);
+        Button deleteButton = new Button("Delete");
+            HBox.setHgrow(deleteButton, Priority.ALWAYS);
+            deleteButton.setMaxWidth(Double.MAX_VALUE);
+            deleteButton.setAlignment(Pos.CENTER);
+
+
+
+
+
+
+        HBox buttonContainer = new HBox(addButton, editButton, deleteButton);
+            buttonContainer.setStyle("-fx-background-color: #0012d9;");
+            buttonContainer.setPrefHeight(50);
+            buttonContainer.setAlignment(Pos.CENTER);
 
 
 
