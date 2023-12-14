@@ -3,6 +3,9 @@ package com.example.verticalslice;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * Represents a database connection.
+ */
 public class DatabaseConnection {
     public static ArrayList<Cursus> cursusArray = new ArrayList<>();
     public static boolean loaded = false;
@@ -38,7 +41,7 @@ public class DatabaseConnection {
                 String onderwerp = rs.getString("onderwerp");
                 String niveauString = rs.getString("niveau");
                 Cursus.niveau niveau = Cursus.niveau.valueOf(niveauString);
-                cursusArray.add(new Cursus(cursusNaam, introductieTekst, onderwerp, niveau));
+                cursusArray.add(new Cursus(cursusNaam, onderwerp, introductieTekst, niveau));
                 GUI.main(args);
 
             }
