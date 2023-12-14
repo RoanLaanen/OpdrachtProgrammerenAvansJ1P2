@@ -49,12 +49,18 @@ public class DatabaseConnection {
 
         // Handle any errors that may have occurred.
         catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error: " + e);
         }
         finally {
-            if (rs != null) try { rs.close(); } catch(Exception e) {}
-            if (stmt != null) try { stmt.close(); } catch(Exception e) {}
-            if (con != null) try { con.close(); } catch(Exception e) {}
+            if (rs != null) try { rs.close(); } catch(Exception e) {
+                System.out.println("Error: " + e);
+            }
+            if (stmt != null) try { stmt.close(); } catch(Exception e) {
+                System.out.println("Error: " + e);
+            }
+            if (con != null) try { con.close(); } catch(Exception e) {
+                System.out.println("Error: " + e);
+            }
         }
 
     }
