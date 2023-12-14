@@ -1,9 +1,9 @@
 package com.example.verticalslice;
 
 public class Cursus {
-    private String cursusNaam;
-    private String onderwerp;
-    private String introductieTekst;
+    public String cursusNaam;
+    public String onderwerp;
+    public String introductieTekst;
 
     private niveau niveau;
 

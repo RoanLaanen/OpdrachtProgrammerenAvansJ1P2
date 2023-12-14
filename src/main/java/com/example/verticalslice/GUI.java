@@ -16,36 +16,36 @@ public class GUI extends Application {
         stage.setTitle("Hello World!");
 
 
-        Label title = new Label(Main.cursus1.getCursusNaam());
+        Label title = new Label(DatabaseConnection.cursusArray.get(0).getCursusNaam());
             title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 
         HBox titleHBox = new HBox(title);
             titleHBox.setPrefHeight(50);
             titleHBox.setPrefWidth(480);
             titleHBox.setAlignment(Pos.CENTER);
-            titleHBox.setStyle("-fx-background-color: #A8D1D1;");
+//            titleHBox.setStyle("-fx-background-color: #A8D1D1;");
 //        mainPane.setStyle("-fx-background-color: #9EA1D4;");
-        Label onderwerp = new Label(Main.cursus1.getOnderwerp());
-        Label niveau = new Label(Main.cursus1.getNiveau());
-        Text introductieTekst = new Text(Main.cursus1.getIntroductieTekst());
+        Label onderwerp = new Label(DatabaseConnection.cursusArray.get(0).getOnderwerp());
+        Label niveau = new Label(DatabaseConnection.cursusArray.get(0).getNiveau());
+        Text introductieTekst = new Text(DatabaseConnection.cursusArray.get(0).getIntroductieTekst());
 
         introductieTekst.setWrappingWidth(480);
         HBox onderwerpHBox = new HBox(onderwerp);
             onderwerpHBox.setAlignment(Pos.CENTER);
             onderwerpHBox.setPrefWidth(240);
-            onderwerpHBox.setStyle("-fx-background-color: #D8D1D1;");
+//            onderwerpHBox.setStyle("-fx-background-color: #D8D1D1;");
 
         HBox niveauHBox = new HBox(niveau);
             niveauHBox.setAlignment(Pos.CENTER);
             niveauHBox.setPrefWidth(240);
-            niveauHBox.setStyle("-fx-background-color: #F8D3A1;");
+//            niveauHBox.setStyle("-fx-background-color: #F8D3A1;");
 
         HBox row2 = new HBox(onderwerpHBox, niveauHBox);
             row2.setPrefWidth(480);
             row2.setAlignment(Pos.CENTER);
-            row2.setStyle("-fx-background-color: #A8D1D1;");
+//            row2.setStyle("-fx-background-color: #A8D1D1;");
         HBox row3 = new HBox(introductieTekst);
-            row3.setStyle("-fx-background-color: #B8D1D1;");
+//            row3.setStyle("-fx-background-color: #B8D1D1;");
             row3.setPrefHeight(100);
             row3.setMaxWidth(480);
 
@@ -65,6 +65,6 @@ public class GUI extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);
+            launch(args);
     }
 }
