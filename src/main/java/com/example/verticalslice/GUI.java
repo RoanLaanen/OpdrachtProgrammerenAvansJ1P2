@@ -5,9 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -16,6 +14,8 @@ import javafx.scene.layout.HBox;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class GUI extends Application {
+
+    Scene scene, scene2, scene3;
 
     @Override
     public void start(Stage stage) {
@@ -42,7 +42,6 @@ public class GUI extends Application {
         HBox titleContainer = new HBox(title);
             titleContainer.setPrefHeight(50);
             titleContainer.setAlignment(Pos.CENTER);
-
         HBox onderwerpContainer = new HBox(onderwerp);
             onderwerpContainer.setPrefSize(320, 50);
             onderwerpContainer.setAlignment(Pos.CENTER);
@@ -56,24 +55,17 @@ public class GUI extends Application {
             introductieTekstContainer.setAlignment(Pos.CENTER);
             HBox.setMargin(introductieTekst, new Insets(40));
 
-
-
         VBox mainContent = new VBox(titleContainer, dualContainer, introductieTekstContainer);
 
         Button addButton = new Button("Add");
             HBox.setHgrow(addButton, Priority.ALWAYS);
             addButton.setMaxWidth(Double.MAX_VALUE);
             addButton.setAlignment(Pos.CENTER);
+            addButton.setOnAction(e -> {
+                stage.setScene(scene2);
 
+            });
 
-
-        // save button 💀
-//        AtomicInteger i = new AtomicInteger();
-//        addButton.setOnAction(e -> {
-//            comboBox.getItems().add("Option " + i.get());
-//            i.getAndIncrement();
-//            System.out.println(i.get());
-//        });
 
         Button editButton = new Button("Edit");
             HBox.setHgrow(editButton, Priority.ALWAYS);
@@ -88,23 +80,105 @@ public class GUI extends Application {
         deleteButton.setOnAction(e -> {
             String selectedValue = comboBox.getValue();
             comboBox.getItems().remove(selectedValue);
-
             /*
             REMOVE FROM DATABASE
              */
-
         });
 
         HBox buttonContainer = new HBox(addButton, editButton, deleteButton);
             buttonContainer.setPrefHeight(50);
             buttonContainer.setAlignment(Pos.CENTER);
 
-        // create a BorderPane
-        BorderPane border_pane = new BorderPane(mainContent,
-                dropdownContainer, null, buttonContainer, null);
+        BorderPane border_pane = new BorderPane(mainContent,  dropdownContainer, null, buttonContainer, null);
+            border_pane.setStyle("-fx-background-color: #FAF9F6;");
+
+        scene = new Scene(border_pane, 720, 480);
+
+
+//        ----------------------------------- END OF STAGE 1 -----------------------------------
+
+        TextField titleField = new TextField();
+            titleField.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+            titleField.setPromptText("title");
+        TextField onderwerpField = new TextField();
+            onderwerpField.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+            onderwerpField.setPromptText("onderwerp");
+        ComboBox<String> niveauBox = new ComboBox<>(FXCollections.observableArrayList("Beginner", "Gevorderd", "Expert"));
+        TextArea introductieArea = new TextArea();
+            introductieArea.setStyle("-fx-font-size: 14px;");
+            introductieArea.setWrapText(true);
+            introductieArea.setPrefWidth(640);
+            introductieArea.setPromptText("introductie tekst");
+
+        HBox titleFieldContainer = new HBox(titleField);
+            titleFieldContainer.setPrefHeight(50);
+            titleFieldContainer.setAlignment(Pos.CENTER);
+        HBox onderwerpFieldContainer = new HBox(onderwerpField);
+            onderwerpFieldContainer.setPrefSize(320, 50);
+            onderwerpFieldContainer.setAlignment(Pos.CENTER);
+        HBox niveauFieldContainer = new HBox(niveauBox);
+            niveauFieldContainer.setPrefSize(320, 50);
+            niveauFieldContainer.setAlignment(Pos.CENTER);
+        HBox dualContainer2 = new HBox(onderwerpFieldContainer, niveauFieldContainer);
+            dualContainer2.setPrefHeight(50);
+            dualContainer2.setAlignment(Pos.CENTER);
+        HBox introductieAreaContainer = new HBox(introductieArea);
+            introductieAreaContainer.setAlignment(Pos.CENTER);
+            HBox.setMargin(introductieArea, new Insets(40));
+
+        VBox mainContent2 = new VBox(titleFieldContainer, dualContainer2, introductieAreaContainer);
+
+
+        Button saveButton = new Button("Save");
+        HBox.setHgrow(saveButton, Priority.ALWAYS);
+        saveButton.setMaxWidth(Double.MAX_VALUE);
+        saveButton.setAlignment(Pos.CENTER);
+        saveButton.setOnAction(e -> {
+            if (!titleField.getText().trim().isEmpty() && !onderwerpField.getText().trim().isEmpty() &&
+                    niveauBox.getSelectionModel().getSelectedItem() != null && !introductieArea.getText().trim().isEmpty()) {
+                comboBox.getItems().add(titleField.getText());
+            }
+
+
+            /*
+
+
+            ADD ALLES TO DATABASE
+
+
+             */
+
+            titleField.clear();
+            onderwerpField.clear();
+            introductieArea.clear();
+            niveauBox.setValue(null);
+            stage.setScene(scene);
+        });
+
+
+        Button cancelButton = new Button("Cancel");
+        HBox.setHgrow(cancelButton, Priority.ALWAYS);
+        cancelButton.setMaxWidth(Double.MAX_VALUE);
+        cancelButton.setAlignment(Pos.CENTER);
+        cancelButton.setOnAction(e -> {
+            titleField.clear();
+            onderwerpField.clear();
+            introductieArea.clear();
+            niveauBox.setValue(null);
+            stage.setScene(scene);
+        });
+
+        HBox buttonContainer1 = new HBox(saveButton, cancelButton);
+        buttonContainer1.setPrefHeight(50);
+        buttonContainer1.setAlignment(Pos.CENTER);
+
+
+        BorderPane border_pane2 = new BorderPane(mainContent2, null, null, buttonContainer1, null);
         border_pane.setStyle("-fx-background-color: #FAF9F6;");
 
-        Scene scene = new Scene(border_pane, 720, 480);
+        scene2 = new Scene(border_pane2, 720, 480);
+
+
         stage.setScene(scene);
         stage.show();
     }
