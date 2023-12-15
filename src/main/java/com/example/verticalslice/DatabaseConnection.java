@@ -9,16 +9,16 @@ import java.util.ArrayList;
 public class DatabaseConnection {
     public static ArrayList<Cursus> cursusArray = new ArrayList<>();
     public static ArrayList<String> cursusNaamArray = new ArrayList<>();
-    public static String connectionUrl = "jdbc:mysql://162.19.139.137:3306/s49235_Codecademy?user=u49235_iICN9w4ctL&password=cX20vY5KOLk14Wuxp2wNr4wr";
-
+    private static String connectionUrl = "jdbc:mysql://162.19.139.137:3306/s49235_Codecademy?user=u49235_iICN9w4ctL&password=cX20vY5KOLk14Wuxp2wNr4wr";
+    private static Connection con = null;
+    private static Statement stmt = null;
+    private static ResultSet rs = null;
     public static void updateCursusArray() {
-        Connection con = null;
-        Statement stmt = null;
-        ResultSet rs = null;
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT * FROM Cursus";
+            String SQL = "SELECT * FROM Cursus ORDER BY cursusNaam ASC";
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
 
@@ -31,6 +31,10 @@ public class DatabaseConnection {
                 cursusArray.add(new Cursus(cursusNaam, onderwerp, introductieTekst, niveau));
                 cursusNaamArray.add(cursusNaam);
             }
+            if (cursusArray.isEmpty()) {
+                cursusArray.add(new Cursus("", "", "", Cursus.niveau.niks));
+                cursusNaamArray.add("Geen resultaten gevonden");
+            }
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
@@ -39,9 +43,52 @@ public class DatabaseConnection {
             } catch (Exception e) {
                 System.out.println("Error: " + e);
             }
-            GUI.closeConnection(con, stmt);
+            closeConnection(con, stmt);
         }
 
+    }
+
+    public static void addCursus(String cursusNaam, String onderwerp, String introductieTekst, String niveau) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "INSERT INTO Cursus (cursusNaam, onderwerp, introductieTekst, niveau) VALUES ('" + cursusNaam + "', '" + onderwerp + "', '" + introductieTekst + "', '" + niveau + "')";
+            stmt = con.createStatement();
+            stmt.executeUpdate(SQL);
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con, stmt);
+            updateCursusArray();
+        }
+    }
+
+    public static void deleteCursus(String cursusNaam) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "DELETE FROM Cursus WHERE cursusNaam = '" + cursusNaam + "'";
+            stmt = con.createStatement();
+            stmt.executeUpdate(SQL);
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con, stmt);
+            updateCursusArray();
+        }
+    }
+
+    private static void closeConnection(Connection con, Statement stmt) {
+        if (stmt != null) try {
+            stmt.close();
+        } catch (Exception exception) {
+            System.out.println("Error: " + exception);
+        }
+        if (con != null) try {
+            con.close();
+        } catch (Exception exception) {
+            System.out.println("Error: " + exception);
+        }
     }
 
 

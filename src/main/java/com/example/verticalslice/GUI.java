@@ -17,6 +17,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class GUI extends Application {
@@ -26,7 +27,6 @@ public class GUI extends Application {
 
     @Override
     public void start(Stage stage) {
-
         stage.setTitle(DatabaseConnection.cursusArray.get(selectedIndex).getCursusNaam());
 
         ComboBox<String> comboBox = new ComboBox<>(FXCollections.observableArrayList(DatabaseConnection.cursusNaamArray));
@@ -43,7 +43,11 @@ public class GUI extends Application {
 
         Label topic = new Label(DatabaseConnection.cursusArray.get(selectedIndex).getOnderwerp());
         topic.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
-        Label level = new Label(DatabaseConnection.cursusArray.get(selectedIndex).getNiveau());
+        String levelString = DatabaseConnection.cursusArray.get(selectedIndex).getNiveau();
+        if (levelString.equals("niks")) {
+            levelString = "";
+        }
+        Label level = new Label(levelString);
         level.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
         Text introText = new Text(DatabaseConnection.cursusArray.get(selectedIndex).getIntroductieTekst());
         introText.setStyle("-fx-font-size: 14px;");
@@ -52,10 +56,17 @@ public class GUI extends Application {
             @Override
             public void changed(ObservableValue ov, String t, String t1) {
                 selectedIndex = DatabaseConnection.cursusNaamArray.indexOf(t1);
+                if (DatabaseConnection.cursusNaamArray.size() == 1) {
+                    selectedIndex = 0;
+                }
                 title.setText(DatabaseConnection.cursusArray.get(selectedIndex).getCursusNaam());
                 stage.setTitle(DatabaseConnection.cursusArray.get(selectedIndex).getCursusNaam());
                 topic.setText(DatabaseConnection.cursusArray.get(selectedIndex).getOnderwerp());
-                level.setText(DatabaseConnection.cursusArray.get(selectedIndex).getNiveau());
+                String levelString = DatabaseConnection.cursusArray.get(selectedIndex).getNiveau();
+                if (levelString.equals("niks")) {
+                    levelString = "";
+                }
+                level.setText(levelString);
                 introText.setText(DatabaseConnection.cursusArray.get(selectedIndex).getIntroductieTekst());
             }
         });
@@ -99,11 +110,17 @@ public class GUI extends Application {
         deleteButton.setMaxSize(210, 60);
 
         deleteButton.setOnAction(e -> {
-            String selectedValue = comboBox.getValue();
-            comboBox.getItems().remove(selectedValue);
-            /*
-            REMOVE FROM DATABASE
-             */
+            if (Objects.equals(DatabaseConnection.cursusArray.get(selectedIndex).getCursusNaam(), "")) {
+                return;
+            }
+            comboBox.getItems().remove(selectedIndex);
+            DatabaseConnection.deleteCursus(DatabaseConnection.cursusArray.get(selectedIndex).getCursusNaam());
+            if (comboBox.getItems().isEmpty()) {
+                comboBox.getItems().add("Geen resultaten gevonden");
+                DatabaseConnection.cursusNaamArray.add("Geen resultaten gevonden");
+                DatabaseConnection.cursusArray.add(new Cursus("", "", "", Cursus.niveau.niks));
+            }
+            comboBox.getSelectionModel().selectFirst();
         });
 
         HBox buttonContainer = new HBox(addButton, editButton, deleteButton);
@@ -160,21 +177,16 @@ public class GUI extends Application {
             if (!title_add.getText().trim().isEmpty() && !topic_add.getText().trim().isEmpty() && levelBox.getSelectionModel().getSelectedItem() != null && !introText_add.getText().trim().isEmpty()) {
                 comboBox.getItems().add(title_add.getText());
             }
-            Connection con = null;
-            Statement stmt = null;
-            try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                con = DriverManager.getConnection(DatabaseConnection.connectionUrl);
-                String SQL = "INSERT INTO cursus (cursusNaam, onderwerp, introductieTekst, niveau) VALUES ('" + title_add.getText() + "', '" + topic_add.getText() + "', '" + introText_add.getText() + "', '" + levelBox.getSelectionModel().getSelectedItem() + "')";
-                stmt = con.createStatement();
-                stmt.executeUpdate(SQL);
-
-            } catch (Exception exception) {
-                System.out.println("Error: " + exception);
-            } finally {
-                closeConnection(con, stmt);
-                DatabaseConnection.updateCursusArray();
+            if (DatabaseConnection.cursusNaamArray.contains("Geen resultaten gevonden")) {
+                comboBox.getItems().remove("Geen resultaten gevonden");
+                DatabaseConnection.cursusNaamArray.remove("Geen resultaten gevonden");
+                DatabaseConnection.cursusArray.remove(0);
+                DatabaseConnection.addCursus(title_add.getText(), topic_add.getText(), introText_add.getText(), levelBox.getSelectionModel().getSelectedItem());
+                comboBox.selectionModelProperty().get().select(0);
+            } else {
+                DatabaseConnection.addCursus(title_add.getText(), topic_add.getText(), introText_add.getText(), levelBox.getSelectionModel().getSelectedItem());
             }
+
             title_add.clear();
             topic_add.clear();
             introText_add.clear();
@@ -302,18 +314,6 @@ public class GUI extends Application {
         stage.show();
     }
 
-    static void closeConnection(Connection con, Statement stmt) {
-        if (stmt != null) try {
-            stmt.close();
-        } catch (Exception exception) {
-            System.out.println("Error: " + exception);
-        }
-        if (con != null) try {
-            con.close();
-        } catch (Exception exception) {
-            System.out.println("Error: " + exception);
-        }
-    }
 
     public static void main(String[] args) {
         launch(args);
