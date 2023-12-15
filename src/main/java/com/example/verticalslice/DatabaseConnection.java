@@ -11,8 +11,14 @@ public class DatabaseConnection {
     public static ArrayList<String> cursusNaamArray = new ArrayList<>();
     public static String connectionUrl = "jdbc:mysql://162.19.139.137:3306/s49235_Codecademy?user=u49235_iICN9w4ctL&password=cX20vY5KOLk14Wuxp2wNr4wr";
     public static boolean loaded = false;
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
+        getCursussen();
+
+
+    }
+
+    public static void getCursussen() {
         // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien deze voor jou anders is.
 
         // Connection beheert informatie over de connectie met de database.
@@ -47,15 +53,15 @@ public class DatabaseConnection {
 
 
             }
-            GUI.main(args);
         }
 
         // Handle any errors that may have occurred.
         catch (Exception e) {
             System.out.println("Error: " + e);
-        }
-        finally {
-            if (rs != null) try { rs.close(); } catch(Exception e) {
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
                 System.out.println("Error: " + e);
             }
             GUI.closeConnection(con, stmt);
