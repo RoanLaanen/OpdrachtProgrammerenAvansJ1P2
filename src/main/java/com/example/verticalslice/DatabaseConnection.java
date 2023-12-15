@@ -8,6 +8,7 @@ import java.util.ArrayList;
  */
 public class DatabaseConnection {
     public static ArrayList<Cursus> cursusArray = new ArrayList<>();
+    public static ArrayList<String> cursusNaamArray = new ArrayList<>();
     public static String connectionUrl = "jdbc:mysql://162.19.139.137:3306/s49235_Codecademy?user=u49235_iICN9w4ctL&password=cX20vY5KOLk14Wuxp2wNr4wr";
     public static boolean loaded = false;
     public static void main(String[] args) {
@@ -29,7 +30,7 @@ public class DatabaseConnection {
             // Maak de verbinding met de database.
             con = DriverManager.getConnection(connectionUrl);
 
-            String SQL = "SELECT * FROM Cursus LIMIT 1";
+            String SQL = "SELECT * FROM Cursus";
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
 
@@ -42,9 +43,11 @@ public class DatabaseConnection {
                 String niveauString = rs.getString("niveau");
                 Cursus.niveau niveau = Cursus.niveau.valueOf(niveauString);
                 cursusArray.add(new Cursus(cursusNaam, onderwerp, introductieTekst, niveau));
-                GUI.main(args);
+                cursusNaamArray.add(cursusNaam);
+
 
             }
+            GUI.main(args);
         }
 
         // Handle any errors that may have occurred.

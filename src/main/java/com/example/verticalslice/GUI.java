@@ -25,7 +25,7 @@ public class GUI extends Application {
     public void start(Stage stage) {
         stage.setTitle(DatabaseConnection.cursusArray.get(0).getCursusNaam());
 
-        ComboBox<String> comboBox = new ComboBox<>(FXCollections.observableArrayList(DatabaseConnection.cursusArray.get(0).getCursusNaam()));
+        ComboBox<String> comboBox = new ComboBox<>(FXCollections.observableArrayList(DatabaseConnection.cursusNaamArray));
         comboBox.getSelectionModel().selectFirst();
         comboBox.prefWidthProperty().bind(stage.widthProperty().divide(3));
 
