@@ -173,7 +173,7 @@ public class GUI extends Application {
                 System.out.println("Error: " + exception);
             } finally {
                 closeConnection(con, stmt);
-                DatabaseConnection.getCursussen();
+                DatabaseConnection.updateCursusArray();
             }
             title_add.clear();
             topic_add.clear();
