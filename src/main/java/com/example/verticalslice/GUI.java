@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class GUI extends Application {
 
-    Scene scene, scene2, scene3;
+    Scene scene, scene_add, scene_edit;
 
     @Override
     public void start(Stage stage) {
@@ -28,58 +28,55 @@ public class GUI extends Application {
         HBox dropdownContainer = new HBox(comboBox);
             dropdownContainer.setAlignment(Pos.CENTER);
             dropdownContainer.setPrefHeight(50);
-
+            dropdownContainer.setStyle("-fx-border-color: #000000; -fx-border-width: 0 0 1 0;");
         Label title = new Label(DatabaseConnection.cursusArray.get(0).getCursusNaam());
             title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
-        Label onderwerp = new Label(DatabaseConnection.cursusArray.get(0).getOnderwerp());
-        onderwerp.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
-        Label niveau = new Label(DatabaseConnection.cursusArray.get(0).getNiveau());
-            niveau.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
-        Text introductieTekst = new Text(DatabaseConnection.cursusArray.get(0).getIntroductieTekst());
-            introductieTekst.setStyle("-fx-font-size: 14px;");
-            introductieTekst.setWrappingWidth(640);
+
+        Label topic = new Label(DatabaseConnection.cursusArray.get(0).getOnderwerp());
+        topic.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+        Label level = new Label(DatabaseConnection.cursusArray.get(0).getNiveau());
+            level.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+        Text introText = new Text(DatabaseConnection.cursusArray.get(0).getIntroductieTekst());
+            introText.setStyle("-fx-font-size: 14px;");
+            introText.setWrappingWidth(640);
 
         HBox titleContainer = new HBox(title);
             titleContainer.setPrefHeight(50);
             titleContainer.setAlignment(Pos.CENTER);
-        HBox onderwerpContainer = new HBox(onderwerp);
-            onderwerpContainer.setPrefSize(320, 50);
-            onderwerpContainer.setAlignment(Pos.CENTER);
-        HBox niveauContainer = new HBox(niveau);
-            niveauContainer.setPrefSize(320, 50);
-            niveauContainer.setAlignment(Pos.CENTER);
-        HBox dualContainer = new HBox(onderwerpContainer, niveauContainer);
+        HBox topicContainer = new HBox(topic);
+        topicContainer.setPrefSize(320, 50);
+        topicContainer.setAlignment(Pos.CENTER);
+        HBox levelContainer = new HBox(level);
+            levelContainer.setPrefSize(320, 50);
+            levelContainer.setAlignment(Pos.CENTER);
+        HBox dualContainer = new HBox(topicContainer, levelContainer);
             dualContainer.setPrefHeight(50);
             dualContainer.setAlignment(Pos.CENTER);
-        HBox introductieTekstContainer = new HBox(introductieTekst);
-            introductieTekstContainer.setAlignment(Pos.CENTER);
-            HBox.setMargin(introductieTekst, new Insets(40));
+        HBox introTextContainer = new HBox(introText);
+            introTextContainer.setAlignment(Pos.CENTER);
+            HBox.setMargin(introText, new Insets(40));
+            introTextContainer.setStyle("-fx-border-color: black; -fx-border-width: 0 0 1 0;");
 
-        VBox mainContent = new VBox(titleContainer, dualContainer, introductieTekstContainer);
+        VBox mainContent = new VBox(titleContainer, dualContainer, introTextContainer);
 
         Button addButton = new Button("Add");
             HBox.setHgrow(addButton, Priority.ALWAYS);
             addButton.setMaxWidth(Double.MAX_VALUE);
             addButton.setAlignment(Pos.CENTER);
-            addButton.setOnAction(e -> {
-                stage.setScene(scene2);
-
-            });
-
-
+            addButton.setOnAction(e -> stage.setScene(scene_add));
+            addButton.setMaxSize(210,60);
         Button editButton = new Button("Edit");
             HBox.setHgrow(editButton, Priority.ALWAYS);
             editButton.setMaxWidth(Double.MAX_VALUE);
             editButton.setAlignment(Pos.CENTER);
-            editButton.setOnAction(e -> {
-                stage.setScene(scene3);
-
-            });
+            editButton.setOnAction(e -> stage.setScene(scene_edit));
+            editButton.setMaxSize(210,60);
 
         Button deleteButton = new Button("Delete");
             HBox.setHgrow(deleteButton, Priority.ALWAYS);
             deleteButton.setMaxWidth(Double.MAX_VALUE);
             deleteButton.setAlignment(Pos.CENTER);
+            deleteButton.setMaxSize(210,60);
 
         deleteButton.setOnAction(e -> {
             String selectedValue = comboBox.getValue();
@@ -90,7 +87,7 @@ public class GUI extends Application {
         });
 
         HBox buttonContainer = new HBox(addButton, editButton, deleteButton);
-            buttonContainer.setPrefHeight(50);
+            buttonContainer.setPrefHeight(120);
             buttonContainer.setAlignment(Pos.CENTER);
 
         BorderPane border_pane = new BorderPane(mainContent,  dropdownContainer, null, buttonContainer, null);
@@ -99,48 +96,50 @@ public class GUI extends Application {
         scene = new Scene(border_pane, 720, 480);
 
 
-//        ----------------------------------- END OF SCENE 1 -----------------------------------
+//        ----------------------------------- END OF SCENE MAIN -----------------------------------
+//        ----------------------------------- START SCENE ADD -----------------------------------
 
-        TextField titleField = new TextField();
-            titleField.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
-            titleField.setPromptText("title");
-        TextField onderwerpField = new TextField();
-            onderwerpField.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
-            onderwerpField.setPromptText("onderwerp");
-        ComboBox<String> niveauBox = new ComboBox<>(FXCollections.observableArrayList("Beginner", "Gevorderd", "Expert"));
-        TextArea introductieArea = new TextArea();
-            introductieArea.setStyle("-fx-font-size: 14px;");
-            introductieArea.setWrapText(true);
-            introductieArea.setPrefWidth(640);
-            introductieArea.setPromptText("introductie tekst");
+        TextField title_add = new TextField();
+            title_add.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+            title_add.setPromptText("title");
+        TextField topic_add = new TextField();
+            topic_add.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+            topic_add.setPromptText("onderwerp");
+        ComboBox<String> levelBox = new ComboBox<>(FXCollections.observableArrayList("Beginner", "Gevorderd", "Expert"));
+        TextArea introText_add = new TextArea();
+            introText_add.setStyle("-fx-font-size: 14px;");
+            introText_add.setWrapText(true);
+            introText_add.setPrefWidth(640);
+            introText_add.setPromptText("introductie tekst");
 
-        HBox titleFieldContainer = new HBox(titleField);
-            titleFieldContainer.setPrefHeight(50);
-            titleFieldContainer.setAlignment(Pos.CENTER);
-        HBox onderwerpFieldContainer = new HBox(onderwerpField);
-            onderwerpFieldContainer.setPrefSize(320, 50);
-            onderwerpFieldContainer.setAlignment(Pos.CENTER);
-        HBox niveauFieldContainer = new HBox(niveauBox);
-            niveauFieldContainer.setPrefSize(320, 50);
-            niveauFieldContainer.setAlignment(Pos.CENTER);
-        HBox dualContainer2 = new HBox(onderwerpFieldContainer, niveauFieldContainer);
-            dualContainer2.setPrefHeight(50);
-            dualContainer2.setAlignment(Pos.CENTER);
-        HBox introductieAreaContainer = new HBox(introductieArea);
-            introductieAreaContainer.setAlignment(Pos.CENTER);
-            HBox.setMargin(introductieArea, new Insets(40));
+        HBox titleContainer_add = new HBox(title_add);
+            titleContainer_add.setPrefHeight(50);
+            titleContainer_add.setAlignment(Pos.CENTER);
+        HBox topicContainer_add = new HBox(topic_add);
+            topicContainer_add.setPrefSize(320, 50);
+            topicContainer_add.setAlignment(Pos.CENTER);
+        HBox levelContainer_add = new HBox(levelBox);
+            levelContainer_add.setPrefSize(320, 50);
+            levelContainer_add.setAlignment(Pos.CENTER);
+        HBox dualContainer_add = new HBox(topicContainer_add, levelContainer_add);
+            dualContainer_add.setPrefHeight(50);
+            dualContainer_add.setAlignment(Pos.CENTER);
+        HBox introTextContainer_add = new HBox(introText_add);
+            introTextContainer_add.setAlignment(Pos.CENTER);
+            HBox.setMargin(introText_add, new Insets(40));
 
-        VBox mainContent2 = new VBox(titleFieldContainer, dualContainer2, introductieAreaContainer);
+        VBox mainContent_add = new VBox(titleContainer_add, dualContainer_add, introTextContainer_add);
 
 
         Button saveButton = new Button("Save");
         HBox.setHgrow(saveButton, Priority.ALWAYS);
         saveButton.setMaxWidth(Double.MAX_VALUE);
         saveButton.setAlignment(Pos.CENTER);
+        saveButton.setMaxSize(315,60);
         saveButton.setOnAction(e -> {
-            if (!titleField.getText().trim().isEmpty() && !onderwerpField.getText().trim().isEmpty() &&
-                    niveauBox.getSelectionModel().getSelectedItem() != null && !introductieArea.getText().trim().isEmpty()) {
-                comboBox.getItems().add(titleField.getText());
+            if (!title_add.getText().trim().isEmpty() && !topic_add.getText().trim().isEmpty() &&
+                    levelBox.getSelectionModel().getSelectedItem() != null && !introText_add.getText().trim().isEmpty()) {
+                comboBox.getItems().add(title_add.getText());
             }
 
 
@@ -152,10 +151,10 @@ public class GUI extends Application {
 
              */
 
-            titleField.clear();
-            onderwerpField.clear();
-            introductieArea.clear();
-            niveauBox.setValue(null);
+            title_add.clear();
+            topic_add.clear();
+            introText_add.clear();
+            levelBox.setValue(null);
             stage.setScene(scene);
         });
 
@@ -164,70 +163,73 @@ public class GUI extends Application {
         HBox.setHgrow(cancelButton, Priority.ALWAYS);
         cancelButton.setMaxWidth(Double.MAX_VALUE);
         cancelButton.setAlignment(Pos.CENTER);
+        cancelButton.setMaxSize(315,60);
         cancelButton.setOnAction(e -> {
-            titleField.clear();
-            onderwerpField.clear();
-            introductieArea.clear();
-            niveauBox.setValue(null);
+            title_add.clear();
+            topic_add.clear();
+            introText_add.clear();
+            levelBox.setValue(null);
             stage.setScene(scene);
         });
 
-        HBox buttonContainer1 = new HBox(saveButton, cancelButton);
-        buttonContainer1.setPrefHeight(50);
-        buttonContainer1.setAlignment(Pos.CENTER);
+        HBox buttonContainer_add = new HBox(saveButton, cancelButton);
+        buttonContainer_add.setPrefHeight(120);
+        buttonContainer_add.setAlignment(Pos.CENTER);
 
 
-        BorderPane border_pane2 = new BorderPane(mainContent2, null, null, buttonContainer1, null);
-        border_pane2.setStyle("-fx-background-color: #FAF9F6;");
+        BorderPane border_pane_add = new BorderPane(mainContent_add, null, null, buttonContainer_add, null);
+        border_pane_add.setStyle("-fx-background-color: #FAF9F6;");
 
-        scene2 = new Scene(border_pane2, 720, 480);
-
-
-
-//        ----------------------------------- END OF SCENE 2 -----------------------------------
+        scene_add = new Scene(border_pane_add, 720, 480);
 
 
-        TextField titleField2 = new TextField(DatabaseConnection.cursusArray.get(0).getCursusNaam());
-        titleField2.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
-        titleField2.setPromptText("title");
-        TextField onderwerpField2 = new TextField(DatabaseConnection.cursusArray.get(0).getOnderwerp());
-        onderwerpField2.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
-        onderwerpField2.setPromptText("onderwerp");
-        ComboBox<String> niveauBox2 = new ComboBox<>(FXCollections.observableArrayList("Beginner", "Gevorderd", "Expert"));
-        niveauBox2.setValue(DatabaseConnection.cursusArray.get(0).getNiveau());
+
+//        ----------------------------------- END OF SCENE ADD -----------------------------------
+//        ----------------------------------- START SCENE EDIT -----------------------------------
+
+
+        TextField title_edit = new TextField(DatabaseConnection.cursusArray.get(0).getCursusNaam());
+            title_edit.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+            title_edit.setPromptText("title");
+        TextField topic_edit = new TextField(DatabaseConnection.cursusArray.get(0).getOnderwerp());
+            topic_edit.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+            topic_edit.setPromptText("onderwerp");
+        ComboBox<String> levelBox_edit = new ComboBox<>(FXCollections.observableArrayList("Beginner", "Gevorderd", "Expert"));
+            levelBox_edit.setValue(DatabaseConnection.cursusArray.get(0).getNiveau());
         // selected data doodood
-        TextArea introductieArea2 = new TextArea(DatabaseConnection.cursusArray.get(0).getIntroductieTekst());
-        introductieArea2.setStyle("-fx-font-size: 14px;");
-        introductieArea2.setWrapText(true);
-        introductieArea2.setPrefWidth(640);
-        introductieArea2.setPromptText("introductie tekst");
+        TextArea introText_edit = new TextArea(DatabaseConnection.cursusArray.get(0).getIntroductieTekst());
+            introText_edit.setStyle("-fx-font-size: 14px;");
+            introText_edit.setWrapText(true);
+            introText_edit.setPrefWidth(640);
+            introText_edit.setPromptText("introductie tekst");
 
-        HBox titleFieldContainer2 = new HBox(titleField2);
-        titleFieldContainer2.setPrefHeight(50);
-        titleFieldContainer2.setAlignment(Pos.CENTER);
-        HBox onderwerpFieldContainer2 = new HBox(onderwerpField2);
-        onderwerpFieldContainer2.setPrefSize(320, 50);
-        onderwerpFieldContainer2.setAlignment(Pos.CENTER);
-        HBox niveauFieldContainer2 = new HBox(niveauBox2);
-        niveauFieldContainer2.setPrefSize(320, 50);
-        niveauFieldContainer2.setAlignment(Pos.CENTER);
-        HBox dualContainer3 = new HBox(onderwerpFieldContainer2, niveauFieldContainer2);
-        dualContainer3.setPrefHeight(50);
-        dualContainer3.setAlignment(Pos.CENTER);
-        HBox introductieAreaContainer2 = new HBox(introductieArea2);
-        introductieAreaContainer2.setAlignment(Pos.CENTER);
-        HBox.setMargin(introductieArea2, new Insets(40));
+        HBox titleContainer_edit = new HBox(title_edit);
+        titleContainer_edit.setPrefHeight(50);
+        titleContainer_edit.setAlignment(Pos.CENTER);
+        HBox topicContainer_edit = new HBox(topic_edit);
+        topicContainer_edit.setPrefSize(320, 50);
+        topicContainer_edit.setAlignment(Pos.CENTER);
+        HBox levelContainer_edit = new HBox(levelBox_edit);
+        levelContainer_edit.setPrefSize(320, 50);
+        levelContainer_edit.setAlignment(Pos.CENTER);
+        HBox dualContainer_edit = new HBox(topicContainer_edit, levelContainer_edit);
+        dualContainer_edit.setPrefHeight(50);
+        dualContainer_edit.setAlignment(Pos.CENTER);
+        HBox introTextContainer_edit = new HBox(introText_edit);
+        introTextContainer_edit.setAlignment(Pos.CENTER);
+        HBox.setMargin(introText_edit, new Insets(40));
 
-        VBox mainContent3 = new VBox(titleFieldContainer2, dualContainer3, introductieAreaContainer2);
+        VBox mainContent_edit = new VBox(titleContainer_edit, dualContainer_edit, introTextContainer_edit);
 
 
-        Button saveButton2 = new Button("Save");
-        HBox.setHgrow(saveButton2, Priority.ALWAYS);
-        saveButton2.setMaxWidth(Double.MAX_VALUE);
-        saveButton2.setAlignment(Pos.CENTER);
-        saveButton2.setOnAction(e -> {
-            if (!titleField2.getText().trim().isEmpty() && !onderwerpField2.getText().trim().isEmpty() &&
-                    niveauBox2.getSelectionModel().getSelectedItem() != null && !introductieArea2.getText().trim().isEmpty()) {
+        Button saveButton_edit = new Button("Save");
+        HBox.setHgrow(saveButton_edit, Priority.ALWAYS);
+        saveButton_edit.setMaxWidth(Double.MAX_VALUE);
+        saveButton_edit.setAlignment(Pos.CENTER);
+        saveButton_edit.setMaxSize(315,60);
+        saveButton_edit.setOnAction(e -> {
+            if (!title_edit.getText().trim().isEmpty() && !topic_edit.getText().trim().isEmpty() &&
+                    levelBox_edit.getSelectionModel().getSelectedItem() != null && !introText_edit.getText().trim().isEmpty()) {
                 /*
                 FIX HIER DAT HIJ IN LIJSTJE VERANDERD NEEF
                  */
@@ -242,35 +244,36 @@ public class GUI extends Application {
 
              */
 
-            titleField.clear();
-            onderwerpField.clear();
-            introductieArea.clear();
-            niveauBox.setValue(null);
+            title_add.clear();
+            topic_add.clear();
+            introText_add.clear();
+            levelBox.setValue(null);
             stage.setScene(scene);
         });
 
 
-        Button cancelButton2 = new Button("Cancel");
-        HBox.setHgrow(cancelButton2, Priority.ALWAYS);
-        cancelButton2.setMaxWidth(Double.MAX_VALUE);
-        cancelButton2.setAlignment(Pos.CENTER);
-        cancelButton2.setOnAction(e -> {
-            titleField.clear();
-            onderwerpField.clear();
-            introductieArea.clear();
-            niveauBox.setValue(null);
+        Button cancelButton_edit = new Button("Cancel");
+        HBox.setHgrow(cancelButton_edit, Priority.ALWAYS);
+        cancelButton_edit.setMaxWidth(Double.MAX_VALUE);
+        cancelButton_edit.setAlignment(Pos.CENTER);
+        cancelButton_edit.setMaxSize(315,60);
+        cancelButton_edit.setOnAction(e -> {
+            title_add.clear();
+            topic_add.clear();
+            introText_add.clear();
+            levelBox.setValue(null);
             stage.setScene(scene);
         });
 
-        HBox buttonContainer2 = new HBox(saveButton2, cancelButton2);
-        buttonContainer2.setPrefHeight(50);
-        buttonContainer2.setAlignment(Pos.CENTER);
+        HBox buttonContainer_edit = new HBox(saveButton_edit, cancelButton_edit);
+        buttonContainer_edit.setPrefHeight(120);
+        buttonContainer_edit.setAlignment(Pos.CENTER);
 
 
-        BorderPane border_pane3 = new BorderPane(mainContent3, null, null, buttonContainer2, null);
-        border_pane3.setStyle("-fx-background-color: #FAF9F6;");
+        BorderPane border_pane_edit = new BorderPane(mainContent_edit, null, null, buttonContainer_edit, null);
+        border_pane_edit.setStyle("-fx-background-color: #FAF9F6;");
 
-        scene3 = new Scene(border_pane3, 720, 480);
+        scene_edit = new Scene(border_pane_edit, 720, 480);
 
 
 
