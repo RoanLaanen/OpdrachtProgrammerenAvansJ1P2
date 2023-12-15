@@ -71,6 +71,10 @@ public class GUI extends Application {
             HBox.setHgrow(editButton, Priority.ALWAYS);
             editButton.setMaxWidth(Double.MAX_VALUE);
             editButton.setAlignment(Pos.CENTER);
+            editButton.setOnAction(e -> {
+                stage.setScene(scene3);
+
+            });
 
         Button deleteButton = new Button("Delete");
             HBox.setHgrow(deleteButton, Priority.ALWAYS);
@@ -95,7 +99,7 @@ public class GUI extends Application {
         scene = new Scene(border_pane, 720, 480);
 
 
-//        ----------------------------------- END OF STAGE 1 -----------------------------------
+//        ----------------------------------- END OF SCENE 1 -----------------------------------
 
         TextField titleField = new TextField();
             titleField.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
@@ -174,9 +178,110 @@ public class GUI extends Application {
 
 
         BorderPane border_pane2 = new BorderPane(mainContent2, null, null, buttonContainer1, null);
-        border_pane.setStyle("-fx-background-color: #FAF9F6;");
+        border_pane2.setStyle("-fx-background-color: #FAF9F6;");
 
         scene2 = new Scene(border_pane2, 720, 480);
+
+
+
+//        ----------------------------------- END OF SCENE 2 -----------------------------------
+
+
+        TextField titleField2 = new TextField(DatabaseConnection.cursusArray.get(0).getCursusNaam());
+        titleField2.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+        titleField2.setPromptText("title");
+        TextField onderwerpField2 = new TextField(DatabaseConnection.cursusArray.get(0).getOnderwerp());
+        onderwerpField2.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+        onderwerpField2.setPromptText("onderwerp");
+        ComboBox<String> niveauBox2 = new ComboBox<>(FXCollections.observableArrayList("Beginner", "Gevorderd", "Expert"));
+        niveauBox2.setValue(DatabaseConnection.cursusArray.get(0).getNiveau());
+        // selected data doodood
+        TextArea introductieArea2 = new TextArea(DatabaseConnection.cursusArray.get(0).getIntroductieTekst());
+        introductieArea2.setStyle("-fx-font-size: 14px;");
+        introductieArea2.setWrapText(true);
+        introductieArea2.setPrefWidth(640);
+        introductieArea2.setPromptText("introductie tekst");
+
+        HBox titleFieldContainer2 = new HBox(titleField2);
+        titleFieldContainer2.setPrefHeight(50);
+        titleFieldContainer2.setAlignment(Pos.CENTER);
+        HBox onderwerpFieldContainer2 = new HBox(onderwerpField2);
+        onderwerpFieldContainer2.setPrefSize(320, 50);
+        onderwerpFieldContainer2.setAlignment(Pos.CENTER);
+        HBox niveauFieldContainer2 = new HBox(niveauBox2);
+        niveauFieldContainer2.setPrefSize(320, 50);
+        niveauFieldContainer2.setAlignment(Pos.CENTER);
+        HBox dualContainer3 = new HBox(onderwerpFieldContainer2, niveauFieldContainer2);
+        dualContainer3.setPrefHeight(50);
+        dualContainer3.setAlignment(Pos.CENTER);
+        HBox introductieAreaContainer2 = new HBox(introductieArea2);
+        introductieAreaContainer2.setAlignment(Pos.CENTER);
+        HBox.setMargin(introductieArea2, new Insets(40));
+
+        VBox mainContent3 = new VBox(titleFieldContainer2, dualContainer3, introductieAreaContainer2);
+
+
+        Button saveButton2 = new Button("Save");
+        HBox.setHgrow(saveButton2, Priority.ALWAYS);
+        saveButton2.setMaxWidth(Double.MAX_VALUE);
+        saveButton2.setAlignment(Pos.CENTER);
+        saveButton2.setOnAction(e -> {
+            if (!titleField2.getText().trim().isEmpty() && !onderwerpField2.getText().trim().isEmpty() &&
+                    niveauBox2.getSelectionModel().getSelectedItem() != null && !introductieArea2.getText().trim().isEmpty()) {
+                /*
+                FIX HIER DAT HIJ IN LIJSTJE VERANDERD NEEF
+                 */
+            }
+
+
+            /*
+
+
+            EDIT ALLES IN DATABASE
+            RELOAD OOK DIE MAIN PAGINA OFZ IDK
+
+             */
+
+            titleField.clear();
+            onderwerpField.clear();
+            introductieArea.clear();
+            niveauBox.setValue(null);
+            stage.setScene(scene);
+        });
+
+
+        Button cancelButton2 = new Button("Cancel");
+        HBox.setHgrow(cancelButton2, Priority.ALWAYS);
+        cancelButton2.setMaxWidth(Double.MAX_VALUE);
+        cancelButton2.setAlignment(Pos.CENTER);
+        cancelButton2.setOnAction(e -> {
+            titleField.clear();
+            onderwerpField.clear();
+            introductieArea.clear();
+            niveauBox.setValue(null);
+            stage.setScene(scene);
+        });
+
+        HBox buttonContainer2 = new HBox(saveButton2, cancelButton2);
+        buttonContainer2.setPrefHeight(50);
+        buttonContainer2.setAlignment(Pos.CENTER);
+
+
+        BorderPane border_pane3 = new BorderPane(mainContent3, null, null, buttonContainer2, null);
+        border_pane3.setStyle("-fx-background-color: #FAF9F6;");
+
+        scene3 = new Scene(border_pane3, 720, 480);
+
+
+
+
+
+
+
+
+
+
+
 
 
         stage.setScene(scene);
@@ -187,3 +292,11 @@ public class GUI extends Application {
             launch(args);
     }
 }
+
+
+/*
+
+Donkeyy kong pls maak nog ff alles mooi enzo, sommige variable names zijn engels sommige nederlands 💀
+Ook ff kijken ofje beetje korter kan maken❤️ alles is wahed dubbel maar idk is 1 uur mijn energie is loesoe
+
+ */
