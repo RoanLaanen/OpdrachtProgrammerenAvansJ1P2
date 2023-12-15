@@ -11,6 +11,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class GUI extends Application {
@@ -141,16 +145,21 @@ public class GUI extends Application {
                     levelBox.getSelectionModel().getSelectedItem() != null && !introText_add.getText().trim().isEmpty()) {
                 comboBox.getItems().add(title_add.getText());
             }
-
-
-            /*
-
-
-            ADD ALLES TO DATABASE
-
-
-             */
-
+            Connection con = null;
+            Statement stmt = null;
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                con = DriverManager.getConnection(DatabaseConnection.connectionUrl);
+                String SQL = "INSERT INTO cursus (cursusNaam, onderwerp, introductieTekst, niveau) VALUES ('" + title_add.getText() + "', '" + topic_add.getText() + "', '" + introText_add.getText() + "', '" + levelBox.getSelectionModel().getSelectedItem() + "')";
+                stmt = con.createStatement();
+                stmt.executeUpdate(SQL);
+            }
+            catch (Exception exception) {
+                System.out.println("Error: " + exception);
+            }
+            finally {
+                closeConnection(con, stmt);
+            }
             title_add.clear();
             topic_add.clear();
             introText_add.clear();
@@ -289,6 +298,15 @@ public class GUI extends Application {
 
         stage.setScene(scene);
         stage.show();
+    }
+
+    static void closeConnection(Connection con, Statement stmt) {
+        if (stmt != null) try { stmt.close(); } catch(Exception exception) {
+            System.out.println("Error: " + exception);
+        }
+        if (con != null) try { con.close(); } catch(Exception exception) {
+            System.out.println("Error: " + exception);
+        }
     }
 
     public static void main(String[] args) {

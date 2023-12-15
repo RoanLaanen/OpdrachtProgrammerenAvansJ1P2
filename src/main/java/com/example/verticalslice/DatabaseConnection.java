@@ -8,11 +8,11 @@ import java.util.ArrayList;
  */
 public class DatabaseConnection {
     public static ArrayList<Cursus> cursusArray = new ArrayList<>();
+    public static String connectionUrl = "jdbc:mysql://162.19.139.137:3306/s49235_Codecademy?user=u49235_iICN9w4ctL&password=cX20vY5KOLk14Wuxp2wNr4wr";
     public static boolean loaded = false;
     public static void main(String[] args) {
 
         // Dit zijn de instellingen voor de verbinding. Vervang de databaseName indien deze voor jou anders is.
-        String connectionUrl = "jdbc:mysql://162.19.139.137:3306/s49235_Codecademy?user=u49235_iICN9w4ctL&password=cX20vY5KOLk14Wuxp2wNr4wr";
 
         // Connection beheert informatie over de connectie met de database.
         Connection con = null;
@@ -55,12 +55,7 @@ public class DatabaseConnection {
             if (rs != null) try { rs.close(); } catch(Exception e) {
                 System.out.println("Error: " + e);
             }
-            if (stmt != null) try { stmt.close(); } catch(Exception e) {
-                System.out.println("Error: " + e);
-            }
-            if (con != null) try { con.close(); } catch(Exception e) {
-                System.out.println("Error: " + e);
-            }
+            GUI.closeConnection(con, stmt);
         }
 
     }
