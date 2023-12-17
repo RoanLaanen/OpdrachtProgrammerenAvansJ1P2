@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class GUI extends Application {
 
     Scene scene, scene_add, scene_edit;
-    public int selectedIndex = 0;
+    private int selectedIndex = 0;
 
     @Override
     public void start(Stage stage) {
