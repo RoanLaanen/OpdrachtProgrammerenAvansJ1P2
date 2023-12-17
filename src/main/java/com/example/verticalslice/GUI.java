@@ -171,24 +171,33 @@ public class GUI extends Application {
         saveButton.setAlignment(Pos.CENTER);
         saveButton.setMaxSize(315, 60);
         saveButton.setOnAction(e -> {
+
             if (!title_add.getText().trim().isEmpty() && !topic_add.getText().trim().isEmpty() && levelBox.getSelectionModel().getSelectedItem() != null && !introText_add.getText().trim().isEmpty()) {
                 comboBox.getItems().add(title_add.getText());
+
+                if (DatabaseConnection.cursusNaamArray.contains("Geen resultaten gevonden")) {
+                    comboBox.getItems().remove("Geen resultaten gevonden");
+                    DatabaseConnection.cursusNaamArray.remove("Geen resultaten gevonden");
+                    DatabaseConnection.cursusArray.remove(0);
+                    DatabaseConnection.addCursus(title_add.getText(), topic_add.getText(), introText_add.getText(), levelBox.getSelectionModel().getSelectedItem());
+                    comboBox.selectionModelProperty().get().select(0);
+                } else {
+                    DatabaseConnection.addCursus(title_add.getText(), topic_add.getText(), introText_add.getText(), levelBox.getSelectionModel().getSelectedItem());
+                }
+                title_add.clear();
+                topic_add.clear();
+                introText_add.clear();
+                levelBox.setValue(null);
+                stage.setScene(scene);
             }
-            if (DatabaseConnection.cursusNaamArray.contains("Geen resultaten gevonden")) {
-                comboBox.getItems().remove("Geen resultaten gevonden");
-                DatabaseConnection.cursusNaamArray.remove("Geen resultaten gevonden");
-                DatabaseConnection.cursusArray.remove(0);
-                DatabaseConnection.addCursus(title_add.getText(), topic_add.getText(), introText_add.getText(), levelBox.getSelectionModel().getSelectedItem());
-                comboBox.selectionModelProperty().get().select(0);
-            } else {
-                DatabaseConnection.addCursus(title_add.getText(), topic_add.getText(), introText_add.getText(), levelBox.getSelectionModel().getSelectedItem());
+            else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error");
+                alert.setContentText("Vul alle velden in!");
+                alert.showAndWait();
             }
 
-            title_add.clear();
-            topic_add.clear();
-            introText_add.clear();
-            levelBox.setValue(null);
-            stage.setScene(scene);
         });
 
 
