@@ -6,16 +6,19 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-/**
- * Represents a database connection.
- */
 public class DatabaseConnection {
     public static ArrayList<Cursus> cursusArray = new ArrayList<>();
     public static ArrayList<String> cursusNaamArray = new ArrayList<>();
-    private static String connectionUrl = "jdbc:mysql://162.19.139.137:3306/s49235_Codecademy?user=u49235_iICN9w4ctL&password=cX20vY5KOLk14Wuxp2wNr4wr";
+    private static final String connectionUrl = "jdbc:mysql://162.19.139.137:3306/s49235_Codecademy?user=u49235_iICN9w4ctL&password=cX20vY5KOLk14Wuxp2wNr4wr";
     private static Connection con = null;
     private static Statement stmt = null;
     private static ResultSet rs = null;
+
+    /*
+    Deze methode wordt aangeroepen in GUI.java
+    Deze methode zorgt ervoor dat de cursusArray en cursusNaamArray gevuld worden met de cursussen uit de database
+    Deze methode wordt ook aangeroepen als er een cursus wordt toegevoegd, verwijderd of aangepast
+    */
     public static void updateCursusArray() {
 
         try {
@@ -51,6 +54,10 @@ public class DatabaseConnection {
 
     }
 
+    /*
+    Deze methode wordt aangeroepen in GUI.java
+    Deze methode voegt een cursus toe aan de database via de gegevens die zijn ingevuld in de GUI
+     */
     public static void addCursus(String cursusNaam, String onderwerp, String introductieTekst, String niveau) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -66,6 +73,10 @@ public class DatabaseConnection {
         }
     }
 
+    /*
+    Deze methode wordt aangeroepen in GUI.java
+    Deze methode verwijdert een cursus uit de database die is gekozen in de GUI
+     */
     public static void deleteCursus(String cursusNaam) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -81,6 +92,10 @@ public class DatabaseConnection {
         }
     }
 
+    /*
+    Deze methode wordt aangeroepen in GUI.java
+    Deze methode past een cursus aan in de database via de gegevens die zijn ingevuld in de GUI
+     */
     public static void updateCursus(String oldCursusNaam, String cursusNaam, String onderwerp, String introductieTekst, String niveau) {
         try {
 
@@ -99,6 +114,10 @@ public class DatabaseConnection {
         }
     }
 
+    /*
+    Deze methode wordt aangeroepen in DatabaseConnection.java
+    Deze methode sluit de connectie met de database
+     */
     private static void closeConnection(Connection con, Statement stmt) {
         if (stmt != null) try {
             stmt.close();
