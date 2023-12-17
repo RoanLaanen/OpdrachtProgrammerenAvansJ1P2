@@ -100,7 +100,7 @@ public class GUI extends Application {
         HBox.setHgrow(editButton, Priority.ALWAYS);
         editButton.setMaxWidth(Double.MAX_VALUE);
         editButton.setAlignment(Pos.CENTER);
-        editButton.setOnAction(e -> stage.setScene(scene_edit));
+
         editButton.setMaxSize(210, 60);
 
         Button deleteButton = new Button("Delete");
@@ -223,91 +223,86 @@ public class GUI extends Application {
 //        ----------------------------------- START SCENE EDIT -----------------------------------
 
 
-        TextField title_edit = new TextField(DatabaseConnection.cursusArray.get(selectedIndex).getCursusNaam());
-        title_edit.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
-        title_edit.setPromptText("title");
-        TextField topic_edit = new TextField(DatabaseConnection.cursusArray.get(selectedIndex).getOnderwerp());
-        topic_edit.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
-        topic_edit.setPromptText("onderwerp");
-        ComboBox<String> levelBox_edit = new ComboBox<>(FXCollections.observableArrayList("Beginner", "Gevorderd", "Expert"));
-        levelBox_edit.setValue(DatabaseConnection.cursusArray.get(selectedIndex).getNiveau());
-        // selected data doodood
-        TextArea introText_edit = new TextArea(DatabaseConnection.cursusArray.get(selectedIndex).getIntroductieTekst());
-        introText_edit.setStyle("-fx-font-size: 14px;");
-        introText_edit.setWrapText(true);
-        introText_edit.setPrefWidth(640);
-        introText_edit.setPromptText("introductie tekst");
+        editButton.setOnAction(event -> {
+            TextField title_edit = new TextField(DatabaseConnection.cursusArray.get(selectedIndex).getCursusNaam());
+            title_edit.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+            title_edit.setPromptText("title");
+            TextField topic_edit = new TextField(DatabaseConnection.cursusArray.get(selectedIndex).getOnderwerp());
+            topic_edit.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+            topic_edit.setPromptText("onderwerp");
+            ComboBox<String> levelBox_edit = new ComboBox<>(FXCollections.observableArrayList("Beginner", "Gevorderd", "Expert"));
+            levelBox_edit.setValue(DatabaseConnection.cursusArray.get(selectedIndex).getNiveau());
+            TextArea introText_edit = new TextArea(DatabaseConnection.cursusArray.get(selectedIndex).getIntroductieTekst());
+            introText_edit.setStyle("-fx-font-size: 14px;");
+            introText_edit.setWrapText(true);
+            introText_edit.setPrefWidth(640);
+            introText_edit.setPromptText("introductie tekst");
 
-        HBox titleContainer_edit = new HBox(title_edit);
-        titleContainer_edit.setPrefHeight(50);
-        titleContainer_edit.setAlignment(Pos.CENTER);
-        HBox topicContainer_edit = new HBox(topic_edit);
-        topicContainer_edit.setPrefSize(320, 50);
-        topicContainer_edit.setAlignment(Pos.CENTER);
-        HBox levelContainer_edit = new HBox(levelBox_edit);
-        levelContainer_edit.setPrefSize(320, 50);
-        levelContainer_edit.setAlignment(Pos.CENTER);
-        HBox dualContainer_edit = new HBox(topicContainer_edit, levelContainer_edit);
-        dualContainer_edit.setPrefHeight(50);
-        dualContainer_edit.setAlignment(Pos.CENTER);
-        HBox introTextContainer_edit = new HBox(introText_edit);
-        introTextContainer_edit.setAlignment(Pos.CENTER);
-        HBox.setMargin(introText_edit, new Insets(40));
-
-        VBox mainContent_edit = new VBox(titleContainer_edit, dualContainer_edit, introTextContainer_edit);
+            HBox titleContainer_edit = new HBox(title_edit);
+            titleContainer_edit.setPrefHeight(50);
+            titleContainer_edit.setAlignment(Pos.CENTER);
+            HBox topicContainer_edit = new HBox(topic_edit);
+            topicContainer_edit.setPrefSize(320, 50);
+            topicContainer_edit.setAlignment(Pos.CENTER);
+            HBox levelContainer_edit = new HBox(levelBox_edit);
+            levelContainer_edit.setPrefSize(320, 50);
+            levelContainer_edit.setAlignment(Pos.CENTER);
+            HBox dualContainer_edit = new HBox(topicContainer_edit, levelContainer_edit);
+            dualContainer_edit.setPrefHeight(50);
+            dualContainer_edit.setAlignment(Pos.CENTER);
+            HBox introTextContainer_edit = new HBox(introText_edit);
+            introTextContainer_edit.setAlignment(Pos.CENTER);
+            HBox.setMargin(introText_edit, new Insets(40));
 
 
-        Button saveButton_edit = new Button("Save");
-        HBox.setHgrow(saveButton_edit, Priority.ALWAYS);
-        saveButton_edit.setMaxWidth(Double.MAX_VALUE);
-        saveButton_edit.setAlignment(Pos.CENTER);
-        saveButton_edit.setMaxSize(315, 60);
-        saveButton_edit.setOnAction(e -> {
-            if (!title_edit.getText().trim().isEmpty() && !topic_edit.getText().trim().isEmpty() && levelBox_edit.getSelectionModel().getSelectedItem() != null && !introText_edit.getText().trim().isEmpty()) {
-                /*
-                FIX HIER DAT HIJ IN LIJSTJE VERANDERD NEEF
-                 */
-            }
+            Button saveButton_edit = new Button("Save");
+            HBox.setHgrow(saveButton_edit, Priority.ALWAYS);
+            saveButton_edit.setMaxWidth(Double.MAX_VALUE);
+            saveButton_edit.setAlignment(Pos.CENTER);
+            saveButton_edit.setMaxSize(315, 60);
+            saveButton_edit.setOnAction(e -> {
+                if (!title_edit.getText().trim().isEmpty() && !topic_edit.getText().trim().isEmpty() && levelBox_edit.getSelectionModel().getSelectedItem() != null && !introText_edit.getText().trim().isEmpty()) {
+                    DatabaseConnection.updateCursus(DatabaseConnection.cursusArray.get(selectedIndex).getCursusNaam(), title_edit.getText(), topic_edit.getText(), introText_edit.getText(), levelBox_edit.getSelectionModel().getSelectedItem());
+                }
+                comboBox.getItems().set(selectedIndex, title_edit.getText());
+                topic.setText(topic_edit.getText());
+                level.setText(levelBox_edit.getSelectionModel().getSelectedItem());
+                introText.setText(introText_edit.getText());
+                title.setText(title_edit.getText());
+                stage.setTitle(title_edit.getText());
+
+                title_add.clear();
+                topic_add.clear();
+                introText_add.clear();
+                levelBox.setValue(null);
+                stage.setScene(scene);
+
+            });
 
 
-            /*
+            Button cancelButton_edit = new Button("Cancel");
+            HBox.setHgrow(cancelButton_edit, Priority.ALWAYS);
+            cancelButton_edit.setMaxWidth(Double.MAX_VALUE);
+            cancelButton_edit.setAlignment(Pos.CENTER);
+            cancelButton_edit.setMaxSize(315, 60);
+            cancelButton_edit.setOnAction(e -> {
+                title_add.clear();
+                topic_add.clear();
+                introText_add.clear();
+                levelBox.setValue(null);
+                stage.setScene(scene);
+            });
 
 
-            EDIT ALLES IN DATABASE
-            RELOAD OOK DIE MAIN PAGINA OFZ IDK
-
-             */
-
-            title_add.clear();
-            topic_add.clear();
-            introText_add.clear();
-            levelBox.setValue(null);
-            stage.setScene(scene);
+            HBox buttonContainer_edit = new HBox(saveButton_edit, cancelButton_edit);
+            buttonContainer_edit.setPrefHeight(120);
+            buttonContainer_edit.setAlignment(Pos.CENTER);
+            VBox mainContent_edit = new VBox(titleContainer_edit, dualContainer_edit, introTextContainer_edit);
+            BorderPane border_pane_edit = new BorderPane(mainContent_edit, null, null, buttonContainer_edit, null);
+            border_pane_edit.setStyle("-fx-background-color: #FAF9F6;");
+            scene_edit = new Scene(border_pane_edit, 720, 480);
+            stage.setScene(scene_edit);
         });
-
-
-        Button cancelButton_edit = new Button("Cancel");
-        HBox.setHgrow(cancelButton_edit, Priority.ALWAYS);
-        cancelButton_edit.setMaxWidth(Double.MAX_VALUE);
-        cancelButton_edit.setAlignment(Pos.CENTER);
-        cancelButton_edit.setMaxSize(315, 60);
-        cancelButton_edit.setOnAction(e -> {
-            title_add.clear();
-            topic_add.clear();
-            introText_add.clear();
-            levelBox.setValue(null);
-            stage.setScene(scene);
-        });
-
-        HBox buttonContainer_edit = new HBox(saveButton_edit, cancelButton_edit);
-        buttonContainer_edit.setPrefHeight(120);
-        buttonContainer_edit.setAlignment(Pos.CENTER);
-
-
-        BorderPane border_pane_edit = new BorderPane(mainContent_edit, null, null, buttonContainer_edit, null);
-        border_pane_edit.setStyle("-fx-background-color: #FAF9F6;");
-
-        scene_edit = new Scene(border_pane_edit, 720, 480);
 
 
         stage.setScene(scene);

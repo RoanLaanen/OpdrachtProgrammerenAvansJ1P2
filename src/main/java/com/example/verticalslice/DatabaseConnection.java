@@ -78,6 +78,24 @@ public class DatabaseConnection {
         }
     }
 
+    public static void updateCursus(String oldCursusNaam, String cursusNaam, String onderwerp, String introductieTekst, String niveau) {
+        try {
+
+            cursusArray.clear();
+            cursusNaamArray.clear();
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "UPDATE Cursus SET cursusNaam = '" + cursusNaam + "', onderwerp = '" + onderwerp + "', introductieTekst = '" + introductieTekst + "', niveau = '" + niveau + "' WHERE cursusNaam = '" + oldCursusNaam + "'";
+            stmt = con.createStatement();
+            stmt.executeUpdate(SQL);
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con, stmt);
+            updateCursusArray();
+        }
+    }
+
     private static void closeConnection(Connection con, Statement stmt) {
         if (stmt != null) try {
             stmt.close();
