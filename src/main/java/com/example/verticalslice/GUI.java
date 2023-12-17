@@ -24,7 +24,7 @@ public class GUI extends Application {
 
     @Override
     public void start(Stage stage) {
-        stage.setTitle(DatabaseConnection.cursusArray.get(selectedIndex).getCursusNaam());
+        stage.setTitle("Codecademy");
 
         ComboBox<String> comboBox = new ComboBox<>(FXCollections.observableArrayList(DatabaseConnection.cursusNaamArray));
         comboBox.getSelectionModel().selectFirst();
@@ -57,7 +57,6 @@ public class GUI extends Application {
                     selectedIndex = 0;
                 }
                 title.setText(DatabaseConnection.cursusArray.get(selectedIndex).getCursusNaam());
-                stage.setTitle(DatabaseConnection.cursusArray.get(selectedIndex).getCursusNaam());
                 topic.setText(DatabaseConnection.cursusArray.get(selectedIndex).getOnderwerp());
                 String levelString = DatabaseConnection.cursusArray.get(selectedIndex).getNiveau();
                 if (levelString.equals("niks")) {
@@ -275,7 +274,6 @@ public class GUI extends Application {
                 level.setText(levelBox_edit.getSelectionModel().getSelectedItem());
                 introText.setText(introText_edit.getText());
                 title.setText(title_edit.getText());
-                stage.setTitle(title_edit.getText());
 
                 title_add.clear();
                 topic_add.clear();
