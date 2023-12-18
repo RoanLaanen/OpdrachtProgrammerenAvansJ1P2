@@ -32,4 +32,5 @@ public class Course {
     public void setNiveau(levelEnum level) {
         this.level = level;
     }
+
 }
