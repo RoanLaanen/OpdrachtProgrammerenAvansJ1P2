@@ -35,18 +35,18 @@ public class GUI extends Application {
         dropdownContainer.setStyle("-fx-border-color: #000000; -fx-border-width: 0 0 1 0;");
 
 
-        Label title = new Label(DatabaseConnection.cursusArray.get(selectedIndex).getCursusNaam());
+        Label title = new Label(DatabaseConnection.cursusArray.get(selectedIndex).getCourseName());
         title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 
-        Label topic = new Label(DatabaseConnection.cursusArray.get(selectedIndex).getOnderwerp());
+        Label topic = new Label(DatabaseConnection.cursusArray.get(selectedIndex).getTopic());
         topic.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
-        String levelString = DatabaseConnection.cursusArray.get(selectedIndex).getNiveau();
+        String levelString = DatabaseConnection.cursusArray.get(selectedIndex).getLevel();
         if (levelString.equals("niks")) {
             levelString = "";
         }
         Label level = new Label(levelString);
         level.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
-        Text introText = new Text(DatabaseConnection.cursusArray.get(selectedIndex).getIntroductieTekst());
+        Text introText = new Text(DatabaseConnection.cursusArray.get(selectedIndex).getIntroText());
         introText.setStyle("-fx-font-size: 14px;");
         introText.setWrappingWidth(640);
         comboBox.valueProperty().addListener(new ChangeListener<String>() {
@@ -56,14 +56,14 @@ public class GUI extends Application {
                 if (DatabaseConnection.cursusNaamArray.size() == 1) {
                     selectedIndex = 0;
                 }
-                title.setText(DatabaseConnection.cursusArray.get(selectedIndex).getCursusNaam());
-                topic.setText(DatabaseConnection.cursusArray.get(selectedIndex).getOnderwerp());
-                String levelString = DatabaseConnection.cursusArray.get(selectedIndex).getNiveau();
+                title.setText(DatabaseConnection.cursusArray.get(selectedIndex).getCourseName());
+                topic.setText(DatabaseConnection.cursusArray.get(selectedIndex).getTopic());
+                String levelString = DatabaseConnection.cursusArray.get(selectedIndex).getLevel();
                 if (levelString.equals("niks")) {
                     levelString = "";
                 }
                 level.setText(levelString);
-                introText.setText(DatabaseConnection.cursusArray.get(selectedIndex).getIntroductieTekst());
+                introText.setText(DatabaseConnection.cursusArray.get(selectedIndex).getIntroText());
             }
         });
 
@@ -106,15 +106,15 @@ public class GUI extends Application {
         deleteButton.setMaxSize(210, 60);
 
         deleteButton.setOnAction(e -> {
-            if (Objects.equals(DatabaseConnection.cursusArray.get(selectedIndex).getCursusNaam(), "")) {
+            if (Objects.equals(DatabaseConnection.cursusArray.get(selectedIndex).getCourseName(), "")) {
                 return;
             }
             comboBox.getItems().remove(selectedIndex);
-            DatabaseConnection.deleteCursus(DatabaseConnection.cursusArray.get(selectedIndex).getCursusNaam());
+            DatabaseConnection.deleteCursus(DatabaseConnection.cursusArray.get(selectedIndex).getCourseName());
             if (comboBox.getItems().isEmpty()) {
                 comboBox.getItems().add("Geen resultaten gevonden");
                 DatabaseConnection.cursusNaamArray.add("Geen resultaten gevonden");
-                DatabaseConnection.cursusArray.add(new Cursus("", "", "", Cursus.niveau.niks));
+                DatabaseConnection.cursusArray.add(new Course("", "", "", Course.levelEnum.None));
             }
             comboBox.getSelectionModel().selectFirst();
         });
@@ -229,15 +229,15 @@ public class GUI extends Application {
 
 
         editButton.setOnAction(event -> {
-            TextField title_edit = new TextField(DatabaseConnection.cursusArray.get(selectedIndex).getCursusNaam());
+            TextField title_edit = new TextField(DatabaseConnection.cursusArray.get(selectedIndex).getCourseName());
             title_edit.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
             title_edit.setPromptText("title");
-            TextField topic_edit = new TextField(DatabaseConnection.cursusArray.get(selectedIndex).getOnderwerp());
+            TextField topic_edit = new TextField(DatabaseConnection.cursusArray.get(selectedIndex).getTopic());
             topic_edit.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
             topic_edit.setPromptText("onderwerp");
             ComboBox<String> levelBox_edit = new ComboBox<>(FXCollections.observableArrayList("Beginner", "Gevorderd", "Expert"));
-            levelBox_edit.setValue(DatabaseConnection.cursusArray.get(selectedIndex).getNiveau());
-            TextArea introText_edit = new TextArea(DatabaseConnection.cursusArray.get(selectedIndex).getIntroductieTekst());
+            levelBox_edit.setValue(DatabaseConnection.cursusArray.get(selectedIndex).getLevel());
+            TextArea introText_edit = new TextArea(DatabaseConnection.cursusArray.get(selectedIndex).getIntroText());
             introText_edit.setStyle("-fx-font-size: 14px;");
             introText_edit.setWrapText(true);
             introText_edit.setPrefWidth(640);
@@ -267,7 +267,7 @@ public class GUI extends Application {
             saveButton_edit.setMaxSize(315, 60);
             saveButton_edit.setOnAction(e -> {
                 if (!title_edit.getText().trim().isEmpty() && !topic_edit.getText().trim().isEmpty() && levelBox_edit.getSelectionModel().getSelectedItem() != null && !introText_edit.getText().trim().isEmpty()) {
-                    DatabaseConnection.updateCursus(DatabaseConnection.cursusArray.get(selectedIndex).getCursusNaam(), title_edit.getText(), topic_edit.getText(), introText_edit.getText(), levelBox_edit.getSelectionModel().getSelectedItem());
+                    DatabaseConnection.updateCursus(DatabaseConnection.cursusArray.get(selectedIndex).getCourseName(), title_edit.getText(), topic_edit.getText(), introText_edit.getText(), levelBox_edit.getSelectionModel().getSelectedItem());
                 }
                 comboBox.getItems().set(selectedIndex, title_edit.getText());
                 topic.setText(topic_edit.getText());

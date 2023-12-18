@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class DatabaseConnection {
-    public static ArrayList<Cursus> cursusArray = new ArrayList<>();
+    public static ArrayList<Course> cursusArray = new ArrayList<>();
     public static ArrayList<String> cursusNaamArray = new ArrayList<>();
     private static final String connectionUrl = "jdbc:mysql://162.19.139.137:3306/s49235_Codecademy?user=u49235_iICN9w4ctL&password=cX20vY5KOLk14Wuxp2wNr4wr";
     private static Connection con = null;
@@ -24,21 +24,21 @@ public class DatabaseConnection {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT * FROM Cursus ORDER BY cursusNaam ASC";
+            String SQL = "SELECT * FROM Cursus ORDER BY courseName ASC";
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
-                String cursusNaam = rs.getString("cursusNaam");
-                String introductieTekst = rs.getString("introductieTekst");
-                String onderwerp = rs.getString("onderwerp");
-                String niveauString = rs.getString("niveau");
-                Cursus.niveau niveau = Cursus.niveau.valueOf(niveauString);
-                cursusArray.add(new Cursus(cursusNaam, onderwerp, introductieTekst, niveau));
-                cursusNaamArray.add(cursusNaam);
+                String courseName = rs.getString("courseName");
+                String topic = rs.getString("topic");
+                String introText = rs.getString("introText");
+                String level = rs.getString("level");
+                Course.levelEnum levelValue = Course.levelEnum.valueOf(level);
+                cursusArray.add(new Course(courseName, topic, introText, levelValue));
+                cursusNaamArray.add(courseName);
             }
             if (cursusArray.isEmpty()) {
-                cursusArray.add(new Cursus("", "", "", Cursus.niveau.niks));
+                cursusArray.add(new Course("", "", "", Course.levelEnum.None));
                 cursusNaamArray.add("Geen resultaten gevonden");
             }
         } catch (Exception e) {
@@ -58,11 +58,11 @@ public class DatabaseConnection {
     Deze methode wordt aangeroepen in GUI.java
     Deze methode voegt een cursus toe aan de database via de gegevens die zijn ingevuld in de GUI
      */
-    public static void addCursus(String cursusNaam, String onderwerp, String introductieTekst, String niveau) {
+    public static void addCursus(String courseName, String topic, String introText, String level) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "INSERT INTO Cursus (cursusNaam, onderwerp, introductieTekst, niveau) VALUES ('" + cursusNaam + "', '" + onderwerp + "', '" + introductieTekst + "', '" + niveau + "')";
+            String SQL = "INSERT INTO Cursus (courseName, topic, introText, level) VALUES ('" + courseName + "', '" + topic + "', '" + introText + "', '" + level + "')";
             stmt = con.createStatement();
             stmt.executeUpdate(SQL);
         } catch (Exception e) {
@@ -77,11 +77,11 @@ public class DatabaseConnection {
     Deze methode wordt aangeroepen in GUI.java
     Deze methode verwijdert een cursus uit de database die is gekozen in de GUI
      */
-    public static void deleteCursus(String cursusNaam) {
+    public static void deleteCursus(String courseName) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "DELETE FROM Cursus WHERE cursusNaam = '" + cursusNaam + "'";
+            String SQL = "DELETE FROM Cursus WHERE courseName = '" + courseName + "'";
             stmt = con.createStatement();
             stmt.executeUpdate(SQL);
         } catch (Exception e) {
@@ -96,14 +96,14 @@ public class DatabaseConnection {
     Deze methode wordt aangeroepen in GUI.java
     Deze methode past een cursus aan in de database via de gegevens die zijn ingevuld in de GUI
      */
-    public static void updateCursus(String oldCursusNaam, String cursusNaam, String onderwerp, String introductieTekst, String niveau) {
+    public static void updateCursus(String oldCursusNaam, String courseName, String topic, String introText, String level) {
         try {
 
             cursusArray.clear();
             cursusNaamArray.clear();
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "UPDATE Cursus SET cursusNaam = '" + cursusNaam + "', onderwerp = '" + onderwerp + "', introductieTekst = '" + introductieTekst + "', niveau = '" + niveau + "' WHERE cursusNaam = '" + oldCursusNaam + "'";
+            String SQL = "UPDATE Cursus SET courseName = '" + courseName + "', topic = '" + topic + "', introText = '" + introText + "', level = '" + level + "' WHERE courseName = '" + oldCursusNaam + "'";
             stmt = con.createStatement();
             stmt.executeUpdate(SQL);
         } catch (Exception e) {
