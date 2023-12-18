@@ -32,17 +32,20 @@ The DatabaseConnection class handles all database-related operations.
 ## GUI.java
 The application uses JavaFX to create a GUI allowing users to interact with the database. The GUI includes a ComboBox for selecting existing courses, fields for viewing and editing the details of the selected course, and buttons for manipulating the course data.
 
-#### Overview of the GUI Layout:
+
+### Overview of the GUI Layout:
 The GUI.java class contains various sections:
 
 **ComboBox Section:** This section includes a ComboBox that lists all the courses available in the database.
 **Details Section:** This section displays the details of the course selected in the ComboBox. It displays fields for the title, topic, level, and introductory text of the course.
 **Button Section:** This section houses the "Add", "Edit", and "Delete" buttons. Clicking these buttons triggers related database operations for adding a new course, editing an existing course or deleting a course.
 
-#### Event Handling:
+
+### Event Handling:
 Event Handling in the GUI is done using JavaFX's event handling mechanism. When an event occurs on a node, such as a Button click, a corresponding method in the GUI class is executed
 
-#### Building Scene and Stage:
+
+### Building Scene and Stage:
 JavaFX handles the lifecycle of a GUI application through stages and scenes. The primary stage is created by the JavaFX platform itself while the developer is responsible for creating the scenes and switching between them.
 
     public class GUI extends Application {
