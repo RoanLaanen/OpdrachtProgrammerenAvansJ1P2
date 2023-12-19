@@ -53,9 +53,9 @@ JavaFX handles the lifecycle of a GUI application through stages and scenes. The
 	}
 
 ## Requirements
-Java SDK
-MySQL database
-JavaFX library
+- Java SDK
+- MySQL database
+- JavaFX library
 
 ## Getting Started
 The entry point for this application is the Main.java class. Running this class will start up the GUI and load courses from the database.
