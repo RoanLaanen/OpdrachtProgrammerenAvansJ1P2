@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:controller="com.example.verticalslice.MainWindowController" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:id="border_pane" prefHeight="480.0" prefWidth="720.0" style="-fx-background-color: #FAF9F6;">
+    <top>
+        <HBox alignment="CENTER" prefHeight="50.0" BorderPane.alignment="CENTER">
+            <ComboBox fx:id="course_combobox" prefWidth="250.0" />
+        </HBox>
+    </top>
+    <center>
+        <VBox fx:id="mainContent" alignment="CENTER" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="50.0">
+                <Label fx:id="title_label" />
+            </HBox>
+            <HBox alignment="CENTER">
+                <Label fx:id="topic_label" prefWidth="320.0" />
+                <Label fx:id="level_label" prefWidth="320.0" />
+            </HBox>
+            <HBox alignment="CENTER">
+                <Text fx:id="introText" wrappingWidth="640.0"/>
+            </HBox>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER" prefHeight="120.0" BorderPane.alignment="CENTER">
+            <Button fx:id="addButton" text="Add" onAction="#addButtonAction"   maxWidth="1.7976931348623157E308"/>
+            <Button fx:id="editButton" text="Edit" maxWidth="1.7976931348623157E308"/>
+            <Button fx:id="deleteButton" text="Delete" onAction="#deleteButtonAction" maxWidth="1.7976931348623157E308"/>
+        </HBox>
+    </bottom>
+</BorderPane>
