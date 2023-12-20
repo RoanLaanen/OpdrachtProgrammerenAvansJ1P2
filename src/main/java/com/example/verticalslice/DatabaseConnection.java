@@ -24,7 +24,7 @@ public class DatabaseConnection {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT * FROM Cursus ORDER BY courseName ASC";
+            String SQL = "SELECT * FROM course ORDER BY courseName ASC";
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
 
@@ -62,7 +62,7 @@ public class DatabaseConnection {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "INSERT INTO Cursus (courseName, topic, introText, level) VALUES ('" + courseName + "', '" + topic + "', '" + introText + "', '" + level + "')";
+            String SQL = "INSERT INTO course (courseName, topic, introText, level) VALUES ('" + courseName + "', '" + topic + "', '" + introText + "', '" + level + "')";
             stmt = con.createStatement();
             stmt.executeUpdate(SQL);
         } catch (Exception e) {

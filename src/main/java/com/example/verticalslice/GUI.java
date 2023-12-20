@@ -27,7 +27,7 @@ public class GUI extends Application {
     public void start(Stage stage) throws IOException {
         stage.setTitle("Codecademy");
 
-        URL url = new File("C:/Users/dymok/IdeaProjects/Vertical-Slice/src/main/java/com/example/verticalslice/resources/MainWindow.fxml").toURI().toURL();
+        URL url = getClass().getResource("/MainWindow.fxml");
         FXMLLoader loader = new FXMLLoader(url);
         Scene scene = new Scene(loader.load());
         MainWindowController controller = loader.getController();
