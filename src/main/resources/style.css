@@ -1,0 +1,55 @@
+.root {
+    -fx-primary-color: #1f1f1f;
+    -fx-font-color: #c4c7c5;
+    -fx-btn-color: #2d2f31;
+    -fx-btn-hover-color: #393b3d;
+    -fx-btn-text-hover-color: #e3e3e3;
+    -fx-btn-select-color: #004a77;
+}
+
+#main {
+    -fx-background-color: -fx-primary-color;
+}
+
+* {
+    -fx-font-family: "Roboto Light";
+    -fx-fill: -fx-font-color;
+}
+
+#mainWindowTitle {
+    -fx-font-size: 60px;
+}
+
+#mainWindowSubTitle {
+    -fx-font-size: 30px;
+}
+
+.btn {
+    -fx-background-color: -fx-btn-color;
+    -fx-background-radius: 18px;
+}
+
+#closeBtn:pressed {
+    -fx-background-color: #B3261E;
+}
+
+.btn:hover {
+    -fx-fill: -fx-btn-text-hover-color;
+    -fx-background-color: -fx-btn-hover-color;
+}
+
+.btn:pressed {
+    -fx-background-color: -fx-btn-select-color;
+}
+
+#mainWindowBtn {
+    -fx-font-size: 24px;
+}
+
+#footer {
+    -fx-background-color: -fx-btn-color;
+}
+
+#titleBar {
+    -fx-background-color: -fx-btn-color;
+}
