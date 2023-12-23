@@ -14,7 +14,7 @@ public class Course {
         this.level = level;
     }
     public enum levelEnum {
-        Beginner, Gevorderd, Expert, None
+        Beginner, Advanced, Expert, None
     }
 
     public String getCourseName() {
