@@ -7,15 +7,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class DatabaseConnection {
-    public static ArrayList<Course> cursusArray = new ArrayList<>();
-    public static ArrayList<String> cursusNaamArray = new ArrayList<>();
+    private static ArrayList<Course> cursusArray = new ArrayList<>();
+    private static ArrayList<String> cursusNaamArray = new ArrayList<>();
     private static final String connectionUrl = "jdbc:mysql://162.19.139.137:3306/s49235_Codecademy?user=u49235_iICN9w4ctL&password=cX20vY5KOLk14Wuxp2wNr4wr";
     private static Connection con = null;
     private static Statement stmt = null;
     private static ResultSet rs = null;
 
 
-    public static void updateCursusArray() {
+    public static ArrayList<Course> updateCursusArray() {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -29,12 +29,12 @@ public class DatabaseConnection {
                 String topic = rs.getString("topic");
                 String introText = rs.getString("introText");
                 String level = rs.getString("level");
-                Course.levelEnum levelValue = Course.levelEnum.valueOf(level);
+                levelEnum levelValue = levelEnum.valueOf(level);
                 cursusArray.add(new Course(courseName, topic, introText, levelValue));
                 cursusNaamArray.add(courseName);
             }
             if (cursusArray.isEmpty()) {
-                cursusArray.add(new Course("", "", "", Course.levelEnum.None));
+                cursusArray.add(new Course("", "", "", levelEnum.None));
                 cursusNaamArray.add("No results found");
             }
         } catch (Exception e) {
@@ -47,7 +47,7 @@ public class DatabaseConnection {
             }
             closeConnection(con, stmt);
         }
-
+    return cursusArray;
     }
 
 

@@ -13,9 +13,7 @@ public class Course {
         this.introText = introText;
         this.level = level;
     }
-    public enum levelEnum {
-        Beginner, Advanced, Expert, None
-    }
+   
 
     public String getCourseName() {
         return courseName;
