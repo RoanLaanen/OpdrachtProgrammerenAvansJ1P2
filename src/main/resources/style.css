@@ -1,19 +1,39 @@
 .root {
-    -fx-primary-color: #1f1f1f;
-    -fx-font-color: #c4c7c5;
-    -fx-btn-color: #2d2f31;
-    -fx-btn-hover-color: #393b3d;
-    -fx-btn-text-hover-color: #e3e3e3;
-    -fx-btn-select-color: #004a77;
+    /*background color + text color*/
+    /* ^ only text color for some areas*/
+    -fx-surface: #121318;
+    -fx-onSurface: #e3e1e9;
+
+    /*color for containers that kinda follow the color of the surface*/
+    -fx-container: #1f1f25;
+
+    /*outline color*/
+    -fx-outline: #90909a;
+
+    /*primary color + color for the text on top of something with the primary color*/
+    -fx-primary: #b8c3ff;
+    -fx-onPrimary: #202c61;
+
+    /*primary and secondary container colors*/
+    /*text colors for the text situated on top of the respective container*/
+    -fx-primaryContainer: #374379;
+    -fx-primaryContainerHover: #48548A;
+    -fx-onPrimaryContainer: #dde1ff;
+    -fx-secondaryContainer: #424659;
+    -fx-onSecondaryContainer: #dfe1f9;
+
+    /*color for errorContainer  +  color for the text on top of this container*/
+    -fx-errorContainer: #73332d;
+    -fx-onErrorContainer: #ffdad6;
 }
 
 #main {
-    -fx-background-color: -fx-primary-color;
+    -fx-background-color: -fx-surface;
 }
 
 * {
     -fx-font-family: "Roboto Light";
-    -fx-fill: -fx-font-color;
+    -fx-fill: -fx-onSurface;
 }
 
 #mainWindowTitle {
@@ -25,21 +45,22 @@
 }
 
 .btn {
-    -fx-background-color: -fx-btn-color;
+    -fx-background-color: -fx-primaryContainer;
     -fx-background-radius: 18px;
+    -fx-text-fill: -fx-onPrimaryContainer;
 }
 
 #closeBtn:pressed {
-    -fx-background-color: #B3261E;
+    -fx-background-color: -fx-errorContainer;
 }
 
 .btn:hover {
-    -fx-fill: -fx-btn-text-hover-color;
-    -fx-background-color: -fx-btn-hover-color;
+    -fx-fill: -fx-onPrimaryContainer;
+    -fx-background-color: -fx-primaryContainerHover;
 }
 
 .btn:pressed {
-    -fx-background-color: -fx-btn-select-color;
+    /*-fx-background-color: -fx-btn-select-color;*/
 }
 
 #mainWindowBtn {
@@ -47,9 +68,9 @@
 }
 
 #footer {
-    -fx-background-color: -fx-btn-color;
+    -fx-background-color: -fx-container;
 }
 
 #titleBar {
-    -fx-background-color: -fx-btn-color;
+    -fx-background-color: -fx-container;
 }
