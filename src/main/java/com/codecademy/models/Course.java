@@ -1,4 +1,4 @@
-package com.example.verticalslice;
+package com.codecademy.models;
 
 public class Course {
     private String courseName;

@@ -1,11 +1,10 @@
-package com.example.verticalslice;
+package com.codecademy.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.collections.FXCollections;
-import javafx.beans.value.*;
+
 import java.net.URL;
 import java.util.*;
 import javafx.scene.text.Text;

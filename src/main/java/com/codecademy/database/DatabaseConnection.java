@@ -1,4 +1,6 @@
-package com.example.verticalslice;
+package com.codecademy.database;
+
+import com.codecademy.models.Course;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

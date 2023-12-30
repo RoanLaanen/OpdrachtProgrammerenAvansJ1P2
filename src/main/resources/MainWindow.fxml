@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane id="main" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.verticalslice.MainWindowController">
+<Pane id="main" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.MainWindowController">
    <children>
       <Text id="mainWindowTitle" layoutX="376.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="robotoFont" text="Codecademy" textAlignment="CENTER" wrappingWidth="347.935546875">
          <font>
