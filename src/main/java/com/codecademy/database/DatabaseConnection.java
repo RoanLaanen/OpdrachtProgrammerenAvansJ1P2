@@ -1,7 +1,7 @@
 package com.codecademy.database;
 
 import com.codecademy.models.Course;
-
+import com.codecademy.models.Level;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -35,12 +35,12 @@ public class DatabaseConnection {
                 String topic = rs.getString("topic");
                 String introText = rs.getString("introText");
                 String level = rs.getString("level");
-                Course.levelEnum levelValue = Course.levelEnum.valueOf(level);
+                Level levelValue = Level.valueOf(level);
                 cursusArray.add(new Course(courseName, topic, introText, levelValue));
                 cursusNaamArray.add(courseName);
             }
             if (cursusArray.isEmpty()) {
-                cursusArray.add(new Course("", "", "", Course.levelEnum.None));
+                cursusArray.add(new Course("", "", "", Level.None));
                 cursusNaamArray.add("Geen resultaten gevonden");
             }
         } catch (Exception e) {

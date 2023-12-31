@@ -5,16 +5,13 @@ public class Course {
     private String topic;
     private String introText;
 
-    private levelEnum level;
+    private Level level;
 
-    public Course(String courseName, String topic, String introText, levelEnum level) {
+    public Course(String courseName, String topic, String introText, Level level) {
         this.courseName = courseName;
         this.topic = topic;
         this.introText = introText;
         this.level = level;
-    }
-    public enum levelEnum {
-        Beginner, Gevorderd, Expert, None
     }
 
     public String getCourseName() {
@@ -29,7 +26,7 @@ public class Course {
     public String getIntroText() {
         return introText;
     }
-    public void setNiveau(levelEnum level) {
+    public void setNiveau(Level level) {
         this.level = level;
     }
 

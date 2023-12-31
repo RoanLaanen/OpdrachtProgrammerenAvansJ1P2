@@ -1,5 +1,5 @@
 package com.codecademy.models;
 
-public enum level {
+public enum Level {
     Beginner, Intermediate, Expert, None
 }
