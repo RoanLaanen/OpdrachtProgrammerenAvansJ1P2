@@ -9,8 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class DatabaseConnection {
-    public static ArrayList<Course> cursusArray = new ArrayList<>();
-    public static ArrayList<String> cursusNaamArray = new ArrayList<>();
+    private static ArrayList<Course> cursusArray = new ArrayList<>();
+    private static ArrayList<String> cursusNaamArray = new ArrayList<>();
     private static final String connectionUrl = "jdbc:mysql://162.19.139.137:3306/s49235_Codecademy?user=u49235_iICN9w4ctL&password=cX20vY5KOLk14Wuxp2wNr4wr";
     private static Connection con = null;
     private static Statement stmt = null;
