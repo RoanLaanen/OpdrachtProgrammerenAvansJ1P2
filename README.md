@@ -5,7 +5,6 @@ This application is built using the following structure:
 
 # ToDo
 feedback/opmerkingen:
-- Jullie maken gebruik van een mysql connector, maar deze staat niet opgenomen in de maven dependency list (pom.xml). Hierdoor komt er een ClassNotFound exception.
 - Na het toevoegen krijg ik een foutmelding "Caused by: java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0" op regel 30 van GUI.java. Ik vermoed dat er geen data in de database zit.
 - DatabaseConnection heeft alleen static methodes. Idealiter wil je een state bijhouden: bijvoorbeeld een open connectie waarop je binnen methodes queries uit kunt voeren.
 - Coderen in het Engels. Zelfde geld voor eventuele comments, ook in het Engels.
