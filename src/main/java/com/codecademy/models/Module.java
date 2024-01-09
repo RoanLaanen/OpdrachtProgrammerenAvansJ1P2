@@ -6,7 +6,7 @@ public class Module {
     private String description;
     private String emailContact;
     private String nameContact;
-    private int contentID;
+    private final int contentID;
     private String courseName;
     public Module(String title,float version, String description,String emailContact,String nameContact,int contentID,String courseName){
         this.title = title;

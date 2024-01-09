@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane id="main" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.MainWindowController">
-   <children>
-      <Text id="mainWindowTitle" layoutX="376.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="robotoFont" text="Codecademy" textAlignment="CENTER" wrappingWidth="347.935546875">
+<Pane id="main"
+      minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0"
+      stylesheets="@style.css" xmlns="http://javafx.com/javafx/20"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.MainWindowController">
+
+      <Text id="mainWindowTitle" layoutX="376.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Codecademy" textAlignment="CENTER" wrappingWidth="347.935546875">
          <font>
             <Font name="Rockwell" size="12.0" />
          </font>
@@ -19,9 +20,7 @@
       <Button id="mainWindowBtn" layoutX="216.0" layoutY="265.0" mnemonicParsing="false" prefHeight="220.0" prefWidth="320.0" styleClass="btn" text="Courses" onAction="#changeSceneToCourses"/>
       <Button id="mainWindowBtn" layoutX="564.0" layoutY="265.0" mnemonicParsing="false" prefHeight="220.0" prefWidth="320.0" styleClass="btn" text="Users"/>
       <VBox id="footer" alignment="CENTER" layoutY="720.0" prefHeight="30.0" prefWidth="1100.0">
-         <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Made by: Roan Laanen, Stef Rensma, Dymo Waltheer" textAlignment="CENTER" wrappingWidth="1100.0" style="-fx-fill: #e3e1e9"/>
-         </children>
       </VBox>
-   </children>
+
 </Pane>

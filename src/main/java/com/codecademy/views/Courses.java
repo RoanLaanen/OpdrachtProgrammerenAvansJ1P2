@@ -1,9 +1,8 @@
 package com.codecademy.views;
 
-import com.codecademy.controllers.MainWindowController;
+import com.codecademy.Main;
+
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,14 +15,7 @@ public class Courses extends Application {
         stage.setTitle("Courses");
 
         URL url = getClass().getResource("/Courses.fxml");
-        FXMLLoader loader = new FXMLLoader(url);
-        Scene scene = new Scene(loader.load());
-        stage.setResizable(false);
-
-        MainWindowController controller = loader.getController();
-        stage.setScene(scene);
-        controller.setPrimaryStage(stage);
-        stage.show();
+        Main.createStage(stage, url);
     }
     public static void main(String[] args) {
         launch(args);

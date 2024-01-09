@@ -7,7 +7,7 @@ public class Webcast {
     private String organisationLecturer;
     private String url;
     private int duration;
-    private int contentID;
+    private final int contentID;
     public Webcast(String title,int duration, String description,String nameLecturer,String organisationLecturer,int contentID,String url){
         this.title = title;
         this.duration = duration;
