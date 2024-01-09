@@ -1,9 +1,9 @@
 package com.codecademy.models;
 
 public class Certificate {
-    private int certificateID;
-    private float grade;
-    private String nameEmployee;
+    private final int certificateID;
+    private final float grade;
+    private final String nameEmployee;
     private String email;
     private String courseName;
     public Certificate(int certificateID,float grade, String nameEmployee,String email,String courseName){
