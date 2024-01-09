@@ -8,7 +8,7 @@
 
 <Pane id="main"
       minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0"
-      stylesheets="@style.css, @MainWindow.css" xmlns="http://javafx.com/javafx/20"
+      stylesheets="@CSS/style.css, @CSS/MainWindow.css" xmlns="http://javafx.com/javafx/20"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.MainWindowController">
 
       <Text id="mainWindowTitle" layoutX="376.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Codecademy" textAlignment="CENTER" wrappingWidth="347.935546875">

@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<Pane id="main" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.UserCoursesController">
+<Pane id="main" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@CSS/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.UserCoursesController">
    <children>
       <Line endX="792.0" layoutX="308.0" layoutY="125.0" startX="-308.0" />
       <Line endX="-200.5" endY="615.0" layoutX="371.0" layoutY="135.0" startX="-200.5" startY="-135.0" />
