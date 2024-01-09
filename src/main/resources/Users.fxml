@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<Pane id="main" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.UsersController">
+<Pane id="main" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.UsersController">
    <children>
       <Line endX="1000.0" layoutX="100.0" layoutY="125.0" startX="-100.0" />
       <Line endX="-50.70703125" endY="559.0" layoutX="222.0" layoutY="191.0" startX="-50.70703125" startY="-191.0" />
