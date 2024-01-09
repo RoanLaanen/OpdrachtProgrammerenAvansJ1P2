@@ -9,32 +9,29 @@
 <?import javafx.scene.text.Text?>
 
 
-<Pane id="main" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@CSS/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.UserCoursesController">
-   <children>
-      <Line endX="792.0" layoutX="308.0" layoutY="125.0" startX="-308.0" />
-      <Line endX="-200.5" endY="615.0" layoutX="371.0" layoutY="135.0" startX="-200.5" startY="-135.0" />
-      <Text layoutX="556.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Users">
-         <font>
-            <Font size="50.0" />
-         </font>
-      </Text>
-      <TextField layoutX="542.0" layoutY="83.0" text="Name" />
-      <TreeView layoutY="125.0" prefHeight="626.0" prefWidth="172.0" />
-      <Text layoutX="550.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Courses">
-         <font>
-            <Font size="38.0" />
-         </font>
-      </Text>
-      <TextField alignment="TOP_LEFT" layoutX="398.0" layoutY="218.0" prefHeight="421.0" prefWidth="433.0" text="- Course 1" />
-      <Button layoutX="421.0" layoutY="651.0" mnemonicParsing="false" text="Add">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Button>
-      <Button layoutX="676.0" layoutY="651.0" mnemonicParsing="false" text="Delete">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Button>
-   </children>
+<Pane id="main" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0"
+      stylesheets="@CSS/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.codecademy.controllers.UserCoursesController">
+   <Line endX="792.0" layoutX="308.0" layoutY="125.0" startX="-308.0"/>
+   <Line endX="-200.5" endY="615.0" layoutX="371.0" layoutY="135.0" startX="-200.5" startY="-135.0"/>
+   <Text layoutX="556.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Users"><font><Font size="50.0"/></font></Text>
+
+   <TextField layoutX="542.0" layoutY="83.0" text="Name"/>
+   <TreeView layoutY="125.0" prefHeight="626.0" prefWidth="172.0"/>
+   <Text layoutX="550.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Courses">
+      <font>
+         <Font size="38.0"/>
+      </font>
+   </Text>
+   <TextField alignment="TOP_LEFT" layoutX="398.0" layoutY="218.0" prefHeight="421.0" prefWidth="433.0"
+              text="- Course 1"/>
+   <Button layoutX="421.0" layoutY="651.0" mnemonicParsing="false" text="Add">
+      <font>
+         <Font size="30.0"/>
+      </font>
+   </Button>
+   <Button layoutX="676.0" layoutY="651.0" mnemonicParsing="false" text="Delete">
+      <font>
+         <Font size="30.0"/>
+      </font></Button>
 </Pane>
