@@ -1,4 +1,4 @@
-module com.example.verticalslice {
+module com.codecademy {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;

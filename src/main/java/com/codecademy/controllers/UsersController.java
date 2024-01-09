@@ -23,14 +23,7 @@ public class UsersController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        TreeItem<String> user = new TreeItem<>("User");
-        TreeItem<String> userData= new TreeItem<>("User Data");
-        TreeItem<String> userCourses = new TreeItem<>("User Courses");
-        TreeItem<String> userModules = new TreeItem<>("User Modules");
-        TreeItem<String> userWebcasts = new TreeItem<>("User Webcasts");
-        userCourses.getChildren().addAll(userWebcasts, userModules);
-        user.getChildren().addAll(userData,userCourses);
-        treeView.setRoot(user);
+
     }
 
     public void setPrimaryStage(Stage primaryStage) {

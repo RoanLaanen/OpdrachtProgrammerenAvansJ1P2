@@ -1,8 +1,10 @@
 #mainWindowTitle {
     -fx-font-size: 60px;
+    -fx-fill: #0d0d0d;
 }
 #mainWindowSubTitle {
     -fx-font-size: 30px;
+    fx-fill: #0d0d0d;
 }
 
 .btn {

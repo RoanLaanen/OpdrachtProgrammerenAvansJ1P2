@@ -13,3 +13,9 @@
     -fx-background-color: -fx-primary;
     -fx-text-fill: -fx-primaryText;
 }
+.dataField{
+    -fx-font-size: 18;
+}
+.title {
+    -fx-font-size: 18;
+}
