@@ -10,61 +10,61 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<Pane id="main" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.UsersController">
-   <children>
-      <Line endX="1000.0" layoutX="100.0" layoutY="125.0" startX="-100.0" />
-      <Line endX="-50.70703125" endY="559.0" layoutX="222.0" layoutY="191.0" startX="-50.70703125" startY="-191.0" />
-      <Text layoutX="556.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Users">
-         <font>
-            <Font name="Rockwell" size="50.0" />
-         </font>
-      </Text>
-      <TreeView layoutY="125.0" prefHeight="625.0" prefWidth="172.0" />
-      <ComboBox layoutX="530.0" layoutY="160.0" prefHeight="46.0" prefWidth="172.0" promptText="Name" />
-      <TextField layoutX="240.0" layoutY="231.0" prefHeight="39.0" prefWidth="254.0" text="Date of Birth">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
-      <TextField layoutX="240.0" layoutY="281.0" prefHeight="39.0" prefWidth="254.0" text="Gender">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
-      <TextField layoutX="240.0" layoutY="331.0" prefHeight="39.0" prefWidth="254.0" text="Email">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
-      <TextField layoutX="240.0" layoutY="381.0" prefHeight="39.0" prefWidth="254.0" text="Residence">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
-      <TextField layoutX="240.0" layoutY="431.0" prefHeight="39.0" prefWidth="254.0" text="Address">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
-      <TextField layoutX="240.0" layoutY="481.0" prefHeight="39.0" prefWidth="254.0" text="Country">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
-      <TextField layoutX="734.0" layoutY="228.0" prefHeight="294.0" prefWidth="319.0" />
-      <Text layoutX="850.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Certificates">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Text layoutX="348.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Button layoutX="590.0" layoutY="684.0" mnemonicParsing="false" text="Save" />
-      <Button layoutX="989.0" layoutY="684.0" mnemonicParsing="false" text="Delete User" />
-      <ImageView fitHeight="122.0" fitWidth="172.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" />
-   </children>
+<Pane id="main" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0"
+      stylesheets="@style.css" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.codecademy.controllers.UsersController">
+   <Line endX="1000.0" layoutX="100.0" layoutY="125.0" startX="-100.0"/>
+   <Line endX="-50.70703125" endY="559.0" layoutX="222.0" layoutY="191.0" startX="-50.70703125" startY="-191.0"/>
+   <Text layoutX="556.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Users">
+      <font>
+         <Font name="Rockwell" size="50.0"/>
+      </font>
+   </Text>
+   <TreeView fx:id="treeView" layoutY="125.0" onContextMenuRequested="#selectItem" onMouseClicked="#selectItem"
+             prefHeight="625.0" prefWidth="172.0"/>
+   <ComboBox layoutX="530.0" layoutY="160.0" prefHeight="46.0" prefWidth="172.0" promptText="Name"/>
+   <TextField layoutX="240.0" layoutY="231.0" prefHeight="39.0" prefWidth="254.0" text="Date of Birth">
+      <font>
+         <Font size="18.0"/>
+      </font>
+   </TextField>
+   <TextField layoutX="240.0" layoutY="281.0" prefHeight="39.0" prefWidth="254.0" text="Gender">
+      <font>
+         <Font size="18.0"/>
+      </font>
+   </TextField>
+   <TextField layoutX="240.0" layoutY="331.0" prefHeight="39.0" prefWidth="254.0" text="Email">
+      <font>
+         <Font size="18.0"/>
+      </font>
+   </TextField>
+   <TextField layoutX="240.0" layoutY="381.0" prefHeight="39.0" prefWidth="254.0" text="Residence">
+      <font>
+         <Font size="18.0"/>
+      </font>
+   </TextField>
+   <TextField layoutX="240.0" layoutY="431.0" prefHeight="39.0" prefWidth="254.0" text="Address">
+      <font>
+         <Font size="18.0"/>
+      </font>
+   </TextField>
+   <TextField layoutX="240.0" layoutY="481.0" prefHeight="39.0" prefWidth="254.0" text="Country">
+      <font>
+         <Font size="18.0"/>
+      </font>
+   </TextField>
+   <TextField layoutX="734.0" layoutY="228.0" prefHeight="294.0" prefWidth="319.0"/>
+   <Text layoutX="850.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Certificates">
+      <font>
+         <Font size="18.0"/>
+      </font>
+   </Text>
+   <Text layoutX="348.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data">
+      <font>
+         <Font size="18.0"/>
+      </font>
+   </Text>
+   <Button layoutX="590.0" layoutY="684.0" mnemonicParsing="false" text="Save"/>
+   <Button layoutX="989.0" layoutY="684.0" mnemonicParsing="false" text="Delete User"/>
+   <ImageView fitHeight="122.0" fitWidth="172.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true"/>
 </Pane>
