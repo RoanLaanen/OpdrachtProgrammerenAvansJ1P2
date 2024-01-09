@@ -15,23 +15,13 @@
             <Font name="Rockwell" size="12.0" />
          </font>
       </Text>
-      <Button id="mainWindowBtn" layoutX="216.0" layoutY="265.0" mnemonicParsing="false" prefHeight="220.0" prefWidth="320.0" styleClass="btn" text="Courses" />
+      <Button id="mainWindowBtn" layoutX="216.0" layoutY="265.0" mnemonicParsing="false" prefHeight="220.0" prefWidth="320.0" styleClass="btn" text="Courses"/>
       <Text id="mainWindowSubTitle" layoutX="431.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Management tool" textAlignment="CENTER" />
-      <Button id="mainWindowBtn" layoutX="564.0" layoutY="265.0" mnemonicParsing="false" prefHeight="220.0" prefWidth="320.0" styleClass="btn" text="Users" />
+      <Button id="mainWindowBtn" layoutX="564.0" layoutY="265.0" mnemonicParsing="false" prefHeight="220.0" prefWidth="320.0" styleClass="btn" text="Users"/>
       <VBox id="footer" alignment="CENTER" layoutY="720.0" prefHeight="30.0" prefWidth="1100.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Made by: Roan Laanen, Stef Rensma, Dymo Waltheer" textAlignment="CENTER" wrappingWidth="1100.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Made by: Roan Laanen, Stef Rensma, Dymo Waltheer" textAlignment="CENTER" wrappingWidth="1100.0" style="-fx-fill: #e3e1e9"/>
          </children>
       </VBox>
-      <HBox id="titleBar" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="1100.0" spacing="10.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#minimizeAppButton" styleClass="btn" text="−" />
-            <Button id="closeBtn" mnemonicParsing="false" onAction="#closeAppButton" styleClass="btn" text="✕">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Button>
-         </children>
-      </HBox>
    </children>
 </Pane>

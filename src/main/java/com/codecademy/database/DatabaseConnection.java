@@ -16,11 +16,6 @@ public class DatabaseConnection {
     private static Statement stmt = null;
     private static ResultSet rs = null;
 
-    /*
-    Deze methode wordt aangeroepen in GUI.java
-    Deze methode zorgt ervoor dat de cursusArray en cursusNaamArray gevuld worden met de cursussen uit de database
-    Deze methode wordt ook aangeroepen als er een cursus wordt toegevoegd, verwijderd of aangepast
-    */
     public static void updateCursusArray() {
 
         try {
@@ -56,10 +51,6 @@ public class DatabaseConnection {
 
     }
 
-    /*
-    Deze methode wordt aangeroepen in GUI.java
-    Deze methode voegt een cursus toe aan de database via de gegevens die zijn ingevuld in de GUI
-     */
     public static void addCursus(String courseName, String topic, String introText, String level) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -75,10 +66,6 @@ public class DatabaseConnection {
         }
     }
 
-    /*
-    Deze methode wordt aangeroepen in GUI.java
-    Deze methode verwijdert een cursus uit de database die is gekozen in de GUI
-     */
     public static void deleteCursus(String courseName) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -94,10 +81,6 @@ public class DatabaseConnection {
         }
     }
 
-    /*
-    Deze methode wordt aangeroepen in GUI.java
-    Deze methode past een cursus aan in de database via de gegevens die zijn ingevuld in de GUI
-     */
     public static void updateCursus(String oldCursusNaam, String courseName, String topic, String introText, String level) {
         try {
 
@@ -116,10 +99,6 @@ public class DatabaseConnection {
         }
     }
 
-    /*
-    Deze methode wordt aangeroepen in DatabaseConnection.java
-    Deze methode sluit de connectie met de database
-     */
     private static void closeConnection(Connection con, Statement stmt) {
         if (stmt != null) try {
             stmt.close();

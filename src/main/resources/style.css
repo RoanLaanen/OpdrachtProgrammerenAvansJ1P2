@@ -28,12 +28,12 @@
 }
 
 #main {
-    -fx-background-color: -fx-surface;
+    -fx-background-color: -fx-onSurface;
 }
 
 * {
     -fx-font-family: "Roboto Light";
-    -fx-fill: -fx-onSurface;
+    -fx-fill: -fx-surface;
 }
 
 #mainWindowTitle {
@@ -45,18 +45,20 @@
 }
 
 .btn {
-    -fx-background-color: -fx-primaryContainer;
-    -fx-background-radius: 18px;
-    -fx-text-fill: -fx-onPrimaryContainer;
+    -fx-background-color: -fx-onSurface;
+    -fx-border-width: 3;
+    -fx-border-color: -fx-primaryContainer;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
 }
+.btn text {
 
-#closeBtn:pressed {
-    -fx-background-color: -fx-errorContainer;
 }
 
 .btn:hover {
-    -fx-fill: -fx-onPrimaryContainer;
-    -fx-background-color: -fx-primaryContainerHover;
+    -fx-animated: true;
+    -fx-text-fill: -fx-onSurface;
+    -fx-background-color: -fx-primaryContainer;
 }
 
 .btn:pressed {
@@ -68,9 +70,5 @@
 }
 
 #footer {
-    -fx-background-color: -fx-container;
-}
-
-#titleBar {
     -fx-background-color: -fx-container;
 }

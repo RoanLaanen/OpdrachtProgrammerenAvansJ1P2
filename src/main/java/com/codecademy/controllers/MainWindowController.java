@@ -7,14 +7,13 @@ import javafx.scene.layout.BorderPane;
 
 import java.net.URL;
 import java.util.*;
+
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class MainWindowController implements Initializable {
     @FXML
     private BorderPane border_pane;
-
-    // Define the Stage object
     private Stage primaryStage;
 
     @FXML private ComboBox<String> course_combobox;
@@ -29,18 +28,10 @@ public class MainWindowController implements Initializable {
 
     }
 
-    // Setter method to receive the stage from GUI.java
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
 
-    public void closeAppButton(){
-        System.exit(0);
-    }
-
-    public void minimizeAppButton() {
-        primaryStage.setIconified(true);
-    }
 
 
 }
