@@ -1,6 +1,5 @@
 package com.codecademy.controllers;
 
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 
