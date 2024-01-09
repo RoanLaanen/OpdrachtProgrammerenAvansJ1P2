@@ -5,18 +5,17 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
 
-public class GUI extends Application {
+public class Courses extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        stage.setTitle("Codecademy");
+        stage.setTitle("Courses");
 
-        URL url = getClass().getResource("/MainWindow.fxml");
+        URL url = getClass().getResource("/Courses.fxml");
         FXMLLoader loader = new FXMLLoader(url);
         Scene scene = new Scene(loader.load());
         stage.setResizable(false);
