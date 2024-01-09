@@ -18,7 +18,7 @@
       </Text>
       <Text id="mainWindowSubTitle" layoutX="431.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Management tool" textAlignment="CENTER" />
       <Button id="mainWindowBtn" layoutX="216.0" layoutY="265.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="320.0" styleClass="btn" text="Courses" onAction="#changeSceneToCourses"/>
-      <Button id="mainWindowBtn" layoutX="564.0" layoutY="265.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="320.0" styleClass="btn" text="Users"/>
+      <Button id="mainWindowBtn" layoutX="564.0" layoutY="265.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="320.0" styleClass="btn" text="Users" onAction="#changeSceneToUsers"/>
       <VBox id="footer" alignment="CENTER" layoutY="720.0" prefHeight="30.0" prefWidth="1100.0">
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Made by: Roan Laanen, Stef Rensma, Dymo Waltheer" textAlignment="CENTER" wrappingWidth="1100.0" style="-fx-fill: #e3e1e9"/>
       </VBox>

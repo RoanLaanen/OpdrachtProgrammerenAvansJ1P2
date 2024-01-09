@@ -34,4 +34,13 @@ public class MainWindowController implements Initializable {
         window.setScene(scene);
         window.show();
     }
+    public void changeSceneToUsers(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/Users.fxml"));
+        Scene scene = new Scene(parent);
+
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
+
 }
