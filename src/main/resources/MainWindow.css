@@ -1,0 +1,26 @@
+#mainWindowTitle {
+    -fx-font-size: 60px;
+}
+#mainWindowSubTitle {
+    -fx-font-size: 30px;
+}
+
+.btn {
+    -fx-border-width: 3;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-font-size: 24px;
+
+    -fx-background-color: -fx-surface;
+    -fx-border-color: -fx-primary;
+
+
+}
+.btn:hover {
+    -fx-background-color: -fx-primary;
+    -fx-text-fill: -fx-primaryText;
+}
+#footer {
+    -fx-background-color: -fx-primary;
+    -fx-text-fill: -fx-primaryText;
+}

@@ -1,74 +1,18 @@
 .root {
-    /*background color + text color*/
-    /* ^ only text color for some areas*/
-    -fx-surface: #121318;
-    -fx-onSurface: #e3e1e9;
+    -fx-surface: #fef7ff;
+    /*-fx-surfaceText: #1d1b20;*/
 
-    /*color for containers that kinda follow the color of the surface*/
-    -fx-container: #1f1f25;
-
-    /*outline color*/
-    -fx-outline: #90909a;
-
-    /*primary color + color for the text on top of something with the primary color*/
-    -fx-primary: #b8c3ff;
-    -fx-onPrimary: #202c61;
-
-    /*primary and secondary container colors*/
-    /*text colors for the text situated on top of the respective container*/
-    -fx-primaryContainer: #374379;
-    -fx-primaryContainerHover: #48548A;
-    -fx-onPrimaryContainer: #dde1ff;
-    -fx-secondaryContainer: #424659;
-    -fx-onSecondaryContainer: #dfe1f9;
-
-    /*color for errorContainer  +  color for the text on top of this container*/
-    -fx-errorContainer: #73332d;
-    -fx-onErrorContainer: #ffdad6;
-}
-
-#main {
-    -fx-background-color: -fx-onSurface;
+    -fx-primary: #625b71;
+    -fx-primaryText: #ffffff;
 }
 
 * {
     -fx-font-family: "Roboto Light";
-    -fx-fill: -fx-surface;
 }
 
-#mainWindowTitle {
-    -fx-font-size: 60px;
+#main {
+    -fx-background-color: -fx-surface;
+    -fx-fill: -fx-surfaceText;
 }
 
-#mainWindowSubTitle {
-    -fx-font-size: 30px;
-}
 
-.btn {
-    -fx-background-color: -fx-onSurface;
-    -fx-border-width: 3;
-    -fx-border-color: -fx-primaryContainer;
-    -fx-border-radius: 12px;
-    -fx-background-radius: 12px;
-}
-.btn text {
-
-}
-
-.btn:hover {
-    -fx-animated: true;
-    -fx-text-fill: -fx-onSurface;
-    -fx-background-color: -fx-primaryContainer;
-}
-
-.btn:pressed {
-    /*-fx-background-color: -fx-btn-select-color;*/
-}
-
-#mainWindowBtn {
-    -fx-font-size: 24px;
-}
-
-#footer {
-    -fx-background-color: -fx-container;
-}
