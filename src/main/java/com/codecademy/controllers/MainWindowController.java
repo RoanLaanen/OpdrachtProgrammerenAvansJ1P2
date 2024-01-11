@@ -27,7 +27,7 @@ public class MainWindowController implements Initializable {
     }
 
     public void changeSceneToCourses(ActionEvent event) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("/Courses.fxml"));
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Courses.fxml")));
         Scene scene = new Scene(parent);
 
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -35,7 +35,7 @@ public class MainWindowController implements Initializable {
         window.show();
     }
     public void changeSceneToUsers(ActionEvent event) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("/Users.fxml"));
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Users.fxml")));
         Scene scene = new Scene(parent);
 
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();

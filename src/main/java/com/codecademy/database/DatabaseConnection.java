@@ -42,6 +42,37 @@ public class DatabaseConnection {
 
     }
 
+    public static ArrayList<String> getAllUserEmails() {
+
+        ArrayList<String> userEmails = new ArrayList<>();
+
+        try {
+
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT * FROM [User]";
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(SQL);
+
+            while (rs.next()) {
+//                System.out.println(rs.getString("email"));
+                userEmails.add(rs.getString("email"));
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            }
+            closeConnection(con, stmt);
+        }
+        return userEmails;
+    }
+
+
+
     public static void addCursus(String courseName, String topic, String introText, String level) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
