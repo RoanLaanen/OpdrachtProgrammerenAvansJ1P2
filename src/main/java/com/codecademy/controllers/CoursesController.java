@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CoursesController implements Initializable {
@@ -25,7 +26,7 @@ public class CoursesController implements Initializable {
     }
 
     public void changeSceneToMain(MouseEvent mouseEvent) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("/MainWindow.fxml"));
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/MainWindow.fxml")));
         Scene scene = new Scene(parent);
 
         Stage window = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();

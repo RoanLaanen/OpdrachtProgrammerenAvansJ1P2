@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane id="main" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@CSS/style.css, @CSS/Users.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.UsersController">
+<Pane id="main" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@CSS/style.css, @CSS/Users.css" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.UsersController">
    <Line endX="1000.0" layoutX="100.0" layoutY="125.0" startX="-100.0" />
    <Line endX="-50.70703125" endY="559.0" layoutX="222.0" layoutY="191.0" startX="-50.70703125" startY="-191.0" />
 
@@ -21,11 +21,11 @@
    <Text layoutX="322.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Data" />
       <TextField fx:id="nameField" layoutX="215.0" layoutY="163.0" prefHeight="8.0" prefWidth="254.0" styleClass="dataField" text="Name" />
       <TextField fx:id="emailField" layoutX="215.0" layoutY="206.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="Email" />
-      <TextField layoutX="215.0" layoutY="249.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="Date of Birth" />
-      <TextField layoutX="216.0" layoutY="292.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="Gender" />
-      <TextField layoutX="215.0" layoutY="335.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="Adress" />
-      <TextField layoutX="215.0" layoutY="378.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="Zip-code" />
-      <TextField layoutX="215.0" layoutY="421.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="Country" />
+      <TextField fx:id="dobField" layoutX="215.0" layoutY="249.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="Date of Birth" />
+      <TextField fx:id="genderField" layoutX="216.0" layoutY="292.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="Gender" />
+      <TextField fx:id="addressField" layoutX="215.0" layoutY="335.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="Adress" />
+      <TextField fx:id="zipField" layoutX="215.0" layoutY="378.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="Zip-code" />
+      <TextField fx:id="countryField" layoutX="215.0" layoutY="421.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="Country" />
 
 
 
@@ -43,7 +43,7 @@
 
    <Button layoutX="530.0" layoutY="681.0" mnemonicParsing="false" prefWidth="160.0" styleClass="btn" text="Save User" />
    <Button layoutX="729.0" layoutY="684.0" mnemonicParsing="false" prefWidth="160.0" styleClass="btn" text="Add User" />
-   <Button layoutX="925.0" layoutY="684.0" mnemonicParsing="false" prefWidth="160.0" styleClass="btn" text="Delete User" />
+   <Button onAction="#deleteUser" layoutX="925.0" layoutY="684.0" mnemonicParsing="false" prefWidth="160.0" styleClass="btn" text="Delete User" />
 
 
 </Pane>

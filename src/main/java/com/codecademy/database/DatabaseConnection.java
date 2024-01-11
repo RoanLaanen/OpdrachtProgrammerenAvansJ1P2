@@ -42,9 +42,9 @@ public class DatabaseConnection {
 
     }
 
-    public static ArrayList<String> getAllUserEmails() {
+    public static ArrayList<ArrayList<String>> getAllUsers() {
 
-        ArrayList<String> userEmails = new ArrayList<>();
+        ArrayList<ArrayList<String>> users = new ArrayList<>();
 
         try {
 
@@ -54,8 +54,15 @@ public class DatabaseConnection {
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
-//                System.out.println(rs.getString("email"));
-                userEmails.add(rs.getString("email"));
+                ArrayList<String> row = new ArrayList<>();
+                row.add(rs.getString("name"));
+                row.add(rs.getString("email"));
+                row.add(rs.getString("dateOfBirth"));
+                row.add(rs.getString("gender"));
+                row.add(rs.getString("address"));
+                row.add(rs.getString("zip"));
+                row.add(rs.getString("country"));
+                users.add(row);
             }
 
         } catch (Exception e) {
@@ -68,8 +75,24 @@ public class DatabaseConnection {
             }
             closeConnection(con, stmt);
         }
-        return userEmails;
+        return users;
     }
+
+    public static void deleteUser(String userEmail) {
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "DELETE FROM [User] WHERE email = '" + userEmail + "'";
+            stmt = con.createStatement();
+            stmt.executeUpdate(SQL);
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con, stmt);
+            updateCursusArray();
+        }
+    }
+
+
 
 
 
