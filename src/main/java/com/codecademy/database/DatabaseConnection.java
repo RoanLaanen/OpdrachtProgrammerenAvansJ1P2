@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class DatabaseConnection {
     private static ArrayList<Course> cursusArray = new ArrayList<>();
     private static ArrayList<String> cursusNaamArray = new ArrayList<>();
-    private static final String connectionUrl = "jdbc:mysql://162.19.139.137:3306/s49235_Codecademy?user=u49235_iICN9w4ctL&password=cX20vY5KOLk14Wuxp2wNr4wr";
+    private static final String connectionUrl = "jdbc:sqlserver://codecademy.database.windows.net:1433;database=codecademyData;user=groep5@codecademy;password=AvansBreda123;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30";
     private static Connection con = null;
     private static Statement stmt = null;
     private static ResultSet rs = null;
@@ -19,25 +19,16 @@ public class DatabaseConnection {
     public static void updateCursusArray() {
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT * FROM course ORDER BY courseName ASC";
+            String SQL = "SELECT * FROM [User]";
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
-                String courseName = rs.getString("courseName");
-                String topic = rs.getString("topic");
-                String introText = rs.getString("introText");
-                String level = rs.getString("level");
-                Level levelValue = Level.valueOf(level);
-                cursusArray.add(new Course(courseName, topic, introText, levelValue));
-                cursusNaamArray.add(courseName);
+                System.out.println(rs.getString("email"));
             }
-            if (cursusArray.isEmpty()) {
-                cursusArray.add(new Course("", "", "", Level.None));
-                cursusNaamArray.add("Geen resultaten gevonden");
-            }
+
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
