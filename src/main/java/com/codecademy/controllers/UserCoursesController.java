@@ -1,11 +1,9 @@
 package com.codecademy.controllers;
 
-import com.codecademy.DataSingleton;
+import com.codecademy.models.DataSingleton;
 import com.codecademy.database.DatabaseConnection;
 import com.codecademy.models.Course;
-import com.codecademy.models.Module;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,7 +12,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 import java.io.IOException;
