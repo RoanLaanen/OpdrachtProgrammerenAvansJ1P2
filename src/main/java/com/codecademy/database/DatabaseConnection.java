@@ -36,6 +36,29 @@ public class DatabaseConnection {
         }
         return users;
     }
+    public static ArrayList<Course> getAllCourses() {
+        ArrayList<Course> courses = new ArrayList<>();
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT * FROM [Course]";
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                courses.add(new Course(rs.getString("courseName"), rs.getString("topic"), rs.getString("introText"), Level.valueOf(rs.getString("level"))));
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            }
+            closeConnection(con);
+        }
+        return courses;
+    }
+
 
     public static void addUser(User user) {
         try {

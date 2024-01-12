@@ -37,9 +37,11 @@
     -fx-font-size: 18;
 }
 
-.list-view .list-cell:even {
-    -fx-background-color: -fx-surface;
-}
-.list-view .list-cell:odd {
-    -fx-background-color: -fx-surface;
-}
+/*.list-view .list-cell:even {*/
+/*    -fx-background-color: -fx-surface;*/
+/*    -fx-text-fill: black;*/
+/*}*/
+/*.list-view .list-cell:odd {*/
+/*    -fx-background-color: -fx-surface;*/
+/*    -fx-text-fill: black;*/
+/*}*/

@@ -28,7 +28,7 @@
    <Text layoutX="369.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Data" />
    <TextField fx:id="nameField" layoutX="262.0" layoutY="208.0" prefHeight="8.0" prefWidth="254.0" styleClass="dataField" text="courseName" />
    <TextArea layoutX="262.0" layoutY="251.0" prefHeight="131.0" prefWidth="254.0" styleClass="dataField" />
-   <TextField fx:id="dobField" layoutX="263.0" layoutY="385.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="topic" />
+   <TextField fx:id="topicField" layoutX="263.0" layoutY="385.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="topic" />
    <ComboBox layoutX="262.0" layoutY="430.0" prefHeight="25.0" prefWidth="254.0" promptText="level">
       <styleClass>
          <String fx:value="dataField" />
@@ -36,12 +36,12 @@
       </styleClass></ComboBox>
    <Label layoutX="270.0" layoutY="485.0" styleClass="title" text="User completion count: xxx" />
    <Text layoutX="819.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subTitle" text="Modules" />
-   <ListView styleClass="list" layoutX="617.0" layoutY="173.0" prefHeight="198.0" prefWidth="480.0" />
+   <ListView fx:id="modulesList" layoutX="617.0" layoutY="173.0" prefHeight="198.0" prefWidth="480.0" />
    <Text layoutX="819.0" layoutY="403.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subTitle" text="Webcasts" />
-   <ListView layoutX="617.0" layoutY="418.0" prefHeight="198.0" prefWidth="480.0" />
+   <ListView fx:id="webcastsList" layoutX="617.0" layoutY="418.0" prefHeight="198.0" prefWidth="480.0" />
 
     <Text layoutX="753.0" layoutY="656.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subTitle" text="Most viewed Webcasts" />
-        <ListView layoutX="617.0" layoutY="669.0" prefHeight="76.0" prefWidth="480.0" />
+        <ListView fx:id="mostViewed" layoutX="617.0" layoutY="669.0" prefHeight="76.0" prefWidth="480.0" />
 
 
 </Pane>
