@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
@@ -22,8 +23,7 @@
       <TextField fx:id="nameField" layoutX="215.0" layoutY="163.0" prefHeight="8.0" prefWidth="254.0" promptText="Name" styleClass="dataField" />
       <TextField fx:id="emailField" layoutX="215.0" layoutY="206.0" prefHeight="1.0" prefWidth="254.0" promptText="Email" styleClass="dataField" />
       <TextField fx:id="dobField" layoutX="215.0" layoutY="249.0" prefHeight="1.0" prefWidth="254.0" promptText="Date of Birth" styleClass="dataField" />
-      <TextField fx:id="genderField" layoutX="216.0" layoutY="292.0" prefHeight="1.0" prefWidth="254.0" promptText="Gender" styleClass="dataField" />
-      <TextField fx:id="addressField" layoutX="215.0" layoutY="335.0" prefHeight="1.0" prefWidth="254.0" promptText="Adress" styleClass="dataField" />
+      <TextField fx:id="addressField" layoutX="215.0" layoutY="335.0" prefHeight="1.0" prefWidth="254.0" promptText="Address" styleClass="dataField" />
       <TextField fx:id="zipField" layoutX="215.0" layoutY="378.0" prefHeight="1.0" prefWidth="254.0" promptText="Zip-code" styleClass="dataField" />
       <TextField fx:id="countryField" layoutX="215.0" layoutY="421.0" prefHeight="1.0" prefWidth="254.0" promptText="Country" styleClass="dataField" />
 
@@ -36,7 +36,7 @@
    </Text>
 
    <Text layoutX="295.0" layoutY="522.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Certificates" />
-      <ListView layoutX="187.0" layoutY="536.0" prefHeight="200.0" prefWidth="310.0" />
+      <ListView fx:id="certificateList" layoutX="187.0" layoutY="536.0" prefHeight="200.0" prefWidth="310.0" />
 
    <Text layoutX="776.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Courses" />
       <ListView layoutX="556.0" layoutY="163.0" prefHeight="477.0" prefWidth="505.0" />
@@ -44,6 +44,7 @@
    <Button layoutX="530.0" layoutY="681.0" mnemonicParsing="false" onAction="#saveUser" prefWidth="170.0" styleClass="btn" text="Save User" />
    <Button layoutX="722.0" layoutY="681.0" mnemonicParsing="false" onAction="#addUser" prefWidth="170.0" styleClass="btn" text="Add User" />
    <Button layoutX="916.0" layoutY="681.0" mnemonicParsing="false" onAction="#deleteUser" prefWidth="170.0" styleClass="btn" text="Delete User" />
+   <ComboBox fx:id="genderField" layoutX="215.0" layoutY="292.0" prefHeight="36.0" prefWidth="254.0" promptText="Gender" visibleRowCount="2" />
 
 
 </Pane>

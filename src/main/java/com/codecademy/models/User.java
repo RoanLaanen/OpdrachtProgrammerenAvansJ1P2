@@ -28,9 +28,9 @@ public class User {
     }
     public String getGender() {
         if (gender.equals("0")) {
-            return "female";
+            return "Female";
         }
-        return "male";
+        return "Male";
     }
 
     public String getGenderBit() { return gender; }

@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -27,12 +28,15 @@ public class UsersController implements Initializable {
     @FXML
     public ListView<String> userList;
 
+    @FXML
+    public ListView<String> certificateList;
+
     String selectedUser;
 
     public TextField nameField;
     public TextField emailField;
     public TextField dobField;
-    public TextField genderField;
+    public ComboBox<String> genderField;
     public TextField addressField;
     public TextField zipField;
     public TextField countryField;
@@ -75,12 +79,14 @@ public class UsersController implements Initializable {
         ArrayList<String> listOfValues = new ArrayList<String>(values);
         ObservableList<String> items = FXCollections.observableArrayList((listOfValues));
         userList.setItems(items);
+
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         extractUserData();
+        genderField.getItems().setAll("Male", "Female");
 //
         userList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -90,7 +96,7 @@ public class UsersController implements Initializable {
                 nameField.setText(userNames.get(selectedUser));
                 emailField.setText(selectedUser);
                 dobField.setText(userDateOfBirths.get(selectedUser));
-                genderField.setText(userGenders.get(selectedUser));
+                genderField.getSelectionModel().select(userGenders.get(selectedUser));
                 addressField.setText(userAddresses.get(selectedUser));
                 zipField.setText(userZips.get(selectedUser));
                 countryField.setText(userCountries.get(selectedUser));
@@ -123,19 +129,18 @@ public class UsersController implements Initializable {
 
     public void clearFields() {
         nameField.clear();
-        nameField.setPromptText("name");
+        nameField.setPromptText("Name");
         emailField.clear();
-        emailField.setPromptText("email");
+        emailField.setPromptText("Email");
         dobField.clear();
-        dobField.setPromptText("date of birth");
-        genderField.clear();
-        genderField.setPromptText("gender");
+        dobField.setPromptText("Date of Birth");
+        genderField.setPromptText("Gender");
         addressField.clear();
-        addressField.setPromptText("address");
+        addressField.setPromptText("Address");
         zipField.clear();
-        zipField.setPromptText("zip");
+        zipField.setPromptText("Zip-code");
         countryField.clear();
-        countryField.setPromptText("country");
+        countryField.setPromptText("Country");
     }
 
     public void addUser(ActionEvent event) {
@@ -145,8 +150,9 @@ public class UsersController implements Initializable {
     }
 
     public void saveUser(ActionEvent event) {
+
         String gender;
-        if (genderField.getText().equals("male")) {
+        if (Objects.equals(genderField.getSelectionModel().getSelectedItem(), "Male")) {
             gender = "1";
         } else {
             gender = "0";
