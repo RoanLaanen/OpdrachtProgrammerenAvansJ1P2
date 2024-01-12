@@ -4,6 +4,9 @@ import com.codecademy.models.DataSingleton;
 import com.codecademy.database.DatabaseConnection;
 import com.codecademy.models.Course;
 
+import com.codecademy.models.Module;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -46,6 +49,18 @@ public class UserCoursesController implements Initializable {
         for (Course course : courses) {
             courseListSelection.getItems().add(course.getCourseName());
         }
+
+        ArrayList<Module> modules;
+        ArrayList<String> moduleNames = new ArrayList<>();
+        modules = DatabaseConnection.getModulesForCourse(selectedCourse);
+        for (Module module : modules){
+            moduleNames.add(module.getTitle());
+        }
+
+            ArrayList<String> listOfModuleValues = new ArrayList<>(moduleNames);
+            ObservableList<String> items = FXCollections.observableArrayList((listOfModuleValues));
+            modulesList.setItems(items);
+
 
 
     }
