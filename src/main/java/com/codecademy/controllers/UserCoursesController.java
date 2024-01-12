@@ -70,6 +70,10 @@ public class UserCoursesController implements Initializable {
     }
     public void removeCourse() {
         DatabaseConnection.unenrollUserInCourse(selectedUser, selectedCourse);
+        Alert addedAlert = new Alert(Alert.AlertType.NONE);
+        addedAlert.setAlertType(Alert.AlertType.INFORMATION);
+        addedAlert.setContentText("Successfully removed from the course");
+        addedAlert.show();
     }
 
 
