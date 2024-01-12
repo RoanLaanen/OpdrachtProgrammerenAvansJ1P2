@@ -51,21 +51,6 @@ public class UserCoursesController implements Initializable {
         }
 
 
-        ArrayList<Module> modules;
-        ArrayList<String> moduleNames = null;
-        modules = DatabaseConnection.getModulesForCourse(selectedCourse);
-        for (Module module : modules){
-            assert false;
-            moduleNames.add(module.getTitle());
-        }
-        if(moduleNames == null) {
-            ArrayList<String> listOfModuleValues = new ArrayList<>(moduleNames);
-            ObservableList<String> items = FXCollections.observableArrayList((listOfModuleValues));
-            modulesList.setItems(items);
-        }
-        else{
-            System.out.println("Error: ");
-        }
     }
 
     public void addCourseBtn() {

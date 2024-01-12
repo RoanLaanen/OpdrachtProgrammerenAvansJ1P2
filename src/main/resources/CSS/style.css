@@ -17,3 +17,18 @@
 .mainTitle {
     -fx-font-size: 50;
 }
+
+
+.webcastListView .list-cell:even { /* <=== changed to even */
+    -fx-background-color: white;
+
+}
+.webcastListView .list-cell:odd { /* <=== changed to even */
+    -fx-background-color: white;
+}
+.webcastListView .list-cell:odd:hover {
+    -fx-background-color: -fx-primary;
+}
+.webcastListView .list-cell:even:hover{
+    -fx-background-color: -fx-primary;
+}
