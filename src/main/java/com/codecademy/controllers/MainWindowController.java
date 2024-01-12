@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class MainWindowController implements Initializable {
     @FXML
-    private Stage primaryStage;
+    protected Stage primaryStage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) { }

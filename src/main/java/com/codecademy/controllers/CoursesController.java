@@ -1,7 +1,5 @@
 package com.codecademy.controllers;
 
-import com.codecademy.database.DatabaseConnection;
-import com.codecademy.models.Course;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -13,13 +11,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CoursesController implements Initializable {
     public ListView<String> courseList;
-    public ArrayList<Course> courses;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

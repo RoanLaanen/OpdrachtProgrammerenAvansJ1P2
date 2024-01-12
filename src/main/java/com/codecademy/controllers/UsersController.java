@@ -4,11 +4,8 @@ import com.codecademy.database.DatabaseConnection;
 import com.codecademy.models.Certificate;
 import com.codecademy.models.Course;
 import com.codecademy.models.User;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,7 +21,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -32,30 +28,23 @@ import java.util.*;
 public class UsersController implements Initializable {
     @FXML
     public ListView<String> userList;
-
     @FXML
     public ListView<String> certificateList;
-
     @FXML
-    public ListView courseList;
+    public ListView<String> courseList;
 
     String selectedUser;
 
     public TextField nameField;
     public TextField emailField;
     public ComboBox<String> genderField;
-
     public DatePicker dateOfBirthPicker;
     public TextField addressField;
     public TextField zipField;
     public TextField countryField;
-    private ArrayList<User> users;
-    private Collection<String> values;
 
     private ArrayList<Certificate> certificates;
-
     private ArrayList<Course> courses;
-
 
     HashMap<String, String> userNames = new HashMap<>();
     HashMap<String, String> userEmails = new HashMap<>();
@@ -65,10 +54,9 @@ public class UsersController implements Initializable {
     HashMap<String, String> userZips = new HashMap<>();
     HashMap<String, String> userCountries = new HashMap<>();
 
-
     private void extractUserData() {
 
-        users = DatabaseConnection.getAllUsers();
+        ArrayList<User> users = DatabaseConnection.getAllUsers();
         userNames.clear();
         userEmails.clear();
         userDateOfBirths.clear();
@@ -87,14 +75,12 @@ public class UsersController implements Initializable {
             userZips.put(email, user.getZip());
             userCountries.put(email, user.getCountry());
         }
-        values = userEmails.values();
-
+        Collection<String> values = userEmails.values();
 
         //Creating an ArrayList of values
-        ArrayList<String> listOfUserValues = new ArrayList<String>(values);
+        ArrayList<String> listOfUserValues = new ArrayList<>(values);
         ObservableList<String> items = FXCollections.observableArrayList((listOfUserValues));
         userList.setItems(items);
-
 
     }
 
@@ -102,55 +88,47 @@ public class UsersController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         extractUserData();
+
         genderField.getItems().setAll("Male", "Female");
-//
-        userList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                selectedUser = userList.getSelectionModel().getSelectedItem();
+        userList.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
+            selectedUser = userList.getSelectionModel().getSelectedItem();
 
-                nameField.setText(userNames.get(selectedUser));
-                emailField.setText(selectedUser);
-                dateOfBirthPicker.setValue(userDateOfBirths.get(selectedUser));
-                genderField.getSelectionModel().select(userGenders.get(selectedUser));
-                addressField.setText(userAddresses.get(selectedUser));
-                zipField.setText(userZips.get(selectedUser));
-                countryField.setText(userCountries.get(selectedUser));
-                certificates = DatabaseConnection.getCertificatesForUser(selectedUser);
-                courses = DatabaseConnection.getCoursesForUser(selectedUser);
+            nameField.setText(userNames.get(selectedUser));
+            emailField.setText(selectedUser);
+            dateOfBirthPicker.setValue(userDateOfBirths.get(selectedUser));
+            genderField.getSelectionModel().select(userGenders.get(selectedUser));
+            addressField.setText(userAddresses.get(selectedUser));
+            zipField.setText(userZips.get(selectedUser));
+            countryField.setText(userCountries.get(selectedUser));
+            certificates = DatabaseConnection.getCertificatesForUser(selectedUser);
+            courses = DatabaseConnection.getCoursesForUser(selectedUser);
 
-                ArrayList<String> certificateValues = new ArrayList<String>();
-                if (!certificates.isEmpty()) {
-                    for (Certificate certificate : certificates) {
-                        certificateValues.add(certificate.getCourseName());
-                    }
+            ArrayList<String> certificateValues = new ArrayList<>();
+            if (!certificates.isEmpty()) {
+                for (Certificate certificate : certificates) {
+                    certificateValues.add(certificate.getCourseName());
                 }
-                ArrayList<String> listOfCertificateValues = new ArrayList<String>(certificateValues);
-                ObservableList<String> Certificate = FXCollections.observableArrayList((listOfCertificateValues));
-                certificateList.setItems(Certificate);
-
-                ArrayList<String> courseValues = new ArrayList<String>();
-                if (!courses.isEmpty()) {
-                    for (Course course : courses) {
-                        courseValues.add(course.getCourseName());
-                    }
-                }
-                ArrayList<String> listOfCourseValues = new ArrayList<String>(courseValues);
-                ObservableList<String> Course = FXCollections.observableArrayList((listOfCourseValues));
-                courseList.setItems(Course);
-
             }
+
+            ArrayList<String> listOfCertificateValues = new ArrayList<>(certificateValues);
+            ObservableList<String> Certificate = FXCollections.observableArrayList((listOfCertificateValues));
+            certificateList.setItems(Certificate);
+
+            ArrayList<String> courseValues = new ArrayList<>();
+            if (!courses.isEmpty()) {
+                for (Course course : courses) {
+                    courseValues.add(course.getCourseName());
+                }
+            }
+
+            ArrayList<String> listOfCourseValues = new ArrayList<>(courseValues);
+            ObservableList<String> Course = FXCollections.observableArrayList((listOfCourseValues));
+            courseList.setItems(Course);
+
         });
     }
 
-    public void setPrimaryStage(Stage primaryStage) {
-    }
-
-    public void selectItem() {
-    }
-
-    public void changeSceneToMain(MouseEvent mouseEvent)
-            throws IOException {
+    public void changeSceneToMain(MouseEvent mouseEvent) throws IOException {
         Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/MainWindow.fxml")));
         Scene scene = new Scene(parent);
 
@@ -180,29 +158,24 @@ public class UsersController implements Initializable {
         countryField.setPromptText("Country");
     }
 
-    public void addUser(ActionEvent event) {
+    public void addUser() {
         selectedUser = null;
         clearFields();
         userList.getSelectionModel().clearSelection();
     }
 
-    public void saveUser(ActionEvent event) {
-
+    public void saveUser() {
 
         User user = new User(nameField.getText(), emailField.getText(), dateOfBirthPicker.getValue(), genderField.getSelectionModel().getSelectedItem(), addressField.getText(), zipField.getText(), countryField.getText());
 
         if (selectedUser == null) {
             DatabaseConnection.addUser(user);
-            extractUserData();
-            selectedUser = user.getEmail();
-            userList.getSelectionModel().select(selectedUser);
 
         } else {
             DatabaseConnection.updateUser(selectedUser, user);
-            extractUserData();
-            selectedUser = user.getEmail();
-            userList.getSelectionModel().select(selectedUser);
         }
+        extractUserData();
+        selectedUser = user.getEmail();
+        userList.getSelectionModel().select(selectedUser);
     }
-
 }

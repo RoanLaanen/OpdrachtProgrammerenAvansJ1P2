@@ -4,11 +4,8 @@ import com.codecademy.models.Certificate;
 import com.codecademy.models.Course;
 import com.codecademy.models.User;
 import com.codecademy.models.Level;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
+
+import java.sql.*;
 import java.util.*;
 
 public class DatabaseConnection {
@@ -45,13 +42,7 @@ public class DatabaseConnection {
             con = DriverManager.getConnection(connectionUrl);
             String SQL = "INSERT INTO [User](name, email, dateOfBirth, gender, address, zip, country) VALUES (?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
-                pst.setString(1, user.getName());
-                pst.setString(2, user.getEmail().toLowerCase());
-                pst.setString(3, user.getDateOfBirth().toString());
-                pst.setString(4, user.getGender());
-                pst.setString(5, user.getAddress());
-                pst.setString(6, user.getZip());
-                pst.setString(7, user.getCountry());
+                userDatabaseChange(user, pst);
                 pst.executeUpdate();
             }
         } catch (Exception e) {
@@ -61,18 +52,22 @@ public class DatabaseConnection {
         }
     }
 
+    public static void userDatabaseChange(User user, PreparedStatement pst) throws SQLException {
+        pst.setString(1, user.getName());
+        pst.setString(2, user.getEmail().toLowerCase());
+        pst.setString(3, user.getDateOfBirth().toString());
+        pst.setString(4, user.getGender());
+        pst.setString(5, user.getAddress());
+        pst.setString(6, user.getZip());
+        pst.setString(7, user.getCountry());
+    }
+
     public static void updateUser(String selectedUser, User updatedUser) {
         try {
             con = DriverManager.getConnection(connectionUrl);
             String SQL = "UPDATE [User] SET name = ?, email = ?, dateOfBirth = ?, gender = ?, address = ?, zip = ?, country = ? WHERE email = ?";
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
-                pst.setString(1, updatedUser.getName());
-                pst.setString(2, updatedUser.getEmail().toLowerCase());
-                pst.setString(3, updatedUser.getDateOfBirth().toString());
-                pst.setString(4, updatedUser.getGender());
-                pst.setString(5, updatedUser.getAddress());
-                pst.setString(6, updatedUser.getZip());
-                pst.setString(7, updatedUser.getCountry());
+                userDatabaseChange(updatedUser, pst);
                 pst.setString(8, selectedUser);
                 pst.executeUpdate();
             }
@@ -99,7 +94,7 @@ public class DatabaseConnection {
     }
 
     public static ArrayList<Certificate> getCertificatesForUser(String selectedUser) {
-        ArrayList<Certificate> certificates = new ArrayList<Certificate>();
+        ArrayList<Certificate> certificates = new ArrayList<>();
         try {
         con = DriverManager.getConnection(connectionUrl);
         String SQL = "SELECT * FROM [Certificate] WHERE email = ?";
@@ -119,7 +114,7 @@ public class DatabaseConnection {
     }
 
     public static ArrayList<Course> getCoursesForUser(String selectedUser) {
-        ArrayList<Course> courses = new ArrayList<Course>();
+        ArrayList<Course> courses = new ArrayList<>();
         try {
             con = DriverManager.getConnection(connectionUrl);
             String SQL = "SELECT * FROM [Course] WHERE courseName = (SELECT courseName FROM [Enrollment] WHERE email = ?)";

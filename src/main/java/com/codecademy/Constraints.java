@@ -2,7 +2,7 @@ package com.codecademy;
 
 public class Constraints {
     public boolean checkEmail(String email){
-        String regex = "^.@...*$";
+        String regex = "^.@..+$";
         return email.matches(regex);
        
     }
