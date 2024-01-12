@@ -1,14 +1,17 @@
 package com.codecademy.models;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 public class User {
     private String name;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
     private String gender;
     private String email;
     private String zip;
     private String address;
     private String country;
-    public User(String name, String email, String dateOfBirth, String gender, String address, String zip,String country){
+    public User(String name, String email, LocalDate dateOfBirth, String gender, String address, String zip,String country){
         this.name = name;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
@@ -23,17 +26,12 @@ public class User {
     public String getName() {
         return name;
     }
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
     public String getGender() {
-        if (gender.equals("0")) {
-            return "Female";
-        }
-        return "Male";
+        return gender;
     }
-
-    public String getGenderBit() { return gender; }
     public String getEmail() {
         return email.toLowerCase();
     }

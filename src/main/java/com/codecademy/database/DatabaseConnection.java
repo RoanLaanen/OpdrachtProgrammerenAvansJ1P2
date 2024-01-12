@@ -22,7 +22,7 @@ public class DatabaseConnection {
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
             while (rs.next()) {
-                users.add(new User(rs.getString("name"), rs.getString("email"), rs.getString("dateOfBirth"), rs.getString("isMale"), rs.getString("address"), rs.getString("zip"), rs.getString("country")));
+                users.add(new User(rs.getString("name"), rs.getString("email"), rs.getDate("dateOfBirth").toLocalDate(), rs.getString("gender"), rs.getString("address"), rs.getString("zip"), rs.getString("country")));
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
@@ -40,12 +40,12 @@ public class DatabaseConnection {
     public static void addUser(User user) {
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "INSERT INTO [User](name, email, dateOfBirth, isMale, address, zip, country) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String SQL = "INSERT INTO [User](name, email, dateOfBirth, gender, address, zip, country) VALUES (?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, user.getName());
                 pst.setString(2, user.getEmail().toLowerCase());
-                pst.setString(3, user.getDateOfBirth());
-                pst.setString(4, user.getGenderBit());
+                pst.setString(3, user.getDateOfBirth().toString());
+                pst.setString(4, user.getGender());
                 pst.setString(5, user.getAddress());
                 pst.setString(6, user.getZip());
                 pst.setString(7, user.getCountry());
@@ -61,12 +61,12 @@ public class DatabaseConnection {
     public static void updateUser(String selectedUser, User updatedUser) {
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "UPDATE [User] SET name = ?, email = ?, dateOfBirth = ?, isMale = ?, address = ?, zip = ?, country = ? WHERE email = ?";
+            String SQL = "UPDATE [User] SET name = ?, email = ?, dateOfBirth = ?, gender = ?, address = ?, zip = ?, country = ? WHERE email = ?";
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, updatedUser.getName());
                 pst.setString(2, updatedUser.getEmail().toLowerCase());
-                pst.setString(3, updatedUser.getDateOfBirth());
-                pst.setString(4, updatedUser.getGenderBit());
+                pst.setString(3, updatedUser.getDateOfBirth().toString());
+                pst.setString(4, updatedUser.getGender());
                 pst.setString(5, updatedUser.getAddress());
                 pst.setString(6, updatedUser.getZip());
                 pst.setString(7, updatedUser.getCountry());

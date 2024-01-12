@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -21,6 +22,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.*;
 
 
@@ -35,8 +38,9 @@ public class UsersController implements Initializable {
 
     public TextField nameField;
     public TextField emailField;
-    public TextField dobField;
     public ComboBox<String> genderField;
+
+    public DatePicker dateOfBirthPicker;
     public TextField addressField;
     public TextField zipField;
     public TextField countryField;
@@ -45,7 +49,7 @@ public class UsersController implements Initializable {
 
     HashMap<String, String> userNames = new HashMap<>();
     HashMap<String, String> userEmails = new HashMap<>();
-    HashMap<String, String> userDateOfBirths = new HashMap<>();
+    HashMap<String, LocalDate> userDateOfBirths = new HashMap<>();
     HashMap<String, String> userGenders = new HashMap<>();
     HashMap<String, String> userAddresses = new HashMap<>();
     HashMap<String, String> userZips = new HashMap<>();
@@ -95,7 +99,7 @@ public class UsersController implements Initializable {
 
                 nameField.setText(userNames.get(selectedUser));
                 emailField.setText(selectedUser);
-                dobField.setText(userDateOfBirths.get(selectedUser));
+                dateOfBirthPicker.setValue(userDateOfBirths.get(selectedUser));
                 genderField.getSelectionModel().select(userGenders.get(selectedUser));
                 addressField.setText(userAddresses.get(selectedUser));
                 zipField.setText(userZips.get(selectedUser));
@@ -132,8 +136,7 @@ public class UsersController implements Initializable {
         nameField.setPromptText("Name");
         emailField.clear();
         emailField.setPromptText("Email");
-        dobField.clear();
-        dobField.setPromptText("Date of Birth");
+        dateOfBirthPicker.setPromptText("Date of Birth");
         genderField.setPromptText("Gender");
         addressField.clear();
         addressField.setPromptText("Address");
@@ -151,14 +154,9 @@ public class UsersController implements Initializable {
 
     public void saveUser(ActionEvent event) {
 
-        String gender;
-        if (Objects.equals(genderField.getSelectionModel().getSelectedItem(), "Male")) {
-            gender = "1";
-        } else {
-            gender = "0";
-        }
 
-        User user = new User(nameField.getText(), emailField.getText(), dobField.getText(), gender, addressField.getText(), zipField.getText(), countryField.getText());
+
+        User user = new User(nameField.getText(), emailField.getText(), dateOfBirthPicker.getValue(), genderField.getSelectionModel().getSelectedItem(), addressField.getText(), zipField.getText(), countryField.getText());
 
         if (selectedUser == null) {
             DatabaseConnection.addUser(user);
