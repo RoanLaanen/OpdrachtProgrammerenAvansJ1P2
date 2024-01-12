@@ -10,12 +10,23 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class UserCoursesController implements Initializable {
+
+    String selectedUser;
+    String selectedCourse;
+
     @Override
-    public void initialize(URL location, ResourceBundle resources) { }
+    public void initialize(URL location, ResourceBundle resources) {
+//        ArrayList<String> data = (ArrayList<String>) stage.getUserData();
+//        selectedUser = data.get(0);
+//        selectedCourse = data.get(1);
+//        System.out.println(selectedCourse);
+//        System.out.println(selectedUser);
+    }
 
 
     public void changeSceneToMain(MouseEvent mouseEvent) throws IOException {

@@ -1,6 +1,7 @@
 package com.codecademy.views;
 
 import com.codecademy.Main;
+import com.codecademy.controllers.UsersController;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -16,6 +17,8 @@ public class UserCourses extends Application{
         stage.setTitle("Users");
 
         URL url = getClass().getResource("/UserCourses.fxml");
+
+
         Main.createStage(stage, url);
     }
     public static void main(String[] args) {

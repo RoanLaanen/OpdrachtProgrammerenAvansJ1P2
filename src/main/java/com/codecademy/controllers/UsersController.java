@@ -34,6 +34,7 @@ public class UsersController implements Initializable {
     public ListView<String> courseList;
 
     String selectedUser;
+    String selectedCourse;
 
     public TextField nameField;
     public TextField emailField;
@@ -131,6 +132,7 @@ public class UsersController implements Initializable {
 
         courseList.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             try {
+                 selectedUser = userList.getSelectionModel().getSelectedItem();
                 changeSceneToUserCourses(courseList);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -143,10 +145,18 @@ public class UsersController implements Initializable {
 
 
     public void changeSceneToUserCourses(Node node) throws IOException {
+        ArrayList<String> data = new ArrayList<>();
+        data.add(selectedUser);
+        data.add(selectedCourse);
+
+
         Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/userCourses.fxml")));
         Scene scene = new Scene(parent);
 
         Stage window = (Stage) node.getScene().getWindow();
+
+        window.setUserData(data);
+
         window.setScene(scene);
         window.show();
     }
