@@ -280,6 +280,50 @@ public class DatabaseConnection {
         }
         return modules;
     }
+    public static ArrayList<ArrayList<String>> getAvailableModules() {
+        ArrayList<String> availableModules = new ArrayList<>();
+        ArrayList<String> availableModuleIds = new ArrayList<>();
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT * FROM [Module] LEFT JOIN [ContentItem] ON [Module].contentId = [ContentItem].contentId WHERE courseName IS NULL";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    availableModules.add(rs.getString("title"));
+                    availableModuleIds.add(rs.getString("contentId"));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Erroreee: " + e);
+        } finally {
+            closeConnection(con);
+        }
+
+        ArrayList<ArrayList<String>> doeble = new ArrayList<>();
+        doeble.add(availableModules);
+        doeble.add(availableModuleIds);
+
+        return doeble;
+    };
+
+    public static void addModuleToCourse(String courseName, String contentId) {
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "UPDATE [Module] SET courseName = ? WHERE contentId = ?";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, courseName);
+                pst.setString(2, contentId);
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+    }
+
+
+
 
     public static float getAvgCompletionRateModule(int contentId) {
         float avgCompletionRate = 0.0F;
