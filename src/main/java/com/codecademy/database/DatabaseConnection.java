@@ -350,6 +350,52 @@ public class DatabaseConnection {
         return 0;
     }
 
+    public static ArrayList<Webcast> getWebcasts() {
+        ArrayList<Webcast> webcasts = new ArrayList<>();
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT * FROM [Webcast] LEFT JOIN [ContentItem] ON [Webcast].contentId = [ContentItem].contentId";
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                webcasts.add(new Webcast(Status.valueOf(rs.getString("status")), LocalDate.parse(rs.getString("publishingDate")), rs.getString("title"), rs.getInt("duration"), rs.getString("description"), rs.getString("nameSpeaker"), rs.getString("orgSpeaker"), rs.getInt("contentId"), rs.getString("url")));
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            }
+            closeConnection(con);
+        }
+        return webcasts;
+    }
+
+    public static ArrayList<Webcast> getTopWebcasts() {
+        ArrayList<Webcast> webcasts = new ArrayList<>();
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT * FROM [Webcast] LEFT JOIN [ContentItem] ON [Webcast].contentId = [ContentItem].contentId WHERE Webcast.contentId IN (SELECT TOP(3) contentId FROM [Viewed] GROUP BY contentId ORDER BY COUNT(contentId) DESC)";
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                webcasts.add(new Webcast(Status.valueOf(rs.getString("status")), LocalDate.parse(rs.getString("publishingDate")), rs.getString("title"), rs.getInt("duration"), rs.getString("description"), rs.getString("nameSpeaker"), rs.getString("orgSpeaker"), rs.getInt("contentId"), rs.getString("url")));
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            }
+            closeConnection(con);
+        }
+        return webcasts;
+    }
+
 }
 
 

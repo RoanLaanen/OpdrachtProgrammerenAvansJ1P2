@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<Pane id="main" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@CSS/style.css, @CSS/MainWindow.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.MainWindowController">
+<Pane id="main" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@CSS/style.css, @CSS/MainWindow.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.MainWindowController">
 
       <Text id="mainWindowTitle" layoutX="376.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Codecademy" textAlignment="CENTER" wrappingWidth="347.935546875" />
       <Text id="mainWindowSubTitle" layoutX="431.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Management tool" textAlignment="CENTER" />
@@ -16,6 +16,6 @@
       <VBox id="footer" alignment="CENTER" layoutY="720.0" prefHeight="30.0" prefWidth="1100.0">
           <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #e3e1e9" text="Made by: Roan Laanen, Stef Rensma, Dymo Waltheer" textAlignment="CENTER" wrappingWidth="1100.0" />
       </VBox>
-   <Button id="mainWindowBtn" layoutX="724.0" layoutY="265.0" mnemonicParsing="false" onAction="#changeSceneToCourses" prefHeight="180.0" prefWidth="300.0" styleClass="btn" text="Webcasts" />
+   <Button id="mainWindowBtn" layoutX="724.0" layoutY="265.0" mnemonicParsing="false" onAction="#changeSceneToWebcasts" prefHeight="180.0" prefWidth="300.0" styleClass="btn" text="Webcasts" />
 
 </Pane>

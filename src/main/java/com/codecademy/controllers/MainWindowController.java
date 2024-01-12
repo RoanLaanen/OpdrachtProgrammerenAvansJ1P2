@@ -43,4 +43,13 @@ public class MainWindowController implements Initializable {
         window.show();
     }
 
+    public void changeSceneToWebcasts(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Webcasts.fxml")));
+        Scene scene = new Scene(parent);
+
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
+
 }
