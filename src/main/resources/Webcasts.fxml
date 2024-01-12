@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<Pane id="main" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@CSS/style.css, @CSS/Users.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.WebcastsController">
+   <children>
+      <Line endX="755.0" endY="-13.0" layoutX="345.0" layoutY="138.0" startX="-345.0" startY="-13.0" />
+      <Line endX="-104.20709228515625" endY="487.0" layoutX="275.0" layoutY="263.0" startX="-104.20709228515625" startY="-263.0" />
+      <Text layoutX="58.0" layoutY="76.0" onMouseClicked="#changeSceneToMain" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;">
+         <font>
+            <Font name="Rockwell" size="50.0" />
+         </font>
+      </Text>
+      <Text layoutX="503.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Webcasts" wrappingWidth="210.8828125">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Text>
+      <Text layoutX="767.0" layoutY="405.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Most Viewed Webcasts" />
+      <Text layoutX="373.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All Webcasts" />
+      <ListView layoutX="275.0" layoutY="226.0" prefHeight="507.0" prefWidth="263.0" />
+      <Label layoutX="767.0" layoutY="413.0" prefHeight="17.0" prefWidth="201.0" text="1. " />
+      <Label layoutX="767.0" layoutY="436.0" prefHeight="17.0" prefWidth="201.0" text="2. " />
+      <Label layoutX="767.0" layoutY="463.0" prefHeight="17.0" prefWidth="201.0" text="3. " />
+   </children>
+</Pane>
