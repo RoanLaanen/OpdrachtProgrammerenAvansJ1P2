@@ -1,6 +1,6 @@
 package com.codecademy.controllers;
 
-import com.codecademy.DataSingleton;
+import com.codecademy.models.DataSingleton;
 import com.codecademy.database.DatabaseConnection;
 import com.codecademy.models.Certificate;
 import com.codecademy.models.Course;
