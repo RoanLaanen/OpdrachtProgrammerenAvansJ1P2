@@ -19,3 +19,8 @@
 .title {
     -fx-font-size: 18;
 }
+.label{
+    -fx-border-color: -fx-primary;
+    -fx-border-width: 3;
+
+}

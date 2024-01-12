@@ -1,4 +1,4 @@
-package com.codecademy;
+package com.codecademy.models;
 
 
 public class DataSingleton {
