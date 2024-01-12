@@ -1,6 +1,6 @@
 package com.codecademy.models;
 
-public class Webcast {
+public class Webcast extends ContentItem{
     private String title;
     private String description;
     private String nameLecturer;

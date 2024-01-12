@@ -1,6 +1,6 @@
 package com.codecademy.models;
 
-public class Module {
+public class Module extends ContentItem {
     private String title;
     private float version;
     private String description;
