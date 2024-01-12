@@ -43,7 +43,7 @@ public class DatabaseConnection {
             String SQL = "INSERT INTO [User](name, email, dateOfBirth, isMale, address, zip, country) VALUES (?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, user.getName());
-                pst.setString(2, user.getEmail());
+                pst.setString(2, user.getEmail().toLowerCase());
                 pst.setString(3, user.getDateOfBirth());
                 pst.setString(4, user.getGenderBit());
                 pst.setString(5, user.getAddress());
@@ -64,7 +64,7 @@ public class DatabaseConnection {
             String SQL = "UPDATE [User] SET name = ?, email = ?, dateOfBirth = ?, isMale = ?, address = ?, zip = ?, country = ? WHERE email = ?";
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, updatedUser.getName());
-                pst.setString(2, updatedUser.getEmail());
+                pst.setString(2, updatedUser.getEmail().toLowerCase());
                 pst.setString(3, updatedUser.getDateOfBirth());
                 pst.setString(4, updatedUser.getGenderBit());
                 pst.setString(5, updatedUser.getAddress());
