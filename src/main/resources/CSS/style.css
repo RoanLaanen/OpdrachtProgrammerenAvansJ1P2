@@ -1,6 +1,5 @@
 .root {
     -fx-surface:#eff0f3;
-    /*-fx-surfaceText: #1d1b20;*/
 
     -fx-primary: #625b71;
     -fx-primaryText: #ffffff;
@@ -16,6 +15,5 @@
 }
 
 .mainTitle {
-    -fx-font: "Rockwell";
     -fx-font-size: 50;
 }
