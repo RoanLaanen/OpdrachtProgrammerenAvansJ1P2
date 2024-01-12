@@ -18,27 +18,22 @@
     <Line endX="-104.20709228515625" endY="487.0" layoutX="275.0" layoutY="263.0" startX="-104.20709228515625" startY="-263.0" />
     <Line endX="-104.20703125" endY="361.0" layoutX="716.0" layoutY="389.0" startX="-104.20709228515625" startY="-263.0" />
 
-    <Text layoutX="58.0" layoutY="76.0" onMouseClicked="#changeSceneToMain" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;"><font><Font name="Rockwell" size="50.0" /></font></Text>
-
-    <Text layoutX="520.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Courses" wrappingWidth="184.8828125"><font><Font size="50.0" /></font></Text>
+    <Text styleClass="mainTitle" layoutX="58.0" layoutY="76.0" onMouseClicked="#changeSceneToMain" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;"/>
+    <Text styleClass="mainTitle" layoutX="520.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Courses" wrappingWidth="184.8828125"/>
 
     <ListView fx:id="courseList" layoutY="123.0" prefHeight="628.0" prefWidth="171.0" />
-   <Text layoutX="369.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Data" />
-   <TextField fx:id="nameField" layoutX="262.0" layoutY="208.0" prefHeight="8.0" prefWidth="254.0" styleClass="dataField" text="courseName" />
-   <TextArea fx:id="introTextArea" layoutX="262.0" layoutY="251.0" prefHeight="131.0" prefWidth="254.0" styleClass="dataArea" wrapText="true" />
-   <TextField fx:id="topicField" layoutX="263.0" layoutY="385.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="topic" />
-   <ComboBox fx:id="levelBox" layoutX="262.0" layoutY="430.0" prefHeight="25.0" prefWidth="254.0" promptText="level">
-      <styleClass>
-         <String fx:value="dataField" />
-         <String fx:value="btn" />
-      </styleClass></ComboBox>
-   <Label fx:id="completionText" layoutX="270.0" layoutY="485.0" styleClass="title" text="User completion count: xxx" textAlignment="CENTER" />
-   <Text layoutX="819.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subTitle" text="Modules" />
-   <ListView fx:id="modulesList" layoutX="617.0" layoutY="173.0" prefHeight="567.0" prefWidth="480.0" />
+    <Text layoutX="369.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Data" />
+    <TextField fx:id="nameField" layoutX="262.0" layoutY="208.0" prefHeight="8.0" prefWidth="254.0" styleClass="dataField" text="courseName" />
+    <TextArea fx:id="introTextArea" layoutX="262.0" layoutY="251.0" prefHeight="131.0" prefWidth="254.0" styleClass="dataArea" wrapText="true" />
+    <TextField fx:id="topicField" layoutX="263.0" layoutY="385.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="topic" />
+    <ComboBox styleClass="btn, dataField" fx:id="levelBox" layoutX="262.0" layoutY="430.0" prefHeight="25.0" prefWidth="254.0" promptText="level"/>
+    <Label fx:id="completionText" layoutX="270.0" layoutY="485.0" styleClass="title" text="User completion count: xxx" textAlignment="CENTER" />
+    <Text layoutX="819.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subTitle" text="Modules" />
+    <ListView fx:id="modulesList" layoutX="617.0" layoutY="173.0" prefHeight="567.0" prefWidth="480.0" />
     <Button layoutX="185.0" layoutY="661.0" mnemonicParsing="false" onAction="#saveCourse" prefHeight="67.0" prefWidth="130.0" styleClass="btn" text="Save Course" />
     <Button layoutX="463.0" layoutY="661.0" mnemonicParsing="false" onAction="#deleteCourse" prefHeight="67.0" prefWidth="130.0" styleClass="btn" text="Delete Course" />
     <Button layoutX="324.0" layoutY="661.0" mnemonicParsing="false" onAction="#addCourse" prefHeight="67.0" prefWidth="130.0" styleClass="btn" text="Add Course" />
-   <Label fx:id="completionTextMale" layoutX="270.0" layoutY="515.0" styleClass="title" text="Male completion rate: xxx" />
-   <Label fx:id="completionTextFemale" layoutX="270.0" layoutY="545.0" styleClass="title" text="Female completion rate: xxx" />
+    <Label fx:id="completionTextMale" layoutX="270.0" layoutY="515.0" styleClass="title" text="Male completion rate: xxx" />
+    <Label fx:id="completionTextFemale" layoutX="270.0" layoutY="545.0" styleClass="title" text="Female completion rate: xxx" />
 
 </Pane>

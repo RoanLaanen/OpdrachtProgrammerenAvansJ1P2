@@ -15,4 +15,7 @@
     -fx-fill: -fx-surfaceText;
 }
 
-
+.mainTitle {
+    -fx-font: "Rockwell";
+    -fx-font-size: 50;
+}

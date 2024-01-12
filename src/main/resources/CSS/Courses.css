@@ -37,14 +37,6 @@
     -fx-font-size: 14;
 }
 
-/*.list-view .list-cell:even {*/
-/*    -fx-background-color: -fx-surface;*/
-/*    -fx-text-fill: black;*/
-/*}*/
-/*.list-view .list-cell:odd {*/
-/*    -fx-background-color: -fx-surface;*/
-/*    -fx-text-fill: black;*/
-/*}*/
 .dataArea {
     -fx-font-size: 12px;
 }
