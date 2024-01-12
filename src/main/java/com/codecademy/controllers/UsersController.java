@@ -1,5 +1,6 @@
 package com.codecademy.controllers;
 
+import com.codecademy.DataSingleton;
 import com.codecademy.database.DatabaseConnection;
 import com.codecademy.models.Certificate;
 import com.codecademy.models.Course;
@@ -43,6 +44,8 @@ public class UsersController implements Initializable {
     public TextField addressField;
     public TextField zipField;
     public TextField countryField;
+
+    DataSingleton data = DataSingleton.getInstance();
 
     private ArrayList<Certificate> certificates;
     private ArrayList<Course> courses;
@@ -133,6 +136,7 @@ public class UsersController implements Initializable {
         courseList.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             try {
                  selectedUser = userList.getSelectionModel().getSelectedItem();
+                 selectedCourse = courseList.getSelectionModel().getSelectedItem();
                 changeSceneToUserCourses(courseList);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -145,9 +149,8 @@ public class UsersController implements Initializable {
 
 
     public void changeSceneToUserCourses(Node node) throws IOException {
-        ArrayList<String> data = new ArrayList<>();
-        data.add(selectedUser);
-        data.add(selectedCourse);
+        data.setSelectedUser(selectedUser);
+        data.setSelectedCourse(selectedCourse);
 
 
         Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/userCourses.fxml")));

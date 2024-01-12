@@ -1,5 +1,6 @@
 package com.codecademy.controllers;
 
+import com.codecademy.DataSingleton;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -18,14 +19,12 @@ public class UserCoursesController implements Initializable {
 
     String selectedUser;
     String selectedCourse;
-
+    DataSingleton data = DataSingleton.getInstance();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        ArrayList<String> data = (ArrayList<String>) stage.getUserData();
-//        selectedUser = data.get(0);
-//        selectedCourse = data.get(1);
-//        System.out.println(selectedCourse);
-//        System.out.println(selectedUser);
+        selectedUser = data.getSelectedUser();
+        selectedCourse = data.getSelectedCourse();
+
     }
 
 
