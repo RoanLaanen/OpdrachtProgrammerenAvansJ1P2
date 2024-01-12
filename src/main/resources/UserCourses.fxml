@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane id="main" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@CSS/style.css, @CSS/UserCourses.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.UserCoursesController">
+<Pane id="main" fx:id="topic" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@CSS/style.css, @CSS/UserCourses.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.UserCoursesController">
 
    <Line endX="755.0" endY="-13.0" layoutX="345.0" layoutY="138.0" startX="-345.0" startY="-13.0" />
    <Line endX="-104.20709228515625" endY="487.0" layoutX="275.0" layoutY="263.0" startX="-104.20709228515625" startY="-263.0" />
@@ -32,22 +32,22 @@
          <String fx:value="btn" />
       </styleClass>
    </ComboBox>
-   <Label layoutX="243.0" layoutY="222.0" prefHeight="20.0" prefWidth="288.0" text="courseName">
+   <Label fx:id="courseNameUser" layoutX="243.0" layoutY="222.0" prefHeight="20.0" prefWidth="288.0" text="courseName">
       <font>
          <Font size="14.0" />
       </font>
    </Label>
-   <Label alignment="TOP_LEFT" layoutX="242.0" layoutY="253.0" prefHeight="202.0" prefWidth="288.0" text="introText">
+   <Label fx:id="topicUser" layoutX="243.0" layoutY="466.0" prefHeight="20.0" prefWidth="288.0" text="topic">
       <font>
          <Font size="14.0" />
       </font>
    </Label>
-   <Label layoutX="243.0" layoutY="466.0" prefHeight="20.0" prefWidth="288.0" text="topic">
+   <Label fx:id="levelUser" layoutX="242.0" layoutY="508.0" prefHeight="20.0" prefWidth="288.0" text="level">
       <font>
          <Font size="14.0" />
       </font>
    </Label>
-   <Label layoutX="242.0" layoutY="508.0" prefHeight="20.0" prefWidth="288.0" text="level">
+   <Label fx:id="introTextUser" alignment="TOP_LEFT" layoutX="242.0" layoutY="248.0" prefHeight="218.0" prefWidth="288.0" text="introText asd fasdlf alsjdfbh kasdgflkas dlfhasdlk fhalksdh flkashd klfhas" wrapText="true">
       <font>
          <Font size="14.0" />
       </font>

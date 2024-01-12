@@ -304,8 +304,7 @@ public class DatabaseConnection {
             }
             if (amountTotal == 0) {
                 return 0.0F;
-            }
-            else {
+            } else {
                 return (float) amountCompleted / amountTotal * 100;
             }
         } catch (Exception e) {
@@ -338,8 +337,7 @@ public class DatabaseConnection {
             }
             if (amountTotal == 0) {
                 return 0.0F;
-            }
-            else {
+            } else {
                 return (float) amountCompleted / amountTotal * 100;
             }
         } catch (Exception e) {
@@ -395,6 +393,28 @@ public class DatabaseConnection {
         }
         return webcasts;
     }
+
+    public static Course getCourseFromName(String selectedCourse) {
+        Course courseObject = null;
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT TOP(1) * FROM [Course] WHERE courseName = ?";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, selectedCourse);
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    courseObject = new Course(rs.getString("courseName"), rs.getString("topic"), rs.getString("introText"), Level.valueOf(rs.getString("level")));
+                }
+
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+        return courseObject;
+    }
+
 
 }
 
