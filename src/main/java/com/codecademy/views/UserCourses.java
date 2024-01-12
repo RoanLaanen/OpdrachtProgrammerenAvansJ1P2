@@ -1,8 +1,6 @@
 package com.codecademy.views;
 
 import com.codecademy.Main;
-import com.codecademy.controllers.UsersController;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 

@@ -79,13 +79,13 @@ public class UserCoursesController implements Initializable {
 
 
 
-    public void changeSceneToMain(MouseEvent mouseEvent) throws IOException {
-        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/MainWindow.fxml")));
+
+    public void  changeSceneToUsers(MouseEvent mouseEvent) throws IOException {
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Users.fxml")));
         Scene scene = new Scene(parent);
 
         Stage window = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
     }
-
 }
