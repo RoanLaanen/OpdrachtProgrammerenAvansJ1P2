@@ -31,11 +31,13 @@ public class CoursesController implements Initializable {
     public Label completionTextMale;
 
     public Label completionTextFemale;
+    public ListView<String> addModulesList;
     String selectedCourse;
     public ListView<String> courseList;
     public TextField nameField;
     public TextField topicField;
     public ListView<String> modulesList;
+    public ObservableList<String> itemsAvailable;
 
     HashMap<String, String> courseNames = new HashMap<>();
     HashMap<String, String> topics = new HashMap<>();
@@ -83,19 +85,32 @@ public class CoursesController implements Initializable {
             introTextArea.setText(introTexts.get(selectedCourse));
             topicField.setText(topics.get(selectedCourse));
             levelBox.getSelectionModel().select(levels.get(selectedCourse));
-            ArrayList<Module> modules = new ArrayList<Module>();
-            modules = DatabaseConnection.getModulesForCourse(courseList.getSelectionModel().getSelectedItem());
-            ArrayList<String> moduleNames = new ArrayList<String>();
 
+            ArrayList<Module> modules;
+            modules = DatabaseConnection.getModulesForCourse(courseList.getSelectionModel().getSelectedItem());
+            ArrayList<String> moduleNames = new ArrayList<>();
             for (Module module : modules) {
                 moduleNames.add(module.getTitle() + "                                   Average Completion: " + DatabaseConnection.getAvgCompletionRateModule(module.getContentID()) + "%");
             }
-
-
-
             ArrayList<String> listOfModuleValues = new ArrayList<>(moduleNames);
             ObservableList<String> items = FXCollections.observableArrayList((listOfModuleValues));
+
             modulesList.setItems(items);
+
+        });
+        ArrayList<String> availableModules;
+        ArrayList<ArrayList<String>> doeble = DatabaseConnection.getAvailableModules();
+        availableModules = doeble.get(0);
+        ArrayList<String> availableModuleIds = doeble.get(1);
+        ArrayList<String> listOfAvailableModuleValues = new ArrayList<>(availableModules);
+        itemsAvailable = FXCollections.observableArrayList((listOfAvailableModuleValues));
+
+        addModulesList.setItems(itemsAvailable);
+
+        addModulesList.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
+            String selectedModule = courseList.getSelectionModel().getSelectedItem();
+            String selectedId = availableModuleIds.get(availableModules.indexOf(addModulesList.getSelectionModel().getSelectedItem()));
+            DatabaseConnection.addModuleToCourse(selectedModule, selectedId);
         });
     }
 
