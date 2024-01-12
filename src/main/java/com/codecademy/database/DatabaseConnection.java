@@ -2,6 +2,8 @@ package com.codecademy.database;
 
 import com.codecademy.models.Course;
 import com.codecademy.models.Level;
+import com.codecademy.models.User;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -25,10 +27,6 @@ public class DatabaseConnection {
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
 
-            while (rs.next()) {
-                System.out.println(rs.getString("email"));
-            }
-
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
@@ -42,9 +40,9 @@ public class DatabaseConnection {
 
     }
 
-    public static ArrayList<ArrayList<String>> getAllUsers() {
+    public static ArrayList<User> getAllUsers() {
 
-        ArrayList<ArrayList<String>> users = new ArrayList<>();
+        ArrayList<User> users = new ArrayList<>();
 
         try {
 
@@ -54,15 +52,7 @@ public class DatabaseConnection {
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
-                ArrayList<String> row = new ArrayList<>();
-                row.add(rs.getString("name"));
-                row.add(rs.getString("email"));
-                row.add(rs.getString("dateOfBirth"));
-                row.add(rs.getString("gender"));
-                row.add(rs.getString("address"));
-                row.add(rs.getString("zip"));
-                row.add(rs.getString("country"));
-                users.add(row);
+                users.add(new User(rs.getString("name"), rs.getString("email"), rs.getString("dateOfBirth"), rs.getString("gender"), rs.getString("address"), rs.getString("zip"), rs.getString("country")));
             }
 
         } catch (Exception e) {

@@ -1,6 +1,7 @@
 package com.codecademy.controllers;
 
 import com.codecademy.database.DatabaseConnection;
+import com.codecademy.models.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -39,7 +40,7 @@ public class UsersController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ArrayList<ArrayList<String>> users;
+        ArrayList<User> users;
         users = DatabaseConnection.getAllUsers();
 
         ArrayList<String> userNames = new ArrayList<>();
@@ -50,14 +51,14 @@ public class UsersController implements Initializable {
         ArrayList<String> userZips = new ArrayList<>();
         ArrayList<String> userCountries = new ArrayList<>();
 
-        for (ArrayList<String> object : users) {
-            userNames.add(object.get(0));
-            userEmails.add(object.get(1));
-            userDateOfBirths.add(object.get(2));
-            userGenders.add(object.get(3));
-            userAddresses.add(object.get(4));
-            userZips.add(object.get(5));
-            userCountries.add(object.get(6));
+        for (User user : users) {
+            userNames.add(user.getName());
+            userEmails.add(user.getEmail());
+            userDateOfBirths.add(user.getDateOfBirth());
+            userGenders.add(String.valueOf(user.getGender()));
+            userAddresses.add(user.getAddress());
+            userZips.add(user.getZip());
+            userCountries.add(user.getCountry());
         }
 
 
@@ -74,13 +75,7 @@ public class UsersController implements Initializable {
                 nameField.setText(userNames.get(index));
                 emailField.setText(selectedUser);
                 dobField.setText(userDateOfBirths.get(index));
-                String gender = userGenders.get(index);
-                if (gender.equals("1")) {
-                    genderField.setText("male");
-                }
-                if (gender.equals("0")) {
-                    genderField.setText("female");
-                }
+                genderField.setText(userGenders.get(index));
                 addressField.setText(userAddresses.get(index));
                 zipField.setText(userZips.get(index));
                 countryField.setText(userCountries.get(index));

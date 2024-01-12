@@ -3,18 +3,18 @@ package com.codecademy.models;
 public class User {
     private String name;
     private String dateOfBirth;
-    private int gender;
+    private String gender;
     private String email;
-    private String residence;
+    private String zip;
     private String address;
     private String country;
-    public User(String name,String dateOfBirth, int gender,String email,String residence,String address,String country){
+    public User(String name, String email, String dateOfBirth, String gender, String address, String zip,String country){
         this.name = name;
+        this.email = email;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
-        this.email = email;
-        this.residence = residence;
         this.address = address;
+        this.zip = zip;
         this.country = country;
     }
     public String getName() {
@@ -23,8 +23,11 @@ public class User {
     public String getDateOfBirth() {
         return dateOfBirth;
     }
-    public int getGender() {
-        return gender;
+    public String getGender() {
+        if (gender.equals("0")) {
+            return "female";
+        }
+        return "male";
     }
     public String getEmail() {
         return email;
@@ -38,7 +41,7 @@ public class User {
         return country;
     }
 
-    public String getResidence() {
-        return residence;
+    public String getZip() {
+        return zip;
     }
 }
