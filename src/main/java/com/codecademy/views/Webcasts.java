@@ -13,7 +13,7 @@ public class Webcasts extends Application{
 
     @Override
     public void start(Stage stage) throws IOException {
-        stage.setTitle("Webcasts");
+        stage.setTitle("Roan Laanen (2197302), Dymo Waltheer (2215378), Stef Rensma (2217058)");
 
         URL url = getClass().getResource("/Webcasts.fxml");
         Main.createStage(stage, url);
