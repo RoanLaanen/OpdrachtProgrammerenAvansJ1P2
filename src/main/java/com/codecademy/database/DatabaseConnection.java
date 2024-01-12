@@ -18,27 +18,7 @@ public class DatabaseConnection {
     private static Statement stmt = null;
     private static ResultSet rs = null;
 
-    public static void updateCursusArray() {
 
-        try {
-
-            con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT * FROM [User]";
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(SQL);
-
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        } finally {
-            if (rs != null) try {
-                rs.close();
-            } catch (Exception e) {
-                System.out.println("Error: " + e);
-            }
-            closeConnection(con, stmt);
-        }
-
-    }
 
     public static ArrayList<User> getAllUsers() {
 
@@ -78,7 +58,6 @@ public class DatabaseConnection {
             System.out.println("Error: " + e);
         } finally {
             closeConnection(con, stmt);
-            updateCursusArray();
         }
     }
 
@@ -100,7 +79,28 @@ public class DatabaseConnection {
             System.out.println("Error: " + e);
         } finally {
             closeConnection(con, stmt);
-            updateCursusArray();
+        }
+    }
+
+    public static void updateUser(String selectedUser, User updatedUser) {
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "UPDATE [User] SET name = ?, email = ?, dateOfBirth = ?, isMale = ?, address = ?, zip = ?, country = ? WHERE email = ?";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, updatedUser.getName());
+                pst.setString(2, updatedUser.getEmail());
+                pst.setString(3, updatedUser.getDateOfBirth());
+                pst.setString(4, updatedUser.getGenderBit());
+                pst.setString(5, updatedUser.getAddress());
+                pst.setString(6, updatedUser.getZip());
+                pst.setString(7, updatedUser.getCountry());
+                pst.setString(8, selectedUser);
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con, stmt);
         }
     }
 
@@ -119,7 +119,6 @@ public class DatabaseConnection {
             System.out.println("Error: " + e);
         } finally {
             closeConnection(con, stmt);
-            updateCursusArray();
         }
     }
 
@@ -134,7 +133,6 @@ public class DatabaseConnection {
             System.out.println("Error: " + e);
         } finally {
             closeConnection(con, stmt);
-            updateCursusArray();
         }
     }
 
@@ -152,7 +150,6 @@ public class DatabaseConnection {
             System.out.println("Error: " + e);
         } finally {
             closeConnection(con, stmt);
-            updateCursusArray();
         }
     }
 

@@ -37,6 +37,8 @@ public class UsersController implements Initializable {
     public TextField zipField;
     public TextField countryField;
     private ArrayList<User> users;
+    private Collection<String> values;
+
     HashMap<String, String> userNames = new HashMap<>();
     HashMap<String, String> userEmails = new HashMap<>();
     HashMap<String, String> userDateOfBirths = new HashMap<>();
@@ -45,27 +47,31 @@ public class UsersController implements Initializable {
     HashMap<String, String> userZips = new HashMap<>();
     HashMap<String, String> userCountries = new HashMap<>();
 
+
     private void extractUserData() {
 
         users = DatabaseConnection.getAllUsers();
-
-
+        userNames.clear();
+        userEmails.clear();
+        userDateOfBirths.clear();
+        userGenders.clear();
+        userAddresses.clear();
+        userZips.clear();
+        userCountries.clear();
 
         for (User user : users) {
             String email = user.getEmail();
             userNames.put(email, user.getName());
-            userEmails.put(email,user.getEmail());
-            userDateOfBirths.put(email,user.getDateOfBirth());
-            userGenders.put(email,user.getGender());
-            userAddresses.put(email,user.getAddress());
-            userZips.put(email,user.getZip());
-            userCountries.put(email,user.getCountry());
+            userEmails.put(email, user.getEmail());
+            userDateOfBirths.put(email, user.getDateOfBirth());
+            userGenders.put(email, user.getGender());
+            userAddresses.put(email, user.getAddress());
+            userZips.put(email, user.getZip());
+            userCountries.put(email, user.getCountry());
         }
+        values = userEmails.values();
 
-        Collection<String> values = userEmails.values();
-
-//Creating an ArrayList of values
-
+        //Creating an ArrayList of values
         ArrayList<String> listOfValues = new ArrayList<String>(values);
         ObservableList<String> items = FXCollections.observableArrayList((listOfValues));
         userList.setItems(items);
@@ -100,13 +106,13 @@ public class UsersController implements Initializable {
     }
 
     public void changeSceneToMain(MouseEvent mouseEvent)
-        throws IOException {
-            Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/MainWindow.fxml")));
-            Scene scene = new Scene(parent);
+            throws IOException {
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/MainWindow.fxml")));
+        Scene scene = new Scene(parent);
 
-            Stage window = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
+        Stage window = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
     }
 
     public void deleteUser() {
@@ -153,7 +159,10 @@ public class UsersController implements Initializable {
             userList.getSelectionModel().select(selectedUser);
 
         } else {
-//            DatabaseConnection.updateUser(selectedUser, user);
+            DatabaseConnection.updateUser(selectedUser, user);
+            extractUserData();
+            selectedUser = user.getEmail();
+            userList.getSelectionModel().select(selectedUser);
         }
     }
 
