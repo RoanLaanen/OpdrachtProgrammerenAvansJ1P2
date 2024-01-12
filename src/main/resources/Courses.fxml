@@ -40,8 +40,8 @@
 
     <Text layoutX="753.0" layoutY="656.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subTitle" text="Most viewed Webcasts" />
         <ListView fx:id="mostViewed" layoutX="617.0" layoutY="669.0" prefHeight="76.0" prefWidth="480.0" />
-    <Button layoutX="185.0" layoutY="661.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="130.0" styleClass="btn" text="Save Course" />
-    <Button layoutX="463.0" layoutY="661.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="130.0" styleClass="btn" text="Delete Course" />
-    <Button layoutX="324.0" layoutY="661.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="130.0" styleClass="btn" text="Add Course" />
+    <Button layoutX="185.0" layoutY="661.0" mnemonicParsing="false" onAction="#saveCourse" prefHeight="67.0" prefWidth="130.0" styleClass="btn" text="Save Course" />
+    <Button layoutX="463.0" layoutY="661.0" mnemonicParsing="false" onAction="#deleteCourse" prefHeight="67.0" prefWidth="130.0" styleClass="btn" text="Delete Course" />
+    <Button layoutX="324.0" layoutY="661.0" mnemonicParsing="false" onAction="#addCourse" prefHeight="67.0" prefWidth="130.0" styleClass="btn" text="Add Course" />
 
 </Pane>

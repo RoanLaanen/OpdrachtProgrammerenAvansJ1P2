@@ -156,6 +156,58 @@ public class DatabaseConnection {
         return courses;
     }
 
+    public static void addCourse(Course course) {
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "INSERT INTO [Course](courseName, introText, topic, level) VALUES (?, ?, ?, ?)";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, course.getCourseName());
+                pst.setString(2, course.getIntroText());
+                pst.setString(3, course.getTopic());
+                pst.setString(4, course.getLevel());
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+    }
+
+    public static void updateCourse(String selectedCourse, Course course) {
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "UPDATE [Course] SET courseName = ?, introText = ?, topic = ?, level = ? WHERE courseName = ?";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, course.getCourseName());
+                pst.setString(2, course.getIntroText());
+                pst.setString(3, course.getTopic());
+                pst.setString(4, course.getLevel());
+                pst.setString(5, selectedCourse);
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+    }
+
+    public static void deleteCourse(String selectedCourse) {
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "DELETE FROM [Course] WHERE courseName = ?";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, selectedCourse);
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+    }
+
     private static void closeConnection(Connection con) {
         if (stmt != null) try {
             stmt.close();

@@ -84,4 +84,37 @@ public class CoursesController implements Initializable {
         window.setScene(scene);
         window.show();
     }
+
+    public void saveCourse() {
+        Course newCourse = new Course(nameField.getText(), topicField.getText(), introTextArea.getText(), levelBox.getValue());
+        if(selectedCourse == null) {
+            DatabaseConnection.addCourse(newCourse);
+        }
+        else {
+            DatabaseConnection.updateCourse(selectedCourse, newCourse);
+        }
+        extractCourseData();
+        selectedCourse = newCourse.getCourseName();
+        courseList.getSelectionModel().select(selectedCourse);
+    }
+
+    public void addCourse() {
+        nameField.clear();
+        topicField.clear();
+        introTextArea.clear();
+        levelBox.getSelectionModel().clearSelection();
+        nameField.setPromptText("Course Name");
+        topicField.setPromptText("Course Topic");
+        introTextArea.setPromptText("Course Intro Text");
+        levelBox.setPromptText("Level");
+        selectedCourse = null;
+    }
+
+    public void deleteCourse() {
+        if (selectedCourse != null) {
+            DatabaseConnection.deleteCourse(selectedCourse);
+            extractCourseData();
+            selectedCourse = null;
+        }
+    }
 }
