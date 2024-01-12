@@ -11,7 +11,7 @@ import java.net.URL;
 public class MainWindow extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        stage.setTitle("Codecademy");
+        stage.setTitle("Roan Laanen (2197302), Dymo Waltheer (2215378), Stef Rensma (2217058)");
 
         URL url = getClass().getResource("/MainWindow.fxml");
         Main.createStage(stage, url);
