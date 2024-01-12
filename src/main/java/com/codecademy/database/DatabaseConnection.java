@@ -51,7 +51,7 @@ public class DatabaseConnection {
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
-                users.add(new User(rs.getString("name"), rs.getString("email"), rs.getString("dateOfBirth"), rs.getString("gender"), rs.getString("address"), rs.getString("zip"), rs.getString("country")));
+                users.add(new User(rs.getString("name"), rs.getString("email"), rs.getString("dateOfBirth"), rs.getString("isMale"), rs.getString("address"), rs.getString("zip"), rs.getString("country")));
             }
 
         } catch (Exception e) {
