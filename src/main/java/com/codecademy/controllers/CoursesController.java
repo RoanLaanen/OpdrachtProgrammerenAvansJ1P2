@@ -2,7 +2,6 @@ package com.codecademy.controllers;
 
 import com.codecademy.database.DatabaseConnection;
 import com.codecademy.models.Course;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -21,21 +20,11 @@ import java.util.ResourceBundle;
 public class CoursesController implements Initializable {
     public ListView<String> courseList;
     public ArrayList<Course> courses;
-    @FXML
-    private Stage primaryStage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         courses = DatabaseConnection.getAllCourses();
-
-
-
-
         courseList.getItems().addAll("Course 1", "Course 2", "Course 3");
-    }
-
-    public void setPrimaryStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
     }
 
     public void changeSceneToMain(MouseEvent mouseEvent) throws IOException {

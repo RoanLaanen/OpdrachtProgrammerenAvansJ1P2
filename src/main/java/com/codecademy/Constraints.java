@@ -9,7 +9,6 @@ public class Constraints {
     public boolean checkZip(String date){
         String regex = "^[1-9]\\d{3} [A-Z]{2}$";
         return date.matches(regex);
-
     }
     public boolean checkPercentage(int perc){
         return(perc<100 && perc>0);
