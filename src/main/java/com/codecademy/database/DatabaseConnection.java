@@ -2,6 +2,7 @@ package com.codecademy.database;
 
 import com.codecademy.models.Certificate;
 import com.codecademy.models.Course;
+import com.codecademy.models.Module;
 import com.codecademy.models.User;
 import com.codecademy.models.Level;
 
@@ -36,6 +37,7 @@ public class DatabaseConnection {
         }
         return users;
     }
+
     public static ArrayList<Course> getAllCourses() {
         ArrayList<Course> courses = new ArrayList<>();
         try {
@@ -119,14 +121,14 @@ public class DatabaseConnection {
     public static ArrayList<Certificate> getCertificatesForUser(String selectedUser) {
         ArrayList<Certificate> certificates = new ArrayList<>();
         try {
-        con = DriverManager.getConnection(connectionUrl);
-        String SQL = "SELECT * FROM [Certificate] WHERE email = ?";
-        try (PreparedStatement pst = con.prepareStatement(SQL)) {
-            pst.setString(1, selectedUser);
-            rs = pst.executeQuery();
-            while (rs.next()) {
-                certificates.add(new Certificate(rs.getInt("certificateID"), rs.getString("email"), rs.getString("courseName")));
-            }
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT * FROM [Certificate] WHERE email = ?";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, selectedUser);
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    certificates.add(new Certificate(rs.getInt("certificateID"), rs.getString("email"), rs.getString("courseName")));
+                }
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
@@ -208,6 +210,46 @@ public class DatabaseConnection {
         }
     }
 
+    public static ArrayList<Module> getModulesForCourse(String selectedCourse) {
+        ArrayList<Module> modules = new ArrayList<>();
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT * FROM [Module] WHERE courseName = ?";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, selectedCourse);
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    modules.add(new Module(rs.getString("title"), rs.getFloat("version"), rs.getString("description"), rs.getString("contactEmail"), rs.getString("contactName"), rs.getInt("contentId"), rs.getString("courseName")));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+        return modules;
+    }
+
+    public static float getAvgCompletionRateModule(int contentId) {
+        float avgCompletionRate = 0.0F;
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT AVG(viewedPercentage) as avgCompletionRate FROM [Viewed] WHERE contentId = ?";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setInt(1, contentId);
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    avgCompletionRate = rs.getFloat("avgCompletionRate");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+        return avgCompletionRate;
+    }
+
     private static void closeConnection(Connection con) {
         if (stmt != null) try {
             stmt.close();
@@ -241,6 +283,8 @@ public class DatabaseConnection {
         }
         return 0;
     }
+
+
 
 }
 

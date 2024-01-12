@@ -3,6 +3,7 @@ package com.codecademy.controllers;
 import com.codecademy.database.DatabaseConnection;
 import com.codecademy.models.Course;
 import com.codecademy.models.Level;
+import com.codecademy.models.Module;
 import com.codecademy.models.User;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
@@ -30,13 +31,13 @@ public class CoursesController implements Initializable {
     public TextField nameField;
     public TextField topicField;
     public ListView<String> modulesList;
-    public ListView<String>  webcastsList;
-    public ListView<String>  mostViewed;
 
     HashMap<String, String> courseNames = new HashMap<>();
     HashMap<String, String> topics = new HashMap<>();
     HashMap<String, String> introTexts = new HashMap<>();
     HashMap<String, Level> levels = new HashMap<>();
+
+
 
     private void extractCourseData(){
         ArrayList<Course> courses = DatabaseConnection.getAllCourses();
@@ -73,6 +74,19 @@ public class CoursesController implements Initializable {
             introTextArea.setText(introTexts.get(selectedCourse));
             topicField.setText(topics.get(selectedCourse));
             levelBox.getSelectionModel().select(levels.get(selectedCourse));
+            ArrayList<Module> modules = new ArrayList<Module>();
+            modules = DatabaseConnection.getModulesForCourse(courseList.getSelectionModel().getSelectedItem());
+            ArrayList<String> moduleNames = new ArrayList<String>();
+
+            for (Module module : modules) {
+                moduleNames.add(module.getTitle() + "                                   Average Completion: " + DatabaseConnection.getAvgCompletionRateModule(module.getContentID()) + "%");
+            }
+
+
+
+            ArrayList<String> listOfModuleValues = new ArrayList<>(moduleNames);
+            ObservableList<String> items = FXCollections.observableArrayList((listOfModuleValues));
+            modulesList.setItems(items);
         });
     }
 

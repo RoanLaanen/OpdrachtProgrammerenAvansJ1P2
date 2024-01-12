@@ -8,6 +8,7 @@ public class Module {
     private String nameContact;
     private final int contentID;
     private String courseName;
+
     public Module(String title,float version, String description,String emailContact,String nameContact,int contentID,String courseName){
         this.title = title;
         this.version = version;
@@ -16,6 +17,7 @@ public class Module {
         this.nameContact = nameContact;
         this.contentID = contentID;
         this.courseName = courseName;
+
     }
 
     public String getCourseName() {
@@ -45,5 +47,7 @@ public class Module {
     public String getTitle() {
         return title;
     }
+
+
 }
 
