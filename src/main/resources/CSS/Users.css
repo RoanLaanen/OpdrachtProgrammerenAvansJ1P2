@@ -3,9 +3,9 @@
     -fx-border-radius: 12px;
     -fx-background-radius: 12px;
     -fx-font-size: 24px;
-
-    -fx-background-color: -fx-surface;
     -fx-border-color: -fx-primary;
+    -fx-background-color: -fx-surface;
+
 
 
 }
@@ -18,4 +18,30 @@
 }
 .title {
     -fx-font-size: 18;
+}
+
+
+.listview .list-cell:even { /* <=== changed to even */
+    -fx-background-color: white;
+
+}
+.listview .list-cell:odd { /* <=== changed to even */
+    -fx-background-color: white;
+}
+.listview{
+    -fx-border-color: -fx-primary;
+    -fx-border-width: 3px;
+}
+
+.combo-box{
+    -fx-text-box-border: transparent;
+    -fx-background-color: transparent, transparent, transparent, transparent;
+    -fx-text-alignment: center;
+    -fx-border-style: solid;
+    -fx-border-color: -fx-primary;
+    -fx-border-width: 3;
+}
+.combo-box .list-cell:hover{
+
+    -fx-background-color:-fx-primary;
 }

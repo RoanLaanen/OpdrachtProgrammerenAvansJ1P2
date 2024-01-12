@@ -24,9 +24,9 @@
    <Text layoutX="369.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Data" />
    <Text layoutX="819.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subTitle" text="Modules" />
    <ListView fx:id="modulesList" layoutX="625.0" layoutY="173.0" prefHeight="460.0" prefWidth="463.0" />
-   <Button layoutX="261.0" layoutY="661.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="254.0" styleClass="btn" text="Delete course" />
-   <Button layoutX="922.0" layoutY="661.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="164.0" styleClass="btn" text="Add course" />
-   <ComboBox layoutX="630.0" layoutY="661.0" prefHeight="67.0" prefWidth="271.0" promptText="cours1">
+   <Button layoutX="261.0" layoutY="661.0" mnemonicParsing="false" onAction="#removeCourse" prefHeight="67.0" prefWidth="254.0" styleClass="btn" text="Remove course" />
+   <Button layoutX="922.0" layoutY="661.0" mnemonicParsing="false" onAction="#addCourseBtn" prefHeight="67.0" prefWidth="164.0" styleClass="btn" text="Add course" />
+   <ComboBox fx:id="courseListSelection" layoutX="630.0" layoutY="661.0" prefHeight="67.0" prefWidth="271.0" promptText="Select Course">
       <styleClass>
          <String fx:value="dataField" />
          <String fx:value="btn" />

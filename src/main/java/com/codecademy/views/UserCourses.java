@@ -1,8 +1,6 @@
 package com.codecademy.views;
 
 import com.codecademy.Main;
-import com.codecademy.controllers.UsersController;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -14,7 +12,7 @@ public class UserCourses extends Application{
 
     @Override
     public void start(Stage stage) throws IOException {
-        stage.setTitle("Users");
+        stage.setTitle("Roan Laanen (2197302), Dymo Waltheer (2215378), Stef Rensma (2217058)");
 
         URL url = getClass().getResource("/UserCourses.fxml");
 

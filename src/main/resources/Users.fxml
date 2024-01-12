@@ -7,19 +7,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
 <Pane id="main" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@CSS/style.css, @CSS/Users.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.UsersController">
    <Line endX="-50.70703125" endY="559.0" layoutX="222.0" layoutY="191.0" startX="-50.70703125" startY="-191.0" />
    <Line endX="1000.0" layoutX="100.0" layoutY="125.0" startX="-100.0" />
-   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="369.0" layoutX="171.0" layoutY="125.0" stroke="BLACK" strokeType="INSIDE" width="342.0" />
-   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="256.0" layoutX="171.0" layoutY="494.0" stroke="BLACK" strokeType="INSIDE" width="342.0" />
 
-   <Text styleClass="mainTitle" layoutX="58.0" layoutY="76.0" onMouseClicked="#changeSceneToMain" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;"/>
-   <Text styleClass="mainTitle" layoutX="556.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Users"/>
+   <Text layoutX="58.0" layoutY="76.0" onMouseClicked="#changeSceneToMain" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="mainTitle" text="&lt;" />
+   <Text layoutX="556.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="mainTitle" text="Users" />
 
-   <Text styleClass="title" layoutX="322.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0"  text="Data" />
+   <Text layoutX="322.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Data" />
       <TextField fx:id="nameField" layoutX="215.0" layoutY="163.0" prefHeight="8.0" prefWidth="254.0" promptText="Name" styleClass="dataField" />
       <TextField fx:id="emailField" layoutX="215.0" layoutY="206.0" prefHeight="1.0" prefWidth="254.0" promptText="Email" styleClass="dataField" />
       <DatePicker fx:id="dateOfBirthPicker" layoutX="215.0" layoutY="249.0" prefHeight="1.0" prefWidth="254.0" promptText="Date of Birth" styleClass="dataField" />
@@ -31,13 +28,15 @@
    <ListView fx:id="userList" editable="true" layoutY="125.0" prefHeight="625.0" prefWidth="171.0" />
 
    <Text layoutX="295.0" layoutY="522.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Certificates" />
-      <ListView fx:id="certificateList" layoutX="187.0" layoutY="536.0" prefHeight="200.0" prefWidth="310.0" />
+      <ListView fx:id="certificateList" layoutX="187.0" layoutY="536.0" prefHeight="200.0" prefWidth="310.0" styleClass="listview" />
 
    <Text layoutX="776.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Courses" />
-      <ListView fx:id="courseList" layoutX="556.0" layoutY="163.0" prefHeight="477.0" prefWidth="505.0" />
+      <ListView fx:id="courseList" layoutX="556.0" layoutY="163.0" prefHeight="477.0" prefWidth="505.0" styleClass="listview" />
 
    <Button layoutX="530.0" layoutY="681.0" mnemonicParsing="false" onAction="#saveUser" prefWidth="170.0" styleClass="btn" text="Save User" />
    <Button layoutX="722.0" layoutY="681.0" mnemonicParsing="false" onAction="#addUser" prefWidth="170.0" styleClass="btn" text="Add User" />
    <Button layoutX="916.0" layoutY="681.0" mnemonicParsing="false" onAction="#deleteUser" prefWidth="170.0" styleClass="btn" text="Delete User" />
+   <Line endX="-50.70703125" endY="559.0" layoutX="572.0" layoutY="191.0" startX="-50.70703125" startY="-65.5" />
+   <Line endX="582.79296875" endY="11.5" layoutX="-61.0" layoutY="475.0" startX="232.0" startY="11.5" />
 
 </Pane>

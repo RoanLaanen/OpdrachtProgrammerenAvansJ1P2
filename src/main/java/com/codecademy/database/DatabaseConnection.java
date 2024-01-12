@@ -59,6 +59,26 @@ public class DatabaseConnection {
         return courses;
     }
 
+    public static ArrayList<Course> getAllCoursesWhereNotEnrolled(String email) {
+        ArrayList<Course> courses = new ArrayList<>();
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT * FROM [Course] WHERE courseName NOT IN (SELECT courseName FROM [Enrollment] WHERE email != ?)";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, email);
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    courses.add(new Course(rs.getString("courseName"), rs.getString("topic"), rs.getString("introText"), Level.valueOf(rs.getString("level"))));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+        return courses;
+    }
+
 
     public static void addUser(User user) {
         try {
@@ -66,6 +86,39 @@ public class DatabaseConnection {
             String SQL = "INSERT INTO [User](name, email, dateOfBirth, gender, address, zip, country) VALUES (?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 userDatabaseChange(user, pst);
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+    }
+
+    public static void enrollUserInCourse(String email, String selectedCourse) {
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "INSERT INTO [Enrollment](email, courseName, enrollmentDate) VALUES (?, ?, ?)";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, email);
+                pst.setString(2, selectedCourse);
+                pst.setString(3, LocalDate.now().toString());
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+    }
+
+    public static void unenrollUserInCourse(String email, String selectedCourse) {
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "DELETE FROM [Enrollment] WHERE courseName = ? AND email = ?";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, selectedCourse);
+                pst.setString(2, email);
                 pst.executeUpdate();
             }
         } catch (Exception e) {
@@ -140,7 +193,7 @@ public class DatabaseConnection {
         ArrayList<Course> courses = new ArrayList<>();
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT * FROM [Course] WHERE courseName = (SELECT courseName FROM [Enrollment] WHERE email = ?)";
+            String SQL = "SELECT * FROM [Course] WHERE courseName IN (SELECT courseName FROM [Enrollment] WHERE email = ?)";
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, selectedUser);
                 rs = pst.executeQuery();
