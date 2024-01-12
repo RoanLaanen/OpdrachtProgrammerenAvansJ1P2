@@ -41,8 +41,8 @@
    <Text layoutX="776.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Courses" />
       <ListView layoutX="556.0" layoutY="163.0" prefHeight="477.0" prefWidth="505.0" />
 
-   <Button layoutX="530.0" layoutY="681.0" mnemonicParsing="false" prefWidth="160.0" styleClass="btn" text="Save User" />
-   <Button layoutX="729.0" layoutY="684.0" mnemonicParsing="false" prefWidth="160.0" styleClass="btn" text="Add User" />
+   <Button onAction="#saveUser" layoutX="530.0" layoutY="681.0" mnemonicParsing="false" prefWidth="160.0" styleClass="btn" text="Save User" />
+   <Button onAction="#addUser" layoutX="729.0" layoutY="684.0" mnemonicParsing="false" prefWidth="160.0" styleClass="btn" text="Add User" />
    <Button onAction="#deleteUser" layoutX="925.0" layoutY="684.0" mnemonicParsing="false" prefWidth="160.0" styleClass="btn" text="Delete User" />
 
 

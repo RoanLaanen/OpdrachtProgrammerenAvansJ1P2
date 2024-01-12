@@ -81,6 +81,20 @@ public class DatabaseConnection {
         }
     }
 
+    public static void addUser (User user) {
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "INSERT INTO [User] VALUES (%s, %s, %s, %s, %s, %s, %s)".formatted(user.getName(), user.getEmail(), user.getDateOfBirth(), user.getGender(), user.getAddress(), user.getZip(), user.getCountry());
+            stmt = con.createStatement();
+            stmt.executeUpdate(SQL);
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con, stmt);
+            updateCursusArray();
+        }
+    }
+
 
 
 

@@ -17,6 +17,9 @@ public class User {
         this.zip = zip;
         this.country = country;
     }
+
+
+
     public String getName() {
         return name;
     }
@@ -29,6 +32,8 @@ public class User {
         }
         return "male";
     }
+
+    public String getGenderBit() { return gender; }
     public String getEmail() {
         return email;
     }

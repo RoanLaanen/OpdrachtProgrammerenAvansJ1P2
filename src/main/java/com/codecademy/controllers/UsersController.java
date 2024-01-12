@@ -6,6 +6,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -72,8 +73,6 @@ public class UsersController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 selectedUser = userList.getSelectionModel().getSelectedItem();
-                
-
 
                 nameField.setText(userNames.get(selectedUser));
                 emailField.setText(selectedUser);
@@ -105,5 +104,45 @@ public class UsersController implements Initializable {
 
     public void deleteUser() {
         DatabaseConnection.deleteUser(selectedUser);
+    }
+
+    public void clearFields() {
+        nameField.clear();
+        nameField.setPromptText("name");
+        emailField.clear();
+        emailField.setPromptText("email");
+        dobField.clear();
+        dobField.setPromptText("date of birth");
+        genderField.clear();
+        genderField.setPromptText("gender");
+        addressField.clear();
+        addressField.setPromptText("address");
+        zipField.clear();
+        zipField.setPromptText("zip");
+        countryField.clear();
+        countryField.setPromptText("country");
+    }
+
+    public void addUser(ActionEvent event) {
+        selectedUser = null;
+        clearFields();
+        userList.getSelectionModel().clearSelection();
+    }
+
+    public void saveUser(ActionEvent event) {
+        String gender;
+        if (genderField.getText().equals("male")) {
+            gender = "1";
+        } else {
+            gender = "0";
+        }
+
+        User user = new User(nameField.getText(), emailField.getText(), dobField.getText(), gender, addressField.getText(), zipField.getText(), countryField.getText());
+
+        if (selectedUser == null) {
+            DatabaseConnection.addUser(user);
+        } else {
+//            DatabaseConnection.updateUser(selectedUser, user);
+        }
     }
 }
