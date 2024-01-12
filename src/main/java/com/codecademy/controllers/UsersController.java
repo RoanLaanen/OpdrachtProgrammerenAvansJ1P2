@@ -1,6 +1,8 @@
 package com.codecademy.controllers;
 
 import com.codecademy.database.DatabaseConnection;
+import com.codecademy.models.Certificate;
+import com.codecademy.models.Course;
 import com.codecademy.models.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -34,6 +36,9 @@ public class UsersController implements Initializable {
     @FXML
     public ListView<String> certificateList;
 
+    @FXML
+    public ListView courseList;
+
     String selectedUser;
 
     public TextField nameField;
@@ -46,6 +51,11 @@ public class UsersController implements Initializable {
     public TextField countryField;
     private ArrayList<User> users;
     private Collection<String> values;
+
+    private ArrayList<Certificate> certificates;
+
+    private ArrayList<Course> courses;
+
 
     HashMap<String, String> userNames = new HashMap<>();
     HashMap<String, String> userEmails = new HashMap<>();
@@ -79,10 +89,12 @@ public class UsersController implements Initializable {
         }
         values = userEmails.values();
 
+
         //Creating an ArrayList of values
-        ArrayList<String> listOfValues = new ArrayList<String>(values);
-        ObservableList<String> items = FXCollections.observableArrayList((listOfValues));
+        ArrayList<String> listOfUserValues = new ArrayList<String>(values);
+        ObservableList<String> items = FXCollections.observableArrayList((listOfUserValues));
         userList.setItems(items);
+
 
     }
 
@@ -104,6 +116,28 @@ public class UsersController implements Initializable {
                 addressField.setText(userAddresses.get(selectedUser));
                 zipField.setText(userZips.get(selectedUser));
                 countryField.setText(userCountries.get(selectedUser));
+                certificates = DatabaseConnection.getCertificatesForUser(selectedUser);
+                courses = DatabaseConnection.getCoursesForUser(selectedUser);
+
+                ArrayList<String> certificateValues = new ArrayList<String>();
+                if (!certificates.isEmpty()) {
+                    for (Certificate certificate : certificates) {
+                        certificateValues.add(certificate.getCourseName());
+                    }
+                }
+                ArrayList<String> listOfCertificateValues = new ArrayList<String>(certificateValues);
+                ObservableList<String> Certificate = FXCollections.observableArrayList((listOfCertificateValues));
+                certificateList.setItems(Certificate);
+
+                ArrayList<String> courseValues = new ArrayList<String>();
+                if (!courses.isEmpty()) {
+                    for (Course course : courses) {
+                        courseValues.add(course.getCourseName());
+                    }
+                }
+                ArrayList<String> listOfCourseValues = new ArrayList<String>(courseValues);
+                ObservableList<String> Course = FXCollections.observableArrayList((listOfCourseValues));
+                courseList.setItems(Course);
 
             }
         });
@@ -153,7 +187,6 @@ public class UsersController implements Initializable {
     }
 
     public void saveUser(ActionEvent event) {
-
 
 
         User user = new User(nameField.getText(), emailField.getText(), dateOfBirthPicker.getValue(), genderField.getSelectionModel().getSelectedItem(), addressField.getText(), zipField.getText(), countryField.getText());

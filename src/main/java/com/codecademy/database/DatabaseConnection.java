@@ -1,12 +1,15 @@
 package com.codecademy.database;
 
+import com.codecademy.models.Certificate;
+import com.codecademy.models.Course;
 import com.codecademy.models.User;
+import com.codecademy.models.Level;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
-import java.util.ArrayList;
+import java.util.*;
 
 public class DatabaseConnection {
     private static final String connectionUrl = "jdbc:sqlserver://codecademy.database.windows.net:1433;database=codecademyData;user=groep5@codecademy;password=AvansBreda123;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30";
@@ -93,6 +96,46 @@ public class DatabaseConnection {
         } finally {
             closeConnection(con);
         }
+    }
+
+    public static ArrayList<Certificate> getCertificatesForUser(String selectedUser) {
+        ArrayList<Certificate> certificates = new ArrayList<Certificate>();
+        try {
+        con = DriverManager.getConnection(connectionUrl);
+        String SQL = "SELECT * FROM [Certificate] WHERE email = ?";
+        try (PreparedStatement pst = con.prepareStatement(SQL)) {
+            pst.setString(1, selectedUser);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                certificates.add(new Certificate(rs.getInt("certificateID"), rs.getString("email"), rs.getString("courseName")));
+            }
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+        return certificates;
+    }
+
+    public static ArrayList<Course> getCoursesForUser(String selectedUser) {
+        ArrayList<Course> courses = new ArrayList<Course>();
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT * FROM [Course] WHERE courseName = (SELECT courseName FROM [Enrollment] WHERE email = ?)";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, selectedUser);
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    courses.add(new Course(rs.getString("courseName"), rs.getString("topic"), rs.getString("introText"), Level.valueOf(rs.getString("level"))));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+        return courses;
     }
 
     private static void closeConnection(Connection con) {
