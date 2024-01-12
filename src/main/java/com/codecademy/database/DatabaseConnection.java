@@ -270,7 +270,8 @@ public class DatabaseConnection {
                 pst.setString(1, selectedCourse);
                 rs = pst.executeQuery();
                 while (rs.next()) {
-                    modules.add(new Module(Status.valueOf(rs.getString("status")), LocalDate.parse(rs.getString("publishingDate")), rs.getString("title"), rs.getFloat("version"), rs.getString("description"), rs.getString("contactEmail"), rs.getString("contactName"), rs.getInt("contentId"), rs.getString("courseName")));
+                    Module module = new Module(Status.valueOf(rs.getString("status")), LocalDate.parse(rs.getString("publishingDate")), rs.getString("title"), rs.getFloat("version"), rs.getString("description"), rs.getString("contactEmail"), rs.getString("contactName"), rs.getInt("contentId"), rs.getString("courseName"));
+                    modules.add(module);
                 }
             }
         } catch (Exception e) {
@@ -279,6 +280,7 @@ public class DatabaseConnection {
             closeConnection(con);
         }
         return modules;
+
     }
     public static ArrayList<ArrayList<String>> getAvailableModules() {
         ArrayList<String> availableModules = new ArrayList<>();
@@ -290,7 +292,8 @@ public class DatabaseConnection {
                 rs = pst.executeQuery();
                 while (rs.next()) {
                     availableModules.add(rs.getString("title"));
-                    availableModuleIds.add(rs.getString("contentId"));
+                    int id = rs.getInt("contentId");
+                    availableModuleIds.add(Integer.toString(id));
                 }
             }
         } catch (Exception e) {

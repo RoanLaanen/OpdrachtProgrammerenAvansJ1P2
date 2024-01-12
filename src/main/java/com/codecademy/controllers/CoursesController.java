@@ -44,7 +44,8 @@ public class CoursesController implements Initializable {
     HashMap<String, String> introTexts = new HashMap<>();
     HashMap<String, Level> levels = new HashMap<>();
 
-
+    ArrayList<String> availableModules;
+    ArrayList<String> availableModuleIds;
 
     private void extractCourseData(){
         ArrayList<Course> courses = DatabaseConnection.getAllCourses();
@@ -65,6 +66,14 @@ public class CoursesController implements Initializable {
         ArrayList<String> listOfCourseValues = new ArrayList<>(values);
         ObservableList<String> items = FXCollections.observableArrayList((listOfCourseValues));
         courseList.setItems(items);
+
+        ArrayList<ArrayList<String>> doeble = DatabaseConnection.getAvailableModules();
+        availableModules = doeble.get(0);
+        availableModuleIds = doeble.get(1);
+        ArrayList<String> listOfAvailableModuleValues = new ArrayList<>(availableModules);
+        itemsAvailable = FXCollections.observableArrayList((listOfAvailableModuleValues));
+
+        addModulesList.setItems(itemsAvailable);
     }
 
 
@@ -98,19 +107,13 @@ public class CoursesController implements Initializable {
             modulesList.setItems(items);
 
         });
-        ArrayList<String> availableModules;
-        ArrayList<ArrayList<String>> doeble = DatabaseConnection.getAvailableModules();
-        availableModules = doeble.get(0);
-        ArrayList<String> availableModuleIds = doeble.get(1);
-        ArrayList<String> listOfAvailableModuleValues = new ArrayList<>(availableModules);
-        itemsAvailable = FXCollections.observableArrayList((listOfAvailableModuleValues));
 
-        addModulesList.setItems(itemsAvailable);
 
         addModulesList.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             String selectedModule = courseList.getSelectionModel().getSelectedItem();
             String selectedId = availableModuleIds.get(availableModules.indexOf(addModulesList.getSelectionModel().getSelectedItem()));
             DatabaseConnection.addModuleToCourse(selectedModule, selectedId);
+            extractCourseData();
         });
     }
 
