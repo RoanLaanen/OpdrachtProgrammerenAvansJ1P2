@@ -13,6 +13,7 @@ public abstract class ContentItem {
         this.status = status;
         this.publishingDate = publishingDate;
     }
+    
 
 
 
