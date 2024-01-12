@@ -20,9 +20,8 @@
 
    <Text layoutX="467.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Courses" wrappingWidth="288.0"><font><Font size="50.0" /></font></Text>
 
-   <ListView fx:id="courseList" layoutY="124.0" prefHeight="628.0" prefWidth="171.0" />
-   <Text layoutX="369.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Data" />
-   <Text layoutX="819.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subTitle" text="Modules" />
+   <Text layoutX="367.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Data" />
+   <Text layoutX="819.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Modules" />
    <ListView fx:id="modulesList" layoutX="625.0" layoutY="173.0" prefHeight="460.0" prefWidth="463.0" />
    <Button layoutX="261.0" layoutY="661.0" mnemonicParsing="false" onAction="#removeCourse" prefHeight="67.0" prefWidth="254.0" styleClass="btn" text="Remove course" />
    <Button layoutX="922.0" layoutY="661.0" mnemonicParsing="false" onAction="#addCourseBtn" prefHeight="67.0" prefWidth="164.0" styleClass="btn" text="Add course" />
@@ -32,22 +31,22 @@
          <String fx:value="btn" />
       </styleClass>
    </ComboBox>
-   <Label fx:id="courseNameUser" layoutX="243.0" layoutY="222.0" prefHeight="20.0" prefWidth="288.0" text="courseName">
+   <Label fx:id="courseNameUser" layoutX="243.0" layoutY="205.0" prefHeight="20.0" prefWidth="288.0" text="courseName">
       <font>
          <Font size="14.0" />
       </font>
    </Label>
-   <Label fx:id="topicUser" layoutX="243.0" layoutY="466.0" prefHeight="20.0" prefWidth="288.0" text="topic">
+   <Label fx:id="topicUser" layoutX="242.0" layoutY="482.0" prefHeight="20.0" prefWidth="288.0" text="topic">
       <font>
          <Font size="14.0" />
       </font>
    </Label>
-   <Label fx:id="levelUser" layoutX="242.0" layoutY="508.0" prefHeight="20.0" prefWidth="288.0" text="level">
+   <Label fx:id="levelUser" layoutX="242.0" layoutY="536.0" prefHeight="20.0" prefWidth="288.0" text="level">
       <font>
          <Font size="14.0" />
       </font>
    </Label>
-   <Label fx:id="introTextUser" alignment="TOP_LEFT" layoutX="242.0" layoutY="248.0" prefHeight="218.0" prefWidth="288.0" text="introText asd fasdlf alsjdfbh kasdgflkas dlfhasdlk fhalksdh flkashd klfhas" wrapText="true">
+   <Label fx:id="introTextUser" alignment="TOP_LEFT" layoutX="242.0" layoutY="253.0" prefHeight="206.0" prefWidth="288.0" text="introText asd fasdlf alsjdfbh kasdgflkas dlfhasdlk fhalksdh flkashd klfhas" wrapText="true">
       <font>
          <Font size="14.0" />
       </font>
