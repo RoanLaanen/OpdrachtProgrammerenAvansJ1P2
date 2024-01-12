@@ -4,6 +4,7 @@ import com.codecademy.database.DatabaseConnection;
 import com.codecademy.models.Course;
 import com.codecademy.models.Level;
 import com.codecademy.models.User;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +12,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -21,6 +24,9 @@ import java.net.URL;
 import java.util.*;
 
 public class CoursesController implements Initializable {
+    public TextArea introTextArea;
+    public ComboBox<Level> levelBox;
+    String selectedCourse;
     public ListView<String> courseList;
     public TextField nameField;
     public TextField topicField;
@@ -59,6 +65,16 @@ public class CoursesController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         extractCourseData();
+        levelBox.getItems().setAll(Level.Beginner, Level.Intermediate, Level.Expert, Level.None);
+        courseList.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
+
+            selectedCourse = courseList.getSelectionModel().getSelectedItem();
+
+            nameField.setText(selectedCourse);
+            introTextArea.setText(introTexts.get(selectedCourse));
+            topicField.setText(topics.get(selectedCourse));
+            levelBox.getSelectionModel().select(levels.get(selectedCourse));
+        });
     }
 
     public void changeSceneToMain(MouseEvent mouseEvent) throws IOException {

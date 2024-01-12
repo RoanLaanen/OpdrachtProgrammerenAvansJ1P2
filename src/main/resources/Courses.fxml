@@ -27,9 +27,9 @@
         <Button layoutX="389.0" layoutY="667.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="171.0" styleClass="sub-btn, btn" text="Add Module" />
    <Text layoutX="369.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Data" />
    <TextField fx:id="nameField" layoutX="262.0" layoutY="208.0" prefHeight="8.0" prefWidth="254.0" styleClass="dataField" text="courseName" />
-   <TextArea layoutX="262.0" layoutY="251.0" prefHeight="131.0" prefWidth="254.0" styleClass="dataField" />
+   <TextArea fx:id="introTextArea" layoutX="262.0" layoutY="251.0" prefHeight="131.0" prefWidth="254.0" styleClass="dataArea" wrapText="true" />
    <TextField fx:id="topicField" layoutX="263.0" layoutY="385.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="topic" />
-   <ComboBox layoutX="262.0" layoutY="430.0" prefHeight="25.0" prefWidth="254.0" promptText="level">
+   <ComboBox fx:id="levelBox" layoutX="262.0" layoutY="430.0" prefHeight="25.0" prefWidth="254.0" promptText="level">
       <styleClass>
          <String fx:value="dataField" />
          <String fx:value="btn" />
