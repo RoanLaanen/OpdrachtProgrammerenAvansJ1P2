@@ -45,3 +45,9 @@
 
     -fx-background-color:-fx-primary;
 }
+.listview .list-cell:odd:hover { /* <=== changed to even */
+    -fx-background-color: #eaeaea;
+}
+.listview .list-cell:even:hover{
+    -fx-background-color: #eaeaea;
+}

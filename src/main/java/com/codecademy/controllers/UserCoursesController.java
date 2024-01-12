@@ -3,16 +3,16 @@ package com.codecademy.controllers;
 import com.codecademy.DataSingleton;
 import com.codecademy.database.DatabaseConnection;
 import com.codecademy.models.Course;
+import com.codecademy.models.Module;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
@@ -25,6 +25,7 @@ import java.util.ResourceBundle;
 
 public class UserCoursesController implements Initializable {
 
+    public ListView<String> modulesList;
     String selectedUser;
     String selectedCourse;
     DataSingleton data = DataSingleton.getInstance();
@@ -50,6 +51,21 @@ public class UserCoursesController implements Initializable {
         }
 
 
+        ArrayList<Module> modules;
+        ArrayList<String> moduleNames = null;
+        modules = DatabaseConnection.getModulesForCourse(selectedCourse);
+        for (Module module : modules){
+            assert false;
+            moduleNames.add(module.getTitle());
+        }
+        if(moduleNames == null) {
+            ArrayList<String> listOfModuleValues = new ArrayList<>(moduleNames);
+            ObservableList<String> items = FXCollections.observableArrayList((listOfModuleValues));
+            modulesList.setItems(items);
+        }
+        else{
+            System.out.println("Error: ");
+        }
     }
 
     public void addCourseBtn() {
