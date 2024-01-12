@@ -19,9 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 public class UsersController implements Initializable {
@@ -43,26 +41,31 @@ public class UsersController implements Initializable {
         ArrayList<User> users;
         users = DatabaseConnection.getAllUsers();
 
-        ArrayList<String> userNames = new ArrayList<>();
-        ArrayList<String> userEmails = new ArrayList<>();
-        ArrayList<String> userDateOfBirths = new ArrayList<>();
-        ArrayList<String> userGenders = new ArrayList<>();
-        ArrayList<String> userAddresses = new ArrayList<>();
-        ArrayList<String> userZips = new ArrayList<>();
-        ArrayList<String> userCountries = new ArrayList<>();
+        HashMap<String, String> userNames = new HashMap<>();
+        HashMap<String, String> userEmails = new HashMap<>();
+        HashMap<String, String> userDateOfBirths = new HashMap<>();
+        HashMap<String, String> userGenders = new HashMap<>();
+        HashMap<String, String> userAddresses = new HashMap<>();
+        HashMap<String, String> userZips = new HashMap<>();
+        HashMap<String, String> userCountries = new HashMap<>();
 
         for (User user : users) {
-            userNames.add(user.getName());
-            userEmails.add(user.getEmail());
-            userDateOfBirths.add(user.getDateOfBirth());
-            userGenders.add(String.valueOf(user.getGender()));
-            userAddresses.add(user.getAddress());
-            userZips.add(user.getZip());
-            userCountries.add(user.getCountry());
+            String email = user.getEmail();
+            userNames.put(email, user.getName());
+            userEmails.put(email,user.getEmail());
+            userDateOfBirths.put(email,user.getDateOfBirth());
+            userGenders.put(email,user.getGender());
+            userAddresses.put(email,user.getAddress());
+            userZips.put(email,user.getZip());
+            userCountries.put(email,user.getCountry());
         }
 
+        Collection<String> values = userEmails.values();
 
-        ObservableList<String> items = FXCollections.observableArrayList(userEmails);
+//Creating an ArrayList of values
+
+        ArrayList<String> listOfValues = new ArrayList<String>(values);
+        ObservableList<String> items = FXCollections.observableArrayList((listOfValues));
         userList.setItems(items);
 //
         userList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -70,15 +73,15 @@ public class UsersController implements Initializable {
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 selectedUser = userList.getSelectionModel().getSelectedItem();
                 
-                int index = userEmails.indexOf(selectedUser);
 
-                nameField.setText(userNames.get(index));
+
+                nameField.setText(userNames.get(selectedUser));
                 emailField.setText(selectedUser);
-                dobField.setText(userDateOfBirths.get(index));
-                genderField.setText(userGenders.get(index));
-                addressField.setText(userAddresses.get(index));
-                zipField.setText(userZips.get(index));
-                countryField.setText(userCountries.get(index));
+                dobField.setText(userDateOfBirths.get(selectedUser));
+                genderField.setText(userGenders.get(selectedUser));
+                addressField.setText(userAddresses.get(selectedUser));
+                zipField.setText(userZips.get(selectedUser));
+                countryField.setText(userCountries.get(selectedUser));
 
             }
         });

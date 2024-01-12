@@ -1,7 +1,6 @@
 package com.codecademy.database;
 
 import com.codecademy.models.Course;
-import com.codecademy.models.Level;
 import com.codecademy.models.User;
 
 import java.sql.Connection;
