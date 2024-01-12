@@ -24,12 +24,8 @@
     -fx-border-color: -fx-primary;
 }
 
-.subTitle {
-    -fx-font-size: 20;
-}
-
 .title {
-        -fx-font-size: 20;
+    -fx-font-size: 20;
 }
 
 
