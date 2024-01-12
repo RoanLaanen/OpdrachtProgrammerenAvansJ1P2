@@ -33,10 +33,8 @@ public class UsersController implements Initializable {
     public ListView<String> certificateList;
     @FXML
     public ListView<String> courseList;
-
     String selectedUser;
     String selectedCourse;
-
     public TextField nameField;
     public TextField emailField;
     public ComboBox<String> genderField;
@@ -46,10 +44,8 @@ public class UsersController implements Initializable {
     public TextField countryField;
 
     DataSingleton data = DataSingleton.getInstance();
-
     private ArrayList<Certificate> certificates;
     private ArrayList<Course> courses;
-
     HashMap<String, String> userNames = new HashMap<>();
     HashMap<String, String> userEmails = new HashMap<>();
     HashMap<String, LocalDate> userDateOfBirths = new HashMap<>();
@@ -59,7 +55,6 @@ public class UsersController implements Initializable {
     HashMap<String, String> userCountries = new HashMap<>();
 
     private void extractUserData() {
-
         ArrayList<User> users = DatabaseConnection.getAllUsers();
         userNames.clear();
         userEmails.clear();
@@ -81,7 +76,6 @@ public class UsersController implements Initializable {
         }
         Collection<String> values = userEmails.values();
 
-        //Creating an ArrayList of values
         ArrayList<String> listOfUserValues = new ArrayList<>(values);
         ObservableList<String> items = FXCollections.observableArrayList((listOfUserValues));
         userList.setItems(items);
@@ -91,9 +85,7 @@ public class UsersController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         extractUserData();
-
         genderField.getItems().setAll("Male", "Female");
         userList.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             selectedUser = userList.getSelectionModel().getSelectedItem();
@@ -129,7 +121,6 @@ public class UsersController implements Initializable {
             ArrayList<String> listOfCourseValues = new ArrayList<>(courseValues);
             ObservableList<String> Course = FXCollections.observableArrayList((listOfCourseValues));
             courseList.setItems(Course);
-
         });
 
 
@@ -141,8 +132,6 @@ public class UsersController implements Initializable {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
-
         });
 
     }
@@ -152,14 +141,11 @@ public class UsersController implements Initializable {
         data.setSelectedUser(selectedUser);
         data.setSelectedCourse(selectedCourse);
 
-
         Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/userCourses.fxml")));
         Scene scene = new Scene(parent);
 
         Stage window = (Stage) node.getScene().getWindow();
-
         window.setUserData(data);
-
         window.setScene(scene);
         window.show();
     }
@@ -215,6 +201,4 @@ public class UsersController implements Initializable {
         selectedUser = user.getEmail();
         userList.getSelectionModel().select(selectedUser);
     }
-
-
 }

@@ -4,9 +4,7 @@ import com.codecademy.database.DatabaseConnection;
 import com.codecademy.models.Course;
 import com.codecademy.models.Level;
 import com.codecademy.models.Module;
-import com.codecademy.models.User;
 import javafx.beans.binding.Bindings;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -20,16 +18,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.Bidi;
 import java.util.*;
 
 public class CoursesController implements Initializable {
     public TextArea introTextArea;
     public ComboBox<Level> levelBox;
     public Label completionText;
-
     public Label completionTextMale;
-
     public Label completionTextFemale;
     public ListView<String> addModulesList;
     String selectedCourse;
