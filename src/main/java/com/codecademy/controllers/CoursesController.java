@@ -33,6 +33,5 @@ public class CoursesController implements Initializable {
         Stage window = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
-
     }
 }
