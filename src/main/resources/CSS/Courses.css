@@ -27,3 +27,12 @@
 .subTitle {
     -fx-font-size: 20;
 }
+
+.title {
+        -fx-font-size: 20;
+}
+
+
+.dataField{
+    -fx-font-size: 18;
+}

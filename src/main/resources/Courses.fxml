@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane id="main" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@CSS/style.css, @CSS/Courses.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.CoursesController">
+<Pane id="main" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@CSS/style.css, @CSS/Courses.css" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.CoursesController">
 
     <Line endX="755.0" endY="-13.0" layoutX="345.0" layoutY="138.0" startX="-345.0" startY="-13.0" />
     <Line endX="-104.20709228515625" endY="487.0" layoutX="275.0" layoutY="263.0" startX="-104.20709228515625" startY="-263.0" />
@@ -18,13 +23,25 @@
     <Text layoutX="520.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Courses" wrappingWidth="184.8828125"><font><Font size="50.0" /></font></Text>
 
     <ListView layoutY="123.0" prefHeight="628.0" prefWidth="171.0" />
+        <Button layoutX="195.0" layoutY="667.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="171.0" styleClass="sub-btn,btn" text="Add Course" />
+        <Button layoutX="389.0" layoutY="667.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="171.0" styleClass="sub-btn, btn" text="Add Module" />
+   <Text layoutX="369.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Data" />
+   <TextField fx:id="nameField" layoutX="262.0" layoutY="208.0" prefHeight="8.0" prefWidth="254.0" styleClass="dataField" text="courseName" />
+   <TextArea layoutX="262.0" layoutY="251.0" prefHeight="131.0" prefWidth="254.0" styleClass="dataField" />
+   <TextField fx:id="dobField" layoutX="263.0" layoutY="385.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="topic" />
+   <ComboBox layoutX="262.0" layoutY="430.0" prefHeight="25.0" prefWidth="254.0" promptText="level">
+      <styleClass>
+         <String fx:value="dataField" />
+         <String fx:value="btn" />
+      </styleClass></ComboBox>
+   <Label layoutX="270.0" layoutY="485.0" styleClass="title" text="User completion count: xxx" />
+   <Text layoutX="819.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subTitle" text="Modules" />
+   <ListView layoutX="617.0" layoutY="173.0" prefHeight="198.0" prefWidth="480.0" />
+   <Text layoutX="819.0" layoutY="403.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subTitle" text="Webcasts" />
+   <ListView layoutX="617.0" layoutY="418.0" prefHeight="198.0" prefWidth="480.0" />
 
-    <Text layoutX="301.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0"  styleClass="subTitle" text="Add Content" wrappingWidth="184.8828125" />
-        <Button layoutX="189.0" layoutY="342.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="171.0" styleClass="sub-btn,btn" text="Add Course" />
-        <Button layoutX="383.0" layoutY="342.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="171.0" styleClass="sub-btn, btn" text="Add Module" />
-
-    <Text layoutX="745.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subTitle" text="Most viewed Webcasts" />
-        <ListView layoutX="731.0" layoutY="270.0" prefHeight="407.0" prefWidth="254.0" />
+    <Text layoutX="753.0" layoutY="656.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subTitle" text="Most viewed Webcasts" />
+        <ListView layoutX="617.0" layoutY="669.0" prefHeight="76.0" prefWidth="480.0" />
 
 
 </Pane>
