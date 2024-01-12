@@ -127,7 +127,30 @@ public class UsersController implements Initializable {
             courseList.setItems(Course);
 
         });
+
+
+        courseList.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
+            try {
+                changeSceneToUserCourses(courseList);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+
+        });
+
     }
+
+
+    public void changeSceneToUserCourses(Node node) throws IOException {
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/userCourses.fxml")));
+        Scene scene = new Scene(parent);
+
+        Stage window = (Stage) node.getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
+
 
     public void changeSceneToMain(MouseEvent mouseEvent) throws IOException {
         Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/MainWindow.fxml")));

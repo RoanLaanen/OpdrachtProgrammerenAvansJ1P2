@@ -1,0 +1,21 @@
+.btn {
+    -fx-border-width: 3;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-font-size: 24px;
+
+    -fx-background-color: -fx-surface;
+    -fx-border-color: -fx-primary;
+
+
+}
+.btn:hover {
+    -fx-background-color: -fx-primary;
+    -fx-text-fill: -fx-primaryText;
+}
+.dataField{
+    -fx-font-size: 14;
+}
+.title {
+    -fx-font-size: 18;
+}
