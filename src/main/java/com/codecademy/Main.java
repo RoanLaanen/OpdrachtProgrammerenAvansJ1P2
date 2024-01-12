@@ -2,7 +2,6 @@ package com.codecademy;
 
 
 import com.codecademy.controllers.MainWindowController;
-import com.codecademy.database.DatabaseConnection;
 import com.codecademy.views.MainWindow;
 
 import javafx.fxml.FXMLLoader;

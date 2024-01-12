@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
     <data-source source="LOCAL" name="codecademyData@codecademy.database.windows.net" uuid="6066faf3-7370-468e-8911-b7dbe36d27a0">
-      <driver-ref>sqlserver.ms</driver-ref>
+      <driver-ref>azure.ms</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
       <jdbc-url>jdbc:sqlserver://codecademy.database.windows.net:1433;database=codecademyData</jdbc-url>
