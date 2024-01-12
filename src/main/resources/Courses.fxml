@@ -36,7 +36,7 @@
       </styleClass></ComboBox>
    <Label layoutX="270.0" layoutY="485.0" styleClass="title" text="User completion count: xxx" />
    <Text layoutX="819.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subTitle" text="Modules" />
-   <ListView layoutX="617.0" layoutY="173.0" prefHeight="198.0" prefWidth="480.0" />
+   <ListView styleClass="list" layoutX="617.0" layoutY="173.0" prefHeight="198.0" prefWidth="480.0" />
    <Text layoutX="819.0" layoutY="403.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subTitle" text="Webcasts" />
    <ListView layoutX="617.0" layoutY="418.0" prefHeight="198.0" prefWidth="480.0" />
 
