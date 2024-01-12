@@ -6,8 +6,6 @@
 
     -fx-background-color: -fx-surface;
     -fx-border-color: -fx-primary;
-
-
 }
 .btn:hover {
     -fx-background-color: -fx-primary;

@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,6 +25,7 @@ import java.util.ResourceBundle;
 
 public class UserCoursesController implements Initializable {
     public ListView<String> modulesList;  // List view for modules
+    public Pane topic;
     String selectedUser;  // Selected user info
     String selectedCourse;  // Selected course info
     DataSingleton data = DataSingleton.getInstance();  // Instance of DataSingleton

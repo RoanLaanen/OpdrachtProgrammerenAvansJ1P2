@@ -307,7 +307,7 @@ public class DatabaseConnection {
         doeble.add(availableModuleIds);
 
         return doeble;
-    };
+    }
 
     public static void addModuleToCourse(String courseName, String contentId) {
         try {
