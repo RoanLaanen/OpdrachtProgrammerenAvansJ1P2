@@ -44,8 +44,8 @@
    <Button layoutX="530.0" layoutY="681.0" mnemonicParsing="false" onAction="#saveUser" prefWidth="170.0" styleClass="btn" text="Save User" />
    <Button layoutX="722.0" layoutY="681.0" mnemonicParsing="false" onAction="#addUser" prefWidth="170.0" styleClass="btn" text="Add User" />
    <Button layoutX="916.0" layoutY="681.0" mnemonicParsing="false" onAction="#deleteUser" prefWidth="170.0" styleClass="btn" text="Delete User" />
-   <ComboBox fx:id="genderField" layoutX="215.0" layoutY="292.0" prefHeight="36.0" prefWidth="254.0" promptText="Gender" styleClass="dataField" visibleRowCount="2" />
-   <DatePicker fx:id="dateOfBirthPicker" layoutX="215.0" layoutY="249.0" prefHeight="39.0" prefWidth="254.0" promptText="Date of Birth" styleClass="dataField" />
+   <ComboBox fx:id="genderField" layoutX="215.0" layoutY="292.0" prefHeight="1.0" prefWidth="254.0" promptText="Gender" styleClass="dataField" visibleRowCount="2" />
+   <DatePicker fx:id="dateOfBirthPicker" layoutX="215.0" layoutY="249.0" prefHeight="1.0" prefWidth="254.0" promptText="Date of Birth" styleClass="dataField" />
 
 
 </Pane>
