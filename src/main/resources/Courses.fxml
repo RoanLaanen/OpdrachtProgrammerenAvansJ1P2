@@ -32,11 +32,13 @@
          <String fx:value="dataField" />
          <String fx:value="btn" />
       </styleClass></ComboBox>
-   <Label fx:id="completionText" layoutX="270.0" layoutY="485.0" styleClass="title" text="User completion count: xxx" />
+   <Label fx:id="completionText" layoutX="270.0" layoutY="485.0" styleClass="title" text="User completion count: xxx" textAlignment="CENTER" />
    <Text layoutX="819.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subTitle" text="Modules" />
    <ListView fx:id="modulesList" layoutX="617.0" layoutY="173.0" prefHeight="567.0" prefWidth="480.0" />
     <Button layoutX="185.0" layoutY="661.0" mnemonicParsing="false" onAction="#saveCourse" prefHeight="67.0" prefWidth="130.0" styleClass="btn" text="Save Course" />
     <Button layoutX="463.0" layoutY="661.0" mnemonicParsing="false" onAction="#deleteCourse" prefHeight="67.0" prefWidth="130.0" styleClass="btn" text="Delete Course" />
     <Button layoutX="324.0" layoutY="661.0" mnemonicParsing="false" onAction="#addCourse" prefHeight="67.0" prefWidth="130.0" styleClass="btn" text="Add Course" />
+   <Label fx:id="completionTextMale" layoutX="270.0" layoutY="515.0" styleClass="title" text="Male completion rate: xxx" />
+   <Label fx:id="completionTextFemale" layoutX="270.0" layoutY="545.0" styleClass="title" text="Female completion rate: xxx" />
 
 </Pane>

@@ -1,12 +1,10 @@
 package com.codecademy.database;
 
-import com.codecademy.models.Certificate;
-import com.codecademy.models.Course;
+import com.codecademy.models.*;
 import com.codecademy.models.Module;
-import com.codecademy.models.User;
-import com.codecademy.models.Level;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.*;
 
 public class DatabaseConnection {
@@ -214,12 +212,12 @@ public class DatabaseConnection {
         ArrayList<Module> modules = new ArrayList<>();
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT * FROM [Module] WHERE courseName = ?";
+            String SQL = "SELECT * FROM [Module] LEFT JOIN [ContentItem] ON [Module].contentId = [ContentItem].contentId WHERE courseName = ?";
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, selectedCourse);
                 rs = pst.executeQuery();
                 while (rs.next()) {
-                    modules.add(new Module(rs.getString("title"), rs.getFloat("version"), rs.getString("description"), rs.getString("contactEmail"), rs.getString("contactName"), rs.getInt("contentId"), rs.getString("courseName")));
+                    modules.add(new Module(Status.valueOf(rs.getString("status")), LocalDate.parse(rs.getString("publishingDate")), rs.getString("title"), rs.getFloat("version"), rs.getString("description"), rs.getString("contactEmail"), rs.getString("contactName"), rs.getInt("contentId"), rs.getString("courseName")));
                 }
             }
         } catch (Exception e) {
@@ -284,7 +282,73 @@ public class DatabaseConnection {
         return 0;
     }
 
+    public static float getMaleCompletionRateForCourse(String selectedCourse) {
+        int amountCompleted = 0;
+        int amountTotal = 0;
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT COUNT(*) AS amountCompleted FROM [Certificate] WHERE courseName = ? AND email IN (SELECT email FROM [User] WHERE gender = 'Male')";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, selectedCourse);
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    amountCompleted = rs.getInt("amountCompleted");
+                }
+            }
+            SQL = "SELECT COUNT(*) AS amountTotal FROM [Enrollment] WHERE email IN (SELECT email FROM [User] WHERE gender = 'Male')";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    amountTotal = rs.getInt("amountTotal");
+                }
+            }
+            if (amountTotal == 0) {
+                return 0.0F;
+            }
+            else {
+                return (float) amountCompleted / amountTotal * 100;
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+        return 0;
+    }
 
+    public static float getFemaleCompletionRateForCourse(String selectedCourse) {
+        int amountCompleted = 0;
+        int amountTotal = 0;
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT COUNT(*) AS amountCompleted FROM [Certificate] WHERE courseName = ? AND email IN (SELECT email FROM [User] WHERE gender = 'Female')";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, selectedCourse);
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    amountCompleted = rs.getInt("amountCompleted");
+                }
+            }
+            SQL = "SELECT COUNT(*) AS amountTotal FROM [Enrollment] WHERE email IN (SELECT email FROM [User] WHERE gender = 'Female')";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    amountTotal = rs.getInt("amountTotal");
+                }
+            }
+            if (amountTotal == 0) {
+                return 0.0F;
+            }
+            else {
+                return (float) amountCompleted / amountTotal * 100;
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+        return 0;
+    }
 
 }
 

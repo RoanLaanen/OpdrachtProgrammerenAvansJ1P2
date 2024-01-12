@@ -20,12 +20,17 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.Bidi;
 import java.util.*;
 
 public class CoursesController implements Initializable {
     public TextArea introTextArea;
     public ComboBox<Level> levelBox;
     public Label completionText;
+
+    public Label completionTextMale;
+
+    public Label completionTextFemale;
     String selectedCourse;
     public ListView<String> courseList;
     public TextField nameField;
@@ -68,8 +73,12 @@ public class CoursesController implements Initializable {
         levelBox.getItems().setAll(Level.Beginner, Level.Intermediate, Level.Expert, Level.None);
         courseList.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             selectedCourse = courseList.getSelectionModel().getSelectedItem();
+            float maleCompletionRate = DatabaseConnection.getMaleCompletionRateForCourse(selectedCourse);
+            float femaleCompletionRate = DatabaseConnection.getFemaleCompletionRateForCourse(selectedCourse);
             int totalCOmpletions = DatabaseConnection.getAmountCompleted(selectedCourse);
             completionText.textProperty().bind(Bindings.concat("User completion count: ", totalCOmpletions+""));
+            completionTextMale.textProperty().bind(Bindings.concat("Male completion rate: ", maleCompletionRate+"%"));
+            completionTextFemale.textProperty().bind(Bindings.concat("Female completion rate: ", femaleCompletionRate+"%"));
             nameField.setText(selectedCourse);
             introTextArea.setText(introTexts.get(selectedCourse));
             topicField.setText(topics.get(selectedCourse));
