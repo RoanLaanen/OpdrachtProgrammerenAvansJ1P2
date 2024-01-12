@@ -22,7 +22,7 @@
 
     <Text layoutX="520.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Courses" wrappingWidth="184.8828125"><font><Font size="50.0" /></font></Text>
 
-    <ListView layoutY="123.0" prefHeight="628.0" prefWidth="171.0" />
+    <ListView fx:id="courseList" layoutY="123.0" prefHeight="628.0" prefWidth="171.0" />
         <Button layoutX="195.0" layoutY="667.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="171.0" styleClass="sub-btn,btn" text="Add Course" />
         <Button layoutX="389.0" layoutY="667.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="171.0" styleClass="sub-btn, btn" text="Add Module" />
    <Text layoutX="369.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Data" />
