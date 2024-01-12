@@ -23,7 +23,6 @@ public class CoursesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        courses = DatabaseConnection.getAllCourses();
         courseList.getItems().addAll("Course 1", "Course 2", "Course 3");
     }
 
