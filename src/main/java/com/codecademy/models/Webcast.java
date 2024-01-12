@@ -1,20 +1,23 @@
 package com.codecademy.models;
 
-public class Webcast {
+import java.time.LocalDate;
+
+public class Webcast extends ContentItem{
     private String title;
     private String description;
     private String nameLecturer;
     private String organisationLecturer;
     private String url;
     private int duration;
-    private final int contentID;
-    public Webcast(String title,int duration, String description,String nameLecturer,String organisationLecturer,int contentID,String url){
+
+    public Webcast(Status status, LocalDate publishingDate, String title, int duration, String description, String nameLecturer, String organisationLecturer, int contentID, String url){
+        super(contentID,status,publishingDate);
         this.title = title;
         this.duration = duration;
         this.description = description;
         this.nameLecturer = nameLecturer;
         this.organisationLecturer = organisationLecturer;
-        this.contentID = contentID;
+
         this.url = url;
     }
 
@@ -26,9 +29,7 @@ public class Webcast {
         return title;
     }
 
-    public int getContentID() {
-        return contentID;
-    }
+
 
     public int getDuration() {
         return duration;
