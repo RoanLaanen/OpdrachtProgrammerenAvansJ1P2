@@ -48,19 +48,6 @@ public class DatabaseConnection {
         return users;
     }
 
-    public static void deleteUser(String userEmail) {
-        try {
-            con = DriverManager.getConnection(connectionUrl);
-            String SQL = "DELETE FROM [User] WHERE email = '" + userEmail + "'";
-            stmt = con.createStatement();
-            stmt.executeUpdate(SQL);
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        } finally {
-            closeConnection(con, stmt);
-        }
-    }
-
     public static void addUser (User user) {
         try {
             con = DriverManager.getConnection(connectionUrl);
@@ -104,6 +91,20 @@ public class DatabaseConnection {
         }
     }
 
+    public static void deleteUser(String selectedUser) {
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "DELETE FROM [User] WHERE email = ?";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, selectedUser);
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con, stmt);
+        }
+    }
 
 
 

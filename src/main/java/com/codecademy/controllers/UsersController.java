@@ -117,6 +117,8 @@ public class UsersController implements Initializable {
 
     public void deleteUser() {
         DatabaseConnection.deleteUser(selectedUser);
+        extractUserData();
+        selectedUser = null;
     }
 
     public void clearFields() {
