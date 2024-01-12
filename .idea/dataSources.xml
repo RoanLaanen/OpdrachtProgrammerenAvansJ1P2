@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Azure SQL Database" uuid="4dc3be74-4fde-4948-9caf-ccc164dac4c0">
-      <driver-ref>azure.ms</driver-ref>
+    <data-source source="LOCAL" name="codecademyData@codecademy.database.windows.net" uuid="6066faf3-7370-468e-8911-b7dbe36d27a0">
+      <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
-      <jdbc-url>jdbc:sqlserver://codecademy.database.windows.net :1433;database=codecademyData</jdbc-url>
+      <jdbc-url>jdbc:sqlserver://codecademy.database.windows.net:1433;database=codecademyData</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />

@@ -36,19 +36,20 @@ public class UsersController implements Initializable {
     public TextField addressField;
     public TextField zipField;
     public TextField countryField;
+    private ArrayList<User> users;
+    HashMap<String, String> userNames = new HashMap<>();
+    HashMap<String, String> userEmails = new HashMap<>();
+    HashMap<String, String> userDateOfBirths = new HashMap<>();
+    HashMap<String, String> userGenders = new HashMap<>();
+    HashMap<String, String> userAddresses = new HashMap<>();
+    HashMap<String, String> userZips = new HashMap<>();
+    HashMap<String, String> userCountries = new HashMap<>();
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        ArrayList<User> users;
+    private void extractUserData() {
+
         users = DatabaseConnection.getAllUsers();
 
-        HashMap<String, String> userNames = new HashMap<>();
-        HashMap<String, String> userEmails = new HashMap<>();
-        HashMap<String, String> userDateOfBirths = new HashMap<>();
-        HashMap<String, String> userGenders = new HashMap<>();
-        HashMap<String, String> userAddresses = new HashMap<>();
-        HashMap<String, String> userZips = new HashMap<>();
-        HashMap<String, String> userCountries = new HashMap<>();
+
 
         for (User user : users) {
             String email = user.getEmail();
@@ -68,6 +69,12 @@ public class UsersController implements Initializable {
         ArrayList<String> listOfValues = new ArrayList<String>(values);
         ObservableList<String> items = FXCollections.observableArrayList((listOfValues));
         userList.setItems(items);
+    }
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        extractUserData();
 //
         userList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -141,6 +148,10 @@ public class UsersController implements Initializable {
 
         if (selectedUser == null) {
             DatabaseConnection.addUser(user);
+            extractUserData();
+            selectedUser = user.getEmail();
+            userList.getSelectionModel().select(selectedUser);
+
         } else {
 //            DatabaseConnection.updateUser(selectedUser, user);
         }

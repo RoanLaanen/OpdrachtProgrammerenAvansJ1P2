@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 public class DatabaseConnection {
@@ -84,9 +85,17 @@ public class DatabaseConnection {
     public static void addUser (User user) {
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "INSERT INTO [User] VALUES (%s, %s, %s, %s, %s, %s, %s)".formatted(user.getName(), user.getEmail(), user.getDateOfBirth(), user.getGender(), user.getAddress(), user.getZip(), user.getCountry());
-            stmt = con.createStatement();
-            stmt.executeUpdate(SQL);
+            String SQL = "INSERT INTO [User](name, email, dateOfBirth, isMale, address, zip, country) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, user.getName());
+                pst.setString(2, user.getEmail());
+                pst.setString(3, user.getDateOfBirth());
+                pst.setString(4, user.getGenderBit());
+                pst.setString(5, user.getAddress());
+                pst.setString(6, user.getZip());
+                pst.setString(7, user.getCountry());
+                pst.executeUpdate();
+            }
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
