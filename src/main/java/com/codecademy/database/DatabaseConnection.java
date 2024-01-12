@@ -1,11 +1,10 @@
 package com.codecademy.database;
 
-import com.codecademy.models.Certificate;
-import com.codecademy.models.Course;
-import com.codecademy.models.User;
-import com.codecademy.models.Level;
+import com.codecademy.models.*;
+import com.codecademy.models.Module;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.*;
 
 public class DatabaseConnection {
@@ -36,6 +35,7 @@ public class DatabaseConnection {
         }
         return users;
     }
+
     public static ArrayList<Course> getAllCourses() {
         ArrayList<Course> courses = new ArrayList<>();
         try {
@@ -119,14 +119,14 @@ public class DatabaseConnection {
     public static ArrayList<Certificate> getCertificatesForUser(String selectedUser) {
         ArrayList<Certificate> certificates = new ArrayList<>();
         try {
-        con = DriverManager.getConnection(connectionUrl);
-        String SQL = "SELECT * FROM [Certificate] WHERE email = ?";
-        try (PreparedStatement pst = con.prepareStatement(SQL)) {
-            pst.setString(1, selectedUser);
-            rs = pst.executeQuery();
-            while (rs.next()) {
-                certificates.add(new Certificate(rs.getInt("certificateID"), rs.getString("email"), rs.getString("courseName")));
-            }
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT * FROM [Certificate] WHERE email = ?";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, selectedUser);
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    certificates.add(new Certificate(rs.getInt("certificateID"), rs.getString("email"), rs.getString("courseName")));
+                }
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
@@ -156,6 +156,98 @@ public class DatabaseConnection {
         return courses;
     }
 
+    public static void addCourse(Course course) {
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "INSERT INTO [Course](courseName, introText, topic, level) VALUES (?, ?, ?, ?)";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, course.getCourseName());
+                pst.setString(2, course.getIntroText());
+                pst.setString(3, course.getTopic());
+                pst.setString(4, course.getLevel());
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+    }
+
+    public static void updateCourse(String selectedCourse, Course course) {
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "UPDATE [Course] SET courseName = ?, introText = ?, topic = ?, level = ? WHERE courseName = ?";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, course.getCourseName());
+                pst.setString(2, course.getIntroText());
+                pst.setString(3, course.getTopic());
+                pst.setString(4, course.getLevel());
+                pst.setString(5, selectedCourse);
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+    }
+
+    public static void deleteCourse(String selectedCourse) {
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "DELETE FROM [Course] WHERE courseName = ?";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, selectedCourse);
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+    }
+
+    public static ArrayList<Module> getModulesForCourse(String selectedCourse) {
+        ArrayList<Module> modules = new ArrayList<>();
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT * FROM [Module] LEFT JOIN [ContentItem] ON [Module].contentId = [ContentItem].contentId WHERE courseName = ?";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, selectedCourse);
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    modules.add(new Module(Status.valueOf(rs.getString("status")), LocalDate.parse(rs.getString("publishingDate")), rs.getString("title"), rs.getFloat("version"), rs.getString("description"), rs.getString("contactEmail"), rs.getString("contactName"), rs.getInt("contentId"), rs.getString("courseName")));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+        return modules;
+    }
+
+    public static float getAvgCompletionRateModule(int contentId) {
+        float avgCompletionRate = 0.0F;
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT AVG(viewedPercentage) as avgCompletionRate FROM [Viewed] WHERE contentId = ?";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setInt(1, contentId);
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    avgCompletionRate = rs.getFloat("avgCompletionRate");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+        return avgCompletionRate;
+    }
+
     private static void closeConnection(Connection con) {
         if (stmt != null) try {
             stmt.close();
@@ -181,6 +273,74 @@ public class DatabaseConnection {
                     total = Integer.parseInt(rs.getString("totalCertificates"));
                 }
                 return total;
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+        return 0;
+    }
+
+    public static float getMaleCompletionRateForCourse(String selectedCourse) {
+        int amountCompleted = 0;
+        int amountTotal = 0;
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT COUNT(*) AS amountCompleted FROM [Certificate] WHERE courseName = ? AND email IN (SELECT email FROM [User] WHERE gender = 'Male')";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, selectedCourse);
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    amountCompleted = rs.getInt("amountCompleted");
+                }
+            }
+            SQL = "SELECT COUNT(*) AS amountTotal FROM [Enrollment] WHERE email IN (SELECT email FROM [User] WHERE gender = 'Male')";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    amountTotal = rs.getInt("amountTotal");
+                }
+            }
+            if (amountTotal == 0) {
+                return 0.0F;
+            }
+            else {
+                return (float) amountCompleted / amountTotal * 100;
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+        return 0;
+    }
+
+    public static float getFemaleCompletionRateForCourse(String selectedCourse) {
+        int amountCompleted = 0;
+        int amountTotal = 0;
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT COUNT(*) AS amountCompleted FROM [Certificate] WHERE courseName = ? AND email IN (SELECT email FROM [User] WHERE gender = 'Female')";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, selectedCourse);
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    amountCompleted = rs.getInt("amountCompleted");
+                }
+            }
+            SQL = "SELECT COUNT(*) AS amountTotal FROM [Enrollment] WHERE email IN (SELECT email FROM [User] WHERE gender = 'Female')";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    amountTotal = rs.getInt("amountTotal");
+                }
+            }
+            if (amountTotal == 0) {
+                return 0.0F;
+            }
+            else {
+                return (float) amountCompleted / amountTotal * 100;
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
