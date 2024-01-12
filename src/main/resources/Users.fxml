@@ -19,13 +19,13 @@
 
    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="369.0" layoutX="171.0" layoutY="125.0" stroke="BLACK" strokeType="INSIDE" width="342.0" />
    <Text layoutX="322.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Data" />
-      <TextField fx:id="nameField" layoutX="215.0" layoutY="163.0" prefHeight="8.0" prefWidth="254.0" styleClass="dataField" text="Name" />
-      <TextField fx:id="emailField" layoutX="215.0" layoutY="206.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="Email" />
-      <TextField fx:id="dobField" layoutX="215.0" layoutY="249.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="Date of Birth" />
-      <TextField fx:id="genderField" layoutX="216.0" layoutY="292.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="Gender" />
-      <TextField fx:id="addressField" layoutX="215.0" layoutY="335.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="Adress" />
-      <TextField fx:id="zipField" layoutX="215.0" layoutY="378.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="Zip-code" />
-      <TextField fx:id="countryField" layoutX="215.0" layoutY="421.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" text="Country" />
+      <TextField fx:id="nameField" layoutX="215.0" layoutY="163.0" prefHeight="8.0" prefWidth="254.0" styleClass="dataField" promptText="Name" />
+      <TextField fx:id="emailField" layoutX="215.0" layoutY="206.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" promptText="Email" />
+      <TextField fx:id="dobField" layoutX="215.0" layoutY="249.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" promptText="Date of Birth" />
+      <TextField fx:id="genderField" layoutX="216.0" layoutY="292.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" promptText="Gender" />
+      <TextField fx:id="addressField" layoutX="215.0" layoutY="335.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" promptText="Adress" />
+      <TextField fx:id="zipField" layoutX="215.0" layoutY="378.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" promptText="Zip-code" />
+      <TextField fx:id="countryField" layoutX="215.0" layoutY="421.0" prefHeight="1.0" prefWidth="254.0" styleClass="dataField" promptText="Country" />
 
 
 
