@@ -80,7 +80,8 @@ public class UserCoursesController implements Initializable {
 
 
 
-    public void  changeSceneToUsers(MouseEvent mouseEvent) throws IOException {
+
+    public void changeSceneToMain(MouseEvent mouseEvent) throws IOException {
         Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Users.fxml")));
         Scene scene = new Scene(parent);
 

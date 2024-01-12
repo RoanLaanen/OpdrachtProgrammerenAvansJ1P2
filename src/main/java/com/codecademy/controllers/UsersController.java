@@ -215,4 +215,6 @@ public class UsersController implements Initializable {
         selectedUser = user.getEmail();
         userList.getSelectionModel().select(selectedUser);
     }
+
+
 }
