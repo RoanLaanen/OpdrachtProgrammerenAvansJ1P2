@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane id="main" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@CSS/style.css, @CSS/Courses.css" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.CoursesController">
+<Pane id="main" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" stylesheets="@CSS/style.css, @CSS/Courses.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codecademy.controllers.CoursesController">
 
     <Line endX="755.0" endY="-13.0" layoutX="345.0" layoutY="138.0" startX="-345.0" startY="-13.0" />
     <Line endX="-104.20709228515625" endY="487.0" layoutX="275.0" layoutY="263.0" startX="-104.20709228515625" startY="-263.0" />
@@ -23,8 +23,6 @@
     <Text layoutX="520.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Courses" wrappingWidth="184.8828125"><font><Font size="50.0" /></font></Text>
 
     <ListView fx:id="courseList" layoutY="123.0" prefHeight="628.0" prefWidth="171.0" />
-        <Button layoutX="195.0" layoutY="667.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="171.0" styleClass="sub-btn,btn" text="Add Course" />
-        <Button layoutX="389.0" layoutY="667.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="171.0" styleClass="sub-btn, btn" text="Add Module" />
    <Text layoutX="369.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Data" />
    <TextField fx:id="nameField" layoutX="262.0" layoutY="208.0" prefHeight="8.0" prefWidth="254.0" styleClass="dataField" text="courseName" />
    <TextArea fx:id="introTextArea" layoutX="262.0" layoutY="251.0" prefHeight="131.0" prefWidth="254.0" styleClass="dataArea" wrapText="true" />
@@ -34,7 +32,7 @@
          <String fx:value="dataField" />
          <String fx:value="btn" />
       </styleClass></ComboBox>
-   <Label layoutX="270.0" layoutY="485.0" styleClass="title" text="User completion count: xxx" />
+   <Label fx:id="completionText" layoutX="270.0" layoutY="485.0" styleClass="title" text="User completion count: xxx" />
    <Text layoutX="819.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subTitle" text="Modules" />
    <ListView fx:id="modulesList" layoutX="617.0" layoutY="173.0" prefHeight="198.0" prefWidth="480.0" />
    <Text layoutX="819.0" layoutY="403.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subTitle" text="Webcasts" />
@@ -42,6 +40,8 @@
 
     <Text layoutX="753.0" layoutY="656.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subTitle" text="Most viewed Webcasts" />
         <ListView fx:id="mostViewed" layoutX="617.0" layoutY="669.0" prefHeight="76.0" prefWidth="480.0" />
-
+    <Button layoutX="185.0" layoutY="661.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="130.0" styleClass="btn" text="Save Course" />
+    <Button layoutX="463.0" layoutY="661.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="130.0" styleClass="btn" text="Delete Course" />
+    <Button layoutX="324.0" layoutY="661.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="130.0" styleClass="btn" text="Add Course" />
 
 </Pane>

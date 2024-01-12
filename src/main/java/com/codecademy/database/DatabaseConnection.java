@@ -168,6 +168,28 @@ public class DatabaseConnection {
             System.out.println("Error: " + exception);
         }
     }
+
+    public static <Int> int getAmountCompleted(String coursename) {
+        int total = 0;
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = "SELECT courseName, count(*) AS totalCertificates FROM Certificate WHERE courseName = ? group by courseName";
+            try (PreparedStatement pst = con.prepareStatement(SQL)) {
+                pst.setString(1, coursename);
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    total = Integer.parseInt(rs.getString("totalCertificates"));
+                }
+                return total;
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            closeConnection(con);
+        }
+        return 0;
+    }
+
 }
 
 

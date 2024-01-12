@@ -4,6 +4,7 @@ import com.codecademy.database.DatabaseConnection;
 import com.codecademy.models.Course;
 import com.codecademy.models.Level;
 import com.codecademy.models.User;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,10 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -26,6 +24,7 @@ import java.util.*;
 public class CoursesController implements Initializable {
     public TextArea introTextArea;
     public ComboBox<Level> levelBox;
+    public Label completionText;
     String selectedCourse;
     public ListView<String> courseList;
     public TextField nameField;
@@ -67,9 +66,9 @@ public class CoursesController implements Initializable {
         extractCourseData();
         levelBox.getItems().setAll(Level.Beginner, Level.Intermediate, Level.Expert, Level.None);
         courseList.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
-
             selectedCourse = courseList.getSelectionModel().getSelectedItem();
-
+            int totalCOmpletions = DatabaseConnection.getAmountCompleted(selectedCourse);
+            completionText.textProperty().bind(Bindings.concat("User completion count: ", totalCOmpletions+""));
             nameField.setText(selectedCourse);
             introTextArea.setText(introTexts.get(selectedCourse));
             topicField.setText(topics.get(selectedCourse));
