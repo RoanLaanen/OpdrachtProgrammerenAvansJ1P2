@@ -13,9 +13,7 @@ public abstract class ContentItem {
         this.status = status;
         this.publishingDate = publishingDate;
     }
-    
 
-
-
+    public abstract String getTitle();
 
 }

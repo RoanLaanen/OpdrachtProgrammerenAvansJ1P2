@@ -13,51 +13,116 @@ public class DatabaseConnection {
     private static Statement stmt = null;
     private static ResultSet rs = null;
 
-    public static ArrayList<User> getAllUsers() {
-        ArrayList<User> users = new ArrayList<>();
+//    public static ArrayList<User> getAllUsers() {
+//        ArrayList<User> users = new ArrayList<>();
+//        try {
+//            con = DriverManager.getConnection(connectionUrl);
+//            String SQL = "SELECT * FROM [User]";
+//            stmt = con.createStatement();
+//            rs = stmt.executeQuery(SQL);
+//            while (rs.next()) {
+//                users.add(new User(rs.getString("name"), rs.getString("email"), rs.getDate("dateOfBirth").toLocalDate(), rs.getString("gender"), rs.getString("address"), rs.getString("zip"), rs.getString("country")));
+//            }
+//        } catch (Exception e) {
+//            System.out.println("Error: " + e);
+//        } finally {
+//            if (rs != null) try {
+//                rs.close();
+//            } catch (Exception e) {
+//                System.out.println("Error: " + e);
+//            }
+//            closeConnection(con);
+//        }
+//        return users;
+//    }
+//
+//    public static ArrayList<Course> getAllCourses() {
+//        ArrayList<Course> courses = new ArrayList<>();
+//        try {
+//            con = DriverManager.getConnection(connectionUrl);
+//            String SQL = "SELECT * FROM [Course]";
+//            stmt = con.createStatement();
+//            rs = stmt.executeQuery(SQL);
+//            while (rs.next()) {
+//                courses.add(new Course(rs.getString("courseName"), rs.getString("topic"), rs.getString("introText"), Level.valueOf(rs.getString("level"))));
+//            }
+//        } catch (Exception e) {
+//            System.out.println("Error: " + e);
+//        } finally {
+//            if (rs != null) try {
+//                rs.close();
+//            } catch (Exception e) {
+//                System.out.println("Error: " + e);
+//            }
+//            closeConnection(con);
+//        }
+//        return courses;
+//    }
+public interface ResultSetHandler<T> {
+    T handle(ResultSet rs) throws SQLException;
+}
+
+    public static <T> List<T> getAll(String query, ResultSetHandler<T> handler) {
+        List<T> results = new ArrayList<>();
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT * FROM [User]";
             stmt = con.createStatement();
-            rs = stmt.executeQuery(SQL);
+            rs = stmt.executeQuery(query);
             while (rs.next()) {
-                users.add(new User(rs.getString("name"), rs.getString("email"), rs.getDate("dateOfBirth").toLocalDate(), rs.getString("gender"), rs.getString("address"), rs.getString("zip"), rs.getString("country")));
+                results.add(handler.handle(rs));
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
-            if (rs != null) try {
-                rs.close();
-            } catch (Exception e) {
-                System.out.println("Error: " + e);
-            }
+            if (rs != null) try { rs.close(); } catch (Exception e) { System.out.println("Error: " + e); }
             closeConnection(con);
         }
-        return users;
+        return results;
+    }
+    public static ArrayList<User> getAllUsers() {
+        return (ArrayList<User>) getAll("SELECT * FROM [User]", rs -> new User(rs.getString("name"), rs.getString("email"), rs.getDate("dateOfBirth").toLocalDate(), rs.getString("gender"), rs.getString("address"), rs.getString("zip"), rs.getString("country")));
     }
 
     public static ArrayList<Course> getAllCourses() {
-        ArrayList<Course> courses = new ArrayList<>();
-        try {
-            con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT * FROM [Course]";
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(SQL);
-            while (rs.next()) {
-                courses.add(new Course(rs.getString("courseName"), rs.getString("topic"), rs.getString("introText"), Level.valueOf(rs.getString("level"))));
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        } finally {
-            if (rs != null) try {
-                rs.close();
-            } catch (Exception e) {
-                System.out.println("Error: " + e);
-            }
-            closeConnection(con);
-        }
-        return courses;
+        return (ArrayList<Course>) getAll("SELECT * FROM [Course]", rs -> new Course(rs.getString("courseName"), rs.getString("topic"), rs.getString("introText"), Level.valueOf(rs.getString("level"))));
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public static ArrayList<Course> getAllCoursesWhereNotEnrolled(String email) {
         ArrayList<Course> courses = new ArrayList<>();

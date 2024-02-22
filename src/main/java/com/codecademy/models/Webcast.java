@@ -29,8 +29,6 @@ public class Webcast extends ContentItem{
         return title;
     }
 
-
-
     public int getDuration() {
         return duration;
     }
