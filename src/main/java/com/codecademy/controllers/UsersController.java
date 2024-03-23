@@ -199,16 +199,10 @@ public class UsersController implements Initializable {
         String address = addressField.getText();
         String zip = zipField.getText();
         String country = countryField.getText();
-//        if(!constraints.checkEmail(email)){
-//            emailField.setText("Invalid email");
-//        }
-//        else if(!constraints.checkDateOfBirth(String.valueOf(dob))){
-//            dateOfBirthPicker.setPromptText("Invalid date of birth");
-//        }
-//        else if(!constraints.checkZip(zip)){
-//            zipField.setText("Invalid zip code");
-//        }
-//        else {
+        if(!checkAddUserFields(email,zip, String.valueOf(dob))){
+            System.out.println("incorrect fields");
+        }
+        else {
             user.setAddress(address);
             user.setName(name);
             user.setEmail(email);
@@ -226,6 +220,19 @@ public class UsersController implements Initializable {
             selectedUser = user.getEmail();
             userList.getSelectionModel().select(selectedUser);
 
-//        }
+        }
+    }
+    public boolean checkAddUserFields(String email, String zip, String dateOfBirth){
+        if(constraints.checkEmail(email) && constraints.checkDateOfBirth(dateOfBirth) && constraints.checkZip(zip)){
+            System.out.println("fields are all correct");
+            return true;
+        }
+        else {
+            System.out.println("Email: " + constraints.checkEmail(email));
+            System.out.println("dateOfBirth: " + constraints.checkDateOfBirth(String.valueOf(dateOfBirth)) + " " +  dateOfBirth);
+            System.out.println("zip: " + constraints.checkZip(zip));
+            return false;
+        }
+
     }
 }

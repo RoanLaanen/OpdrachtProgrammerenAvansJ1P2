@@ -4,7 +4,7 @@ public class Constraints {
 
     // Method to verify if the given email is valid according to the regular expression
     public boolean checkEmail(String email){
-        String regex = "^.@..+$";
+        String regex = "^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         return email.matches(regex);
     }
 
@@ -21,7 +21,7 @@ public class Constraints {
 
     // Method to validate if the given date of birth follows the correct date format defined by the regex
     public boolean checkDateOfBirth(String dob){
-        String regex = "^\\d{2}/\\d{2}/\\d{4}$";
+        String regex = "^\\d{4}-\\d{2}-\\d{2}$";
         return dob.matches(regex);
     }
 }
