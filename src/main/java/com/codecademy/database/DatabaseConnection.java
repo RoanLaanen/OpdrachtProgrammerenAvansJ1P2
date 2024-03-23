@@ -8,15 +8,15 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class DatabaseConnection {
-    private static final String connectionUrl = "jdbc:sqlserver://codecademy.database.windows.net:1433;database=codecademyData;user=groep5@codecademy;password=AvansBreda123;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30";
-    private static final Connection con = DatabaseConnectionManager.getCon();
+    private static final String connectionUrl = DatabaseConnectionManager.getConnectionUrl();
+    private static Connection con = DatabaseConnectionManager.getCon();
     private static Statement stmt = null;
     private static ResultSet rs = null;
     static SQLQueries sqlQueries = new SQLQueries();
-
     public static ArrayList<User> getAllUsers() {
         ArrayList<User> users = new ArrayList<>();
         try {
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.getAllUsers();
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
@@ -31,7 +31,7 @@ public class DatabaseConnection {
             } catch (Exception e) {
                 System.out.println("Error: " + e);
             }
-            closeConnection();
+            closeConnection(con);
         }
         return users;
     }
@@ -39,6 +39,7 @@ public class DatabaseConnection {
     public static ArrayList<Course> getAllCourses() {
         ArrayList<Course> courses = new ArrayList<>();
         try {
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.getAllCourses();
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
@@ -53,7 +54,7 @@ public class DatabaseConnection {
             } catch (Exception e) {
                 System.out.println("Error: " + e);
             }
-            closeConnection();
+            closeConnection(con);
         }
         return courses;
     }
@@ -61,6 +62,7 @@ public class DatabaseConnection {
     public static ArrayList<Course> getAllCoursesWhereNotEnrolled(String email) {
         ArrayList<Course> courses = new ArrayList<>();
         try {
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.getAllCoursesWhereNotEnrolled();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, email);
@@ -72,7 +74,7 @@ public class DatabaseConnection {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
-            closeConnection();
+            closeConnection(con);
         }
         return courses;
     }
@@ -80,6 +82,7 @@ public class DatabaseConnection {
 
     public static void addUser(User user) {
         try {
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.insertUser();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 userDatabaseChange(user, pst);
@@ -88,12 +91,13 @@ public class DatabaseConnection {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
-            closeConnection();
+            closeConnection(con);
         }
     }
 
     public static void enrollUserInCourse(String email, String selectedCourse) {
         try {
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.addUserToCourse();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, email);
@@ -104,12 +108,13 @@ public class DatabaseConnection {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
-            closeConnection();
+            closeConnection(con);
         }
     }
 
     public static void unenrollUserInCourse(String email, String selectedCourse) {
         try {
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.removeUserFromCourse();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, selectedCourse);
@@ -119,7 +124,7 @@ public class DatabaseConnection {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
-            closeConnection();
+            closeConnection(con);
         }
     }
 
@@ -135,6 +140,7 @@ public class DatabaseConnection {
 
     public static void updateUser(String selectedUser, User updatedUser) {
         try {
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.updateUser();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 userDatabaseChange(updatedUser, pst);
@@ -144,12 +150,13 @@ public class DatabaseConnection {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
-            closeConnection();
+            closeConnection(con);
         }
     }
 
     public static void deleteUser(String selectedUser) {
         try {
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.removeUser();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, selectedUser);
@@ -158,14 +165,14 @@ public class DatabaseConnection {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
-            closeConnection();
+            closeConnection(con);
         }
     }
 
     public static ArrayList<Certificate> getCertificatesForUser(String selectedUser) {
         ArrayList<Certificate> certificates = new ArrayList<>();
         try {
-            
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.getCertificatesForUser();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, selectedUser);
@@ -177,7 +184,7 @@ public class DatabaseConnection {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
-            closeConnection();
+            closeConnection(con);
         }
         return certificates;
     }
@@ -185,7 +192,7 @@ public class DatabaseConnection {
     public static ArrayList<Course> getCoursesForUser(String selectedUser) {
         ArrayList<Course> courses = new ArrayList<>();
         try {
-            
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.getCoursesForUser();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, selectedUser);
@@ -197,14 +204,14 @@ public class DatabaseConnection {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
-            closeConnection();
+            closeConnection(con);
         }
         return courses;
     }
 
     public static void addCourse(Course course) {
         try {
-            
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.addCourse();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, course.getCourseName());
@@ -216,13 +223,13 @@ public class DatabaseConnection {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
-            closeConnection();
+            closeConnection(con);
         }
     }
 
     public static void updateCourse(String selectedCourse, Course course) {
         try {
-            
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.updateCourse();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, course.getCourseName());
@@ -235,13 +242,13 @@ public class DatabaseConnection {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
-            closeConnection();
+            closeConnection(con);
         }
     }
 
     public static void deleteCourse(String selectedCourse) {
         try {
-            
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.deleteCourse();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, selectedCourse);
@@ -250,14 +257,14 @@ public class DatabaseConnection {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
-            closeConnection();
+            closeConnection(con);
         }
     }
 
     public static ArrayList<Module> getModulesForCourse(String selectedCourse) {
         ArrayList<Module> modules = new ArrayList<>();
         try {
-            
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.getModulesForCourse();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, selectedCourse);
@@ -270,7 +277,7 @@ public class DatabaseConnection {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
-            closeConnection();
+            closeConnection(con);
         }
         return modules;
 
@@ -279,7 +286,7 @@ public class DatabaseConnection {
         ArrayList<String> availableModules = new ArrayList<>();
         ArrayList<String> availableModuleIds = new ArrayList<>();
         try {
-            
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.getAvailableModules();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 rs = pst.executeQuery();
@@ -292,7 +299,7 @@ public class DatabaseConnection {
         } catch (Exception e) {
             System.out.println("Erroreee: " + e);
         } finally {
-            closeConnection();
+            closeConnection(con);
         }
 
         ArrayList<ArrayList<String>> doeble = new ArrayList<>();
@@ -304,7 +311,7 @@ public class DatabaseConnection {
 
     public static void addModuleToCourse(String courseName, String contentId) {
         try {
-            
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.addModuleToCourse();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, courseName);
@@ -314,15 +321,17 @@ public class DatabaseConnection {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
-            closeConnection();
+            closeConnection(con);
         }
     }
+
+
 
 
     public static float getAvgCompletionRateModule(int contentId) {
         float avgCompletionRate = 0.0F;
         try {
-            
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.getAvgCompletionRateModule();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setInt(1, contentId);
@@ -334,28 +343,28 @@ public class DatabaseConnection {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
-            closeConnection();
+            closeConnection(con);
         }
         return avgCompletionRate;
     }
 
-    private static void closeConnection() {
+    private static void closeConnection(Connection con) {
         if (stmt != null) try {
             stmt.close();
         } catch (Exception exception) {
             System.out.println("Error: " + exception);
         }
-        if (DatabaseConnection.con != null) try {
-            DatabaseConnection.con.close();
+        if (con != null) try {
+            con.close();
         } catch (Exception exception) {
             System.out.println("Error: " + exception);
         }
     }
 
-    public static int getAmountCompleted(String coursename) {
+    public static <Int> int getAmountCompleted(String coursename) {
         int total = 0;
         try {
-            
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.getAmountCompleted();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, coursename);
@@ -368,7 +377,7 @@ public class DatabaseConnection {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
-            closeConnection();
+            closeConnection(con);
         }
         return 0;
     }
@@ -377,7 +386,7 @@ public class DatabaseConnection {
         int amountCompleted = 0;
         int amountTotal = 0;
         try {
-            
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.getMaleCompletionRate();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, selectedCourse);
@@ -401,7 +410,7 @@ public class DatabaseConnection {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
-            closeConnection();
+            closeConnection(con);
         }
         return 0;
     }
@@ -410,7 +419,7 @@ public class DatabaseConnection {
         int amountCompleted = 0;
         int amountTotal = 0;
         try {
-            
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.getFemaleCompletionRate();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, selectedCourse);
@@ -434,7 +443,7 @@ public class DatabaseConnection {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
-            closeConnection();
+            closeConnection(con);
         }
         return 0;
     }
@@ -442,7 +451,7 @@ public class DatabaseConnection {
     public static ArrayList<Webcast> getWebcasts() {
         ArrayList<Webcast> webcasts = new ArrayList<>();
         try {
-            
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.getAllWebcasts();
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
@@ -457,7 +466,7 @@ public class DatabaseConnection {
             } catch (Exception e) {
                 System.out.println("Error: " + e);
             }
-            closeConnection();
+            closeConnection(con);
         }
         return webcasts;
     }
@@ -465,7 +474,7 @@ public class DatabaseConnection {
     public static ArrayList<Webcast> getTopWebcasts() {
         ArrayList<Webcast> webcasts = new ArrayList<>();
         try {
-            
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.getTopWebcasts();
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
@@ -480,7 +489,7 @@ public class DatabaseConnection {
             } catch (Exception e) {
                 System.out.println("Error: " + e);
             }
-            closeConnection();
+            closeConnection(con);
         }
         return webcasts;
     }
@@ -488,7 +497,7 @@ public class DatabaseConnection {
     public static Course getCourseFromName(String selectedCourse) {
         Course courseObject = null;
         try {
-            
+            con = DriverManager.getConnection(connectionUrl);
             String SQL = sqlQueries.getCourseFromName();
 
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
@@ -502,7 +511,7 @@ public class DatabaseConnection {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
-            closeConnection();
+            closeConnection(con);
         }
         return courseObject;
     }

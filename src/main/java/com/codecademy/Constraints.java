@@ -21,7 +21,7 @@ public class Constraints {
 
     // Method to validate if the given date of birth follows the correct date format defined by the regex
     public boolean checkDateOfBirth(String dob){
-        String regex = "^\\d{2}-\\d{2}-\\d{4}$";
+        String regex = "^\\d{2}/\\d{2}/\\d{4}$";
         return dob.matches(regex);
     }
 }

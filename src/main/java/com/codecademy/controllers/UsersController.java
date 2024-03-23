@@ -1,5 +1,6 @@
 package com.codecademy.controllers;
 
+import com.codecademy.Constraints;
 import com.codecademy.models.DataSingleton;
 import com.codecademy.database.DatabaseConnection;
 import com.codecademy.models.Certificate;
@@ -29,6 +30,7 @@ import java.util.*;
 public class UsersController implements Initializable {
     @FXML
     public ListView<String> userList;
+    Constraints constraints = new Constraints();
     @FXML
     public ListView<String> certificateList;
     @FXML
@@ -189,16 +191,41 @@ public class UsersController implements Initializable {
 
     public void saveUser() {
 
-        User user = new User(nameField.getText(), emailField.getText(), dateOfBirthPicker.getValue(), genderField.getSelectionModel().getSelectedItem(), addressField.getText(), zipField.getText(), countryField.getText());
+        User user = new User();
+        String name = nameField.getText();
+        String email = emailField.getText();
+        LocalDate dob = dateOfBirthPicker.getValue();
+        String gender = genderField.getSelectionModel().getSelectedItem();
+        String address = addressField.getText();
+        String zip = zipField.getText();
+        String country = countryField.getText();
+//        if(!constraints.checkEmail(email)){
+//            emailField.setText("Invalid email");
+//        }
+//        else if(!constraints.checkDateOfBirth(String.valueOf(dob))){
+//            dateOfBirthPicker.setPromptText("Invalid date of birth");
+//        }
+//        else if(!constraints.checkZip(zip)){
+//            zipField.setText("Invalid zip code");
+//        }
+//        else {
+            user.setAddress(address);
+            user.setName(name);
+            user.setEmail(email);
+            user.setGender(gender);
+            user.setCountry(country);
+            user.setZip(zip);
+            user.setDateOfBirth(dob);
+            if (selectedUser == null) {
+                DatabaseConnection.addUser(user);
 
-        if (selectedUser == null) {
-            DatabaseConnection.addUser(user);
+            } else {
+                DatabaseConnection.updateUser(selectedUser, user);
+            }
+            extractUserData();
+            selectedUser = user.getEmail();
+            userList.getSelectionModel().select(selectedUser);
 
-        } else {
-            DatabaseConnection.updateUser(selectedUser, user);
-        }
-        extractUserData();
-        selectedUser = user.getEmail();
-        userList.getSelectionModel().select(selectedUser);
+//        }
     }
 }
