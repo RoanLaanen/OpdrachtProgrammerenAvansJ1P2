@@ -12,108 +12,80 @@ public class DatabaseConnection {
     private static Connection con = null;
     private static Statement stmt = null;
     private static ResultSet rs = null;
-
-//    public static ArrayList<User> getAllUsers() {
-//        ArrayList<User> users = new ArrayList<>();
-//        try {
-//            con = DriverManager.getConnection(connectionUrl);
-//            String SQL = "SELECT * FROM [User]";
-//            stmt = con.createStatement();
-//            rs = stmt.executeQuery(SQL);
-//            while (rs.next()) {
-//                users.add(new User(rs.getString("name"), rs.getString("email"), rs.getDate("dateOfBirth").toLocalDate(), rs.getString("gender"), rs.getString("address"), rs.getString("zip"), rs.getString("country")));
-//            }
-//        } catch (Exception e) {
-//            System.out.println("Error: " + e);
-//        } finally {
-//            if (rs != null) try {
-//                rs.close();
-//            } catch (Exception e) {
-//                System.out.println("Error: " + e);
-//            }
-//            closeConnection(con);
-//        }
-//        return users;
-//    }
-//
-//    public static ArrayList<Course> getAllCourses() {
-//        ArrayList<Course> courses = new ArrayList<>();
-//        try {
-//            con = DriverManager.getConnection(connectionUrl);
-//            String SQL = "SELECT * FROM [Course]";
-//            stmt = con.createStatement();
-//            rs = stmt.executeQuery(SQL);
-//            while (rs.next()) {
-//                courses.add(new Course(rs.getString("courseName"), rs.getString("topic"), rs.getString("introText"), Level.valueOf(rs.getString("level"))));
-//            }
-//        } catch (Exception e) {
-//            System.out.println("Error: " + e);
-//        } finally {
-//            if (rs != null) try {
-//                rs.close();
-//            } catch (Exception e) {
-//                System.out.println("Error: " + e);
-//            }
-//            closeConnection(con);
-//        }
-//        return courses;
-//    }
-public interface ResultSetHandler<T> {
-    T handle(ResultSet rs) throws SQLException;
-}
-
-    public static <T> List<T> getAll(String query, ResultSetHandler<T> handler) {
-        List<T> results = new ArrayList<>();
+    static SQLQueries sqlQueries = new SQLQueries();
+    public static ArrayList<User> getAllUsers() {
+        ArrayList<User> users = new ArrayList<>();
         try {
             con = DriverManager.getConnection(connectionUrl);
+            String SQL = sqlQueries.getAllUsers();
             stmt = con.createStatement();
-            rs = stmt.executeQuery(query);
+            rs = stmt.executeQuery(SQL);
             while (rs.next()) {
-                results.add(handler.handle(rs));
+                users.add(new User(rs.getString("name"), rs.getString("email"), rs.getDate("dateOfBirth").toLocalDate(), rs.getString("gender"), rs.getString("address"), rs.getString("zip"), rs.getString("country")));
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
         } finally {
-            if (rs != null) try { rs.close(); } catch (Exception e) { System.out.println("Error: " + e); }
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            }
             closeConnection(con);
         }
-        return results;
-    }
-    public static ArrayList<User> getAllUsers() {
-        return (ArrayList<User>) getAll("SELECT * FROM [User]", rs -> new User(rs.getString("name"), rs.getString("email"), rs.getDate("dateOfBirth").toLocalDate(), rs.getString("gender"), rs.getString("address"), rs.getString("zip"), rs.getString("country")));
+        return users;
     }
 
     public static ArrayList<Course> getAllCourses() {
-        return (ArrayList<Course>) getAll("SELECT * FROM [Course]", rs -> new Course(rs.getString("courseName"), rs.getString("topic"), rs.getString("introText"), Level.valueOf(rs.getString("level"))));
+        ArrayList<Course> courses = new ArrayList<>();
+        try {
+            con = DriverManager.getConnection(connectionUrl);
+            String SQL = sqlQueries.getAllCourses();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                courses.add(new Course(rs.getString("courseName"), rs.getString("topic"), rs.getString("introText"), Level.valueOf(rs.getString("level"))));
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            }
+            closeConnection(con);
+        }
+        return courses;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//public interface ResultSetHandler<T> {
+//    T handle(ResultSet rs) throws SQLException;
+//}
+//
+//    public static <T> List<T> getAll(String query, ResultSetHandler<T> handler) {
+//        List<T> results = new ArrayList<>();
+//        try {
+//            con = DriverManager.getConnection(connectionUrl);
+//            stmt = con.createStatement();
+//            rs = stmt.executeQuery(query);
+//            while (rs.next()) {
+//                results.add(handler.handle(rs));
+//            }
+//        } catch (Exception e) {
+//            System.out.println("Error: " + e);
+//        } finally {
+//            if (rs != null) try { rs.close(); } catch (Exception e) { System.out.println("Error: " + e); }
+//            closeConnection(con);
+//        }
+//        return results;
+//    }
+//    public static ArrayList<User> getAllUsers() {
+//        return (ArrayList<User>) getAll("SELECT * FROM [User]", rs -> new User(rs.getString("name"), rs.getString("email"), rs.getDate("dateOfBirth").toLocalDate(), rs.getString("gender"), rs.getString("address"), rs.getString("zip"), rs.getString("country")));
+//    }
+//
+//    public static ArrayList<Course> getAllCourses() {
+//        return (ArrayList<Course>) getAll("SELECT * FROM [Course]", rs -> new Course(rs.getString("courseName"), rs.getString("topic"), rs.getString("introText"), Level.valueOf(rs.getString("level"))));
+//    }
 
 
 
@@ -128,7 +100,7 @@ public interface ResultSetHandler<T> {
         ArrayList<Course> courses = new ArrayList<>();
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT * FROM [Course] WHERE courseName NOT IN (SELECT courseName FROM [Enrollment] WHERE email != ?)";
+            String SQL = sqlQueries.getAllCoursesWhereNotEnrolled();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, email);
                 rs = pst.executeQuery();
@@ -148,7 +120,7 @@ public interface ResultSetHandler<T> {
     public static void addUser(User user) {
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "INSERT INTO [User](name, email, dateOfBirth, gender, address, zip, country) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String SQL = sqlQueries.insertUser();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 userDatabaseChange(user, pst);
                 pst.executeUpdate();
@@ -163,7 +135,7 @@ public interface ResultSetHandler<T> {
     public static void enrollUserInCourse(String email, String selectedCourse) {
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "INSERT INTO [Enrollment](email, courseName, enrollmentDate) VALUES (?, ?, ?)";
+            String SQL = sqlQueries.addUserToCourse();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, email);
                 pst.setString(2, selectedCourse);
@@ -180,7 +152,7 @@ public interface ResultSetHandler<T> {
     public static void unenrollUserInCourse(String email, String selectedCourse) {
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "DELETE FROM [Enrollment] WHERE courseName = ? AND email = ?";
+            String SQL = sqlQueries.removeUserFromCourse();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, selectedCourse);
                 pst.setString(2, email);
@@ -206,7 +178,7 @@ public interface ResultSetHandler<T> {
     public static void updateUser(String selectedUser, User updatedUser) {
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "UPDATE [User] SET name = ?, email = ?, dateOfBirth = ?, gender = ?, address = ?, zip = ?, country = ? WHERE email = ?";
+            String SQL = sqlQueries.updateUser();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 userDatabaseChange(updatedUser, pst);
                 pst.setString(8, selectedUser);
@@ -222,7 +194,7 @@ public interface ResultSetHandler<T> {
     public static void deleteUser(String selectedUser) {
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "DELETE FROM [User] WHERE email = ?";
+            String SQL = sqlQueries.removeUser();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, selectedUser);
                 pst.executeUpdate();
@@ -238,7 +210,7 @@ public interface ResultSetHandler<T> {
         ArrayList<Certificate> certificates = new ArrayList<>();
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT * FROM [Certificate] WHERE email = ?";
+            String SQL = sqlQueries.getCertificatesForUser();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, selectedUser);
                 rs = pst.executeQuery();
@@ -258,7 +230,7 @@ public interface ResultSetHandler<T> {
         ArrayList<Course> courses = new ArrayList<>();
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT * FROM [Course] WHERE courseName IN (SELECT courseName FROM [Enrollment] WHERE email = ?)";
+            String SQL = sqlQueries.getCoursesForUser();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, selectedUser);
                 rs = pst.executeQuery();
@@ -277,7 +249,7 @@ public interface ResultSetHandler<T> {
     public static void addCourse(Course course) {
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "INSERT INTO [Course](courseName, introText, topic, level) VALUES (?, ?, ?, ?)";
+            String SQL = sqlQueries.addCourse();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, course.getCourseName());
                 pst.setString(2, course.getIntroText());
@@ -295,7 +267,7 @@ public interface ResultSetHandler<T> {
     public static void updateCourse(String selectedCourse, Course course) {
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "UPDATE [Course] SET courseName = ?, introText = ?, topic = ?, level = ? WHERE courseName = ?";
+            String SQL = sqlQueries.updateCourse();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, course.getCourseName());
                 pst.setString(2, course.getIntroText());
@@ -314,7 +286,7 @@ public interface ResultSetHandler<T> {
     public static void deleteCourse(String selectedCourse) {
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "DELETE FROM [Course] WHERE courseName = ?";
+            String SQL = sqlQueries.deleteCourse();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, selectedCourse);
                 pst.executeUpdate();
@@ -330,7 +302,7 @@ public interface ResultSetHandler<T> {
         ArrayList<Module> modules = new ArrayList<>();
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT * FROM [Module] LEFT JOIN [ContentItem] ON [Module].contentId = [ContentItem].contentId WHERE courseName = ?";
+            String SQL = sqlQueries.getModulesForCourse();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, selectedCourse);
                 rs = pst.executeQuery();
@@ -352,7 +324,7 @@ public interface ResultSetHandler<T> {
         ArrayList<String> availableModuleIds = new ArrayList<>();
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT * FROM [Module] LEFT JOIN [ContentItem] ON [Module].contentId = [ContentItem].contentId WHERE courseName IS NULL";
+            String SQL = sqlQueries.getAvailableModules();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 rs = pst.executeQuery();
                 while (rs.next()) {
@@ -377,7 +349,7 @@ public interface ResultSetHandler<T> {
     public static void addModuleToCourse(String courseName, String contentId) {
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "UPDATE [Module] SET courseName = ? WHERE contentId = ?";
+            String SQL = sqlQueries.addModuleToCourse();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, courseName);
                 pst.setString(2, contentId);
@@ -397,7 +369,7 @@ public interface ResultSetHandler<T> {
         float avgCompletionRate = 0.0F;
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT AVG(viewedPercentage) as avgCompletionRate FROM [Viewed] WHERE contentId = ?";
+            String SQL = sqlQueries.getAvgCompletionRateModule();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setInt(1, contentId);
                 rs = pst.executeQuery();
@@ -430,7 +402,7 @@ public interface ResultSetHandler<T> {
         int total = 0;
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT courseName, count(*) AS totalCertificates FROM Certificate WHERE courseName = ? group by courseName";
+            String SQL = sqlQueries.getAmountCompleted();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, coursename);
                 rs = pst.executeQuery();
@@ -452,7 +424,7 @@ public interface ResultSetHandler<T> {
         int amountTotal = 0;
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT COUNT(*) AS amountCompleted FROM [Certificate] WHERE courseName = ? AND email IN (SELECT email FROM [User] WHERE gender = 'Male')";
+            String SQL = sqlQueries.getMaleCompletionRate();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, selectedCourse);
                 rs = pst.executeQuery();
@@ -460,7 +432,7 @@ public interface ResultSetHandler<T> {
                     amountCompleted = rs.getInt("amountCompleted");
                 }
             }
-            SQL = "SELECT COUNT(*) AS amountTotal FROM [Enrollment] WHERE email IN (SELECT email FROM [User] WHERE gender = 'Male')";
+            SQL = sqlQueries.getMaleCompletionAmount();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 rs = pst.executeQuery();
                 while (rs.next()) {
@@ -485,7 +457,7 @@ public interface ResultSetHandler<T> {
         int amountTotal = 0;
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT COUNT(*) AS amountCompleted FROM [Certificate] WHERE courseName = ? AND email IN (SELECT email FROM [User] WHERE gender = 'Female')";
+            String SQL = sqlQueries.getFemaleCompletionRate();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, selectedCourse);
                 rs = pst.executeQuery();
@@ -493,7 +465,7 @@ public interface ResultSetHandler<T> {
                     amountCompleted = rs.getInt("amountCompleted");
                 }
             }
-            SQL = "SELECT COUNT(*) AS amountTotal FROM [Enrollment] WHERE email IN (SELECT email FROM [User] WHERE gender = 'Female')";
+            SQL = sqlQueries.getFemaleCompletionAmount();
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 rs = pst.executeQuery();
                 while (rs.next()) {
@@ -517,7 +489,7 @@ public interface ResultSetHandler<T> {
         ArrayList<Webcast> webcasts = new ArrayList<>();
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT * FROM [Webcast] LEFT JOIN [ContentItem] ON [Webcast].contentId = [ContentItem].contentId";
+            String SQL = sqlQueries.getAllWebcasts();
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
             while (rs.next()) {
@@ -540,7 +512,7 @@ public interface ResultSetHandler<T> {
         ArrayList<Webcast> webcasts = new ArrayList<>();
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT * FROM [Webcast] LEFT JOIN [ContentItem] ON [Webcast].contentId = [ContentItem].contentId WHERE Webcast.contentId IN (SELECT TOP(3) contentId FROM [Viewed] GROUP BY contentId ORDER BY COUNT(contentId) DESC)";
+            String SQL = sqlQueries.getTopWebcasts();
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL);
             while (rs.next()) {
@@ -563,7 +535,8 @@ public interface ResultSetHandler<T> {
         Course courseObject = null;
         try {
             con = DriverManager.getConnection(connectionUrl);
-            String SQL = "SELECT TOP(1) * FROM [Course] WHERE courseName = ?";
+            String SQL = sqlQueries.getCourseFromName();
+
             try (PreparedStatement pst = con.prepareStatement(SQL)) {
                 pst.setString(1, selectedCourse);
                 rs = pst.executeQuery();

@@ -39,11 +39,11 @@ public class WebcastsController implements Initializable {
     */
     public void initialize(URL location, ResourceBundle resources) {
         ArrayList<Webcast> webcasts = DatabaseConnection.getWebcasts();  // Getting webcasts from database.
-
+        ArrayList<Webcast> topWebcasts = DatabaseConnection.getTopWebcasts();
         // Extracting the titles of top 3 most viewed webcasts.
-        String mostViewed1Title = webcasts.get(0).getTitle();
-        String mostViewed2Title = webcasts.get(1).getTitle();
-        String mostViewed3Title = webcasts.get(2).getTitle();
+        String mostViewed1Title = topWebcasts.get(0).getTitle();
+        String mostViewed2Title = topWebcasts.get(1).getTitle();
+        String mostViewed3Title = topWebcasts.get(2).getTitle();
 
         ArrayList<String> webcastNames = new ArrayList<>(); // ArrayList to store webcastNames.
 
