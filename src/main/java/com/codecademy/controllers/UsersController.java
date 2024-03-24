@@ -90,42 +90,22 @@ public class UsersController implements Initializable {
         extractUserData();
         genderField.getItems().setAll("Male", "Female");
         userList.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
-            selectedUser = userList.getSelectionModel().getSelectedItem();
+                    selectedUser = userList.getSelectionModel().getSelectedItem();
 
-            nameField.setText(userNames.get(selectedUser));
-            emailField.setText(selectedUser);
-            dateOfBirthPicker.setValue(userDateOfBirths.get(selectedUser));
-            genderField.getSelectionModel().select(userGenders.get(selectedUser));
-            addressField.setText(userAddresses.get(selectedUser));
-            zipField.setText(userZips.get(selectedUser));
-            countryField.setText(userCountries.get(selectedUser));
-            certificates = DatabaseConnection.getCertificatesForUser(selectedUser);
-            courses = DatabaseConnection.getCoursesForUser(selectedUser);
+                    nameField.setText(userNames.get(selectedUser));
+                    emailField.setText(selectedUser);
+                    dateOfBirthPicker.setValue(userDateOfBirths.get(selectedUser));
+                    genderField.getSelectionModel().select(userGenders.get(selectedUser));
+                    addressField.setText(userAddresses.get(selectedUser));
+                    zipField.setText(userZips.get(selectedUser));
+                    countryField.setText(userCountries.get(selectedUser));
+                    certificates = DatabaseConnection.getCertificatesForUser(selectedUser);
+                    courses = DatabaseConnection.getCoursesForUser(selectedUser);
 
-            ArrayList<String> certificateValues = new ArrayList<>();
-            if (!certificates.isEmpty()) {
-                for (Certificate certificate : certificates) {
-                    certificateValues.add(certificate.getCourseName());
-                }
-            }
+                    certificateList.setItems(getListNames(certificates));
+                    courseList.setItems(getListNames(courses));
 
-            ArrayList<String> listOfCertificateValues = new ArrayList<>(certificateValues);
-            ObservableList<String> Certificate = FXCollections.observableArrayList((listOfCertificateValues));
-            certificateList.setItems(Certificate);
-
-            ArrayList<String> courseValues = new ArrayList<>();
-            if (!courses.isEmpty()) {
-                for (Course course : courses) {
-                    courseValues.add(course.getCourseName());
-                }
-            }
-
-            ArrayList<String> listOfCourseValues = new ArrayList<>(courseValues);
-            ObservableList<String> Course = FXCollections.observableArrayList((listOfCourseValues));
-            courseList.setItems(Course);
-        });
-
-
+                });
         courseList.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             try {
                  selectedUser = userList.getSelectionModel().getSelectedItem();
@@ -136,6 +116,14 @@ public class UsersController implements Initializable {
             }
         });
 
+    }
+
+    public ObservableList<String> getListNames(List<?> items) {
+        ArrayList<String> values = new ArrayList<>();
+        for (Object item : items) {
+            values.add(item.toString()); // Assuming toString() returns the name of the item
+        }
+        return FXCollections.observableArrayList(values);
     }
 
 

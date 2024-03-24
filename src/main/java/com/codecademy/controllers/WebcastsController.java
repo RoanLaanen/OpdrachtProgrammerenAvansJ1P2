@@ -32,9 +32,7 @@ public class WebcastsController implements Initializable {
     @FXML
     public Label mostViewed3;  // Label component to display the most viewed webcast title #3
 
-    String mostViewed1Title = "";
-    String mostViewed2Title = "";
-    String mostViewed3Title = "";
+
 
     /*
     This method is called after all the @FXML annotated variables have been injected
@@ -45,28 +43,9 @@ public class WebcastsController implements Initializable {
         ArrayList<Webcast> webcasts = DatabaseConnection.getWebcasts();  // Getting webcasts from database.
         ArrayList<Webcast> topWebcasts = DatabaseConnection.getTopWebcasts();
         // Extracting the titles of top 3 most viewed webcasts.
-        if (topWebcasts.size() >= 3) {
-            mostViewed1Title = topWebcasts.get(0).getTitle();
-            mostViewed2Title = topWebcasts.get(1).getTitle();
-            mostViewed3Title = topWebcasts.get(2).getTitle();
-        }
+        setMostViewedWebcasts(topWebcasts);
+        setAllWebcasts(webcasts);
 
-
-        ArrayList<String> webcastNames = new ArrayList<>(); // ArrayList to store webcastNames.
-
-        // Setting the text of the labels to the webcasts titles.
-        mostViewed1.setText("1: " + mostViewed1Title);
-        mostViewed2.setText("2: " + mostViewed2Title);
-        mostViewed3.setText("3: " + mostViewed3Title);
-
-        // Generating list of webcast names for ListView.
-        for (Webcast webcast : webcasts) {
-            webcastNames.add(webcast.getTitle());
-        }
-
-        // Creating an observable list and setting it as the content of the ListView.
-        ObservableList<String> items = FXCollections.observableArrayList(webcastNames);
-        webcastList.setItems(items);
     }
 
     /*
@@ -79,5 +58,32 @@ public class WebcastsController implements Initializable {
         Stage window = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
+    }
+
+    public void setMostViewedWebcasts(ArrayList<Webcast> topWebcasts){
+        String mostViewed1Title = "";
+        String mostViewed2Title = "";
+        String mostViewed3Title = "";
+        if (topWebcasts.size() >= 3) {
+            mostViewed1Title = topWebcasts.get(0).getTitle();
+            mostViewed2Title = topWebcasts.get(1).getTitle();
+            mostViewed3Title = topWebcasts.get(2).getTitle();
+
+        }
+        // Setting the text of the labels to the webcasts titles.
+        mostViewed1.setText("1: " + mostViewed1Title);
+        mostViewed2.setText("2: " + mostViewed2Title);
+        mostViewed3.setText("3: " + mostViewed3Title);
+    }
+    public void setAllWebcasts(ArrayList<Webcast> webcasts){
+        ArrayList<String> webcastNames = new ArrayList<>(); // ArrayList to store webcastNames.
+
+        // Generating list of webcast names for ListView.
+        for (Webcast webcast : webcasts) {
+            webcastNames.add(webcast.getTitle());
+        }
+        // Creating an observable list and setting it as the content of the ListView.
+        ObservableList<String> items = FXCollections.observableArrayList(webcastNames);
+        webcastList.setItems(items);
     }
 }
