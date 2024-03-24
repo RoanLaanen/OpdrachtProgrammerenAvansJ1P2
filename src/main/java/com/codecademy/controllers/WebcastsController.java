@@ -32,6 +32,10 @@ public class WebcastsController implements Initializable {
     @FXML
     public Label mostViewed3;  // Label component to display the most viewed webcast title #3
 
+    String mostViewed1Title = "";
+    String mostViewed2Title = "";
+    String mostViewed3Title = "";
+
     /*
     This method is called after all the @FXML annotated variables have been injected
     and the root element of the associated view has been fully processed.
@@ -41,9 +45,12 @@ public class WebcastsController implements Initializable {
         ArrayList<Webcast> webcasts = DatabaseConnection.getWebcasts();  // Getting webcasts from database.
         ArrayList<Webcast> topWebcasts = DatabaseConnection.getTopWebcasts();
         // Extracting the titles of top 3 most viewed webcasts.
-        String mostViewed1Title = topWebcasts.get(0).getTitle();
-        String mostViewed2Title = topWebcasts.get(1).getTitle();
-        String mostViewed3Title = topWebcasts.get(2).getTitle();
+        if (topWebcasts.size() >= 3) {
+            mostViewed1Title = topWebcasts.get(0).getTitle();
+            mostViewed2Title = topWebcasts.get(1).getTitle();
+            mostViewed3Title = topWebcasts.get(2).getTitle();
+        }
+
 
         ArrayList<String> webcastNames = new ArrayList<>(); // ArrayList to store webcastNames.
 
