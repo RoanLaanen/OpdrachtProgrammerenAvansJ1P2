@@ -137,6 +137,12 @@ public class DatabaseConnection {
         pst.setString(6, user.getZip());
         pst.setString(7, user.getCountry());
     }
+    public static void courseDatabaseChange(Course course, PreparedStatement pst) throws SQLException {
+        pst.setString(1, course.getCourseName());
+        pst.setString(2, course.getIntroText());
+        pst.setString(3, course.getTopic());
+        pst.setString(4, course.getLevel());
+    }
 
     public static void updateUser(String selectedUser, User updatedUser) {
         try {
