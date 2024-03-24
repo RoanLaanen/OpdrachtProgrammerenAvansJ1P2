@@ -2,6 +2,7 @@ package com.codecademy;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.codecademy.models.Constraints;
 import org.junit.jupiter.api.Test;
 
 /**
