@@ -1,5 +1,6 @@
 package com.codecademy.controllers;
 
+import com.codecademy.database.UserDao;
 import com.codecademy.models.Constraints;
 import com.codecademy.models.DataSingleton;
 import com.codecademy.database.DatabaseConnection;
@@ -30,6 +31,8 @@ import java.util.*;
 public class UsersController implements Initializable {
     @FXML
     public ListView<String> userList;
+
+
     Constraints constraints = new Constraints();
     @FXML
     public ListView<String> certificateList;
@@ -57,7 +60,7 @@ public class UsersController implements Initializable {
     HashMap<String, String> userCountries = new HashMap<>();
 
     private void extractUserData() {
-        ArrayList<User> users = DatabaseConnection.getAllUsers();
+        ArrayList<User> users = UserDao.getAllUsers();
         userNames.clear();
         userEmails.clear();
         userDateOfBirths.clear();
@@ -151,7 +154,7 @@ public class UsersController implements Initializable {
     }
 
     public void deleteUser() {
-        DatabaseConnection.deleteUser(selectedUser);
+        UserDao.deleteUser(selectedUser);
         extractUserData();
         selectedUser = null;
     }
@@ -199,10 +202,10 @@ public class UsersController implements Initializable {
             user.setZip(zip);
             user.setDateOfBirth(dob);
             if (selectedUser == null) {
-                DatabaseConnection.addUser(user);
+                UserDao.addUser(user);
 
             } else {
-                DatabaseConnection.updateUser(selectedUser, user);
+                UserDao.updateUser(selectedUser, user);
             }
             extractUserData();
             selectedUser = user.getEmail();

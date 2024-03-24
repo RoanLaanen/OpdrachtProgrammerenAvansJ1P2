@@ -1,5 +1,6 @@
 package com.codecademy.controllers;
 
+import com.codecademy.database.CourseDao;
 import com.codecademy.database.DatabaseConnection;
 import com.codecademy.models.Course;
 import com.codecademy.models.Level;
@@ -43,7 +44,7 @@ public class CoursesController implements Initializable {
     ArrayList<String> availableModuleIds;
 
     private void extractCourseData(){
-        ArrayList<Course> courses = DatabaseConnection.getAllCourses();
+        ArrayList<Course> courses = CourseDao.getAllCourses();
         courseNames.clear();
         topics.clear();
         introTexts.clear();
@@ -124,7 +125,7 @@ public class CoursesController implements Initializable {
     public void saveCourse() {
         Course newCourse = new Course(nameField.getText(), topicField.getText(), introTextArea.getText(), levelBox.getValue());
         if(selectedCourse == null) {
-            DatabaseConnection.addCourse(newCourse);
+            CourseDao.addCourse(newCourse);
         }
         else {
             DatabaseConnection.updateCourse(selectedCourse, newCourse);

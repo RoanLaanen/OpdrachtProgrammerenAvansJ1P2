@@ -17,7 +17,7 @@ public class UserDao {
         sqlQueries = new SQLQueries();
     }
 
-    public ArrayList<User> getAllUsers() {
+    public static ArrayList<User> getAllUsers() {
         ArrayList<User> users = new ArrayList<>();
 
         try (Connection con = getConnection();
@@ -52,14 +52,14 @@ public class UserDao {
             pst.setString(2, email);
         });
     }
-    public void updateUser(String selectedUser, User updatedUser) {
+    public static void updateUser(String selectedUser, User updatedUser) {
         performUpdate(sqlQueries.updateUser(), pst -> {
             userDatabaseChange(updatedUser, pst);
             pst.setString(8, selectedUser);
         });
     }
 
-    public void deleteUser(String selectedUser) {
+    public static void deleteUser(String selectedUser) {
         performUpdate(sqlQueries.removeUser(), pst -> pst.setString(1, selectedUser));
     }
 

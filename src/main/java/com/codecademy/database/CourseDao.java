@@ -17,7 +17,7 @@ public class CourseDao {
         sqlQueries = new SQLQueries();
     }
 
-    public ArrayList<Course> getAllCourses() {
+    public static ArrayList<Course> getAllCourses() {
         ArrayList<Course> courses = new ArrayList<>();
 
         try (Connection con = getConnection();
