@@ -13,51 +13,7 @@ public class DatabaseConnection {
     private static Statement stmt = null;
     private static ResultSet rs = null;
     static SQLQueries sqlQueries = new SQLQueries();
-    public static ArrayList<User> getAllUsers() {
-        ArrayList<User> users = new ArrayList<>();
-        try {
-            con = DriverManager.getConnection(connectionUrl);
-            String SQL = sqlQueries.getAllUsers();
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(SQL);
-            while (rs.next()) {
-                users.add(new User(rs.getString("name"), rs.getString("email"), rs.getDate("dateOfBirth").toLocalDate(), rs.getString("gender"), rs.getString("address"), rs.getString("zip"), rs.getString("country")));
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        } finally {
-            if (rs != null) try {
-                rs.close();
-            } catch (Exception e) {
-                System.out.println("Error: " + e);
-            }
-            closeConnection(con);
-        }
-        return users;
-    }
 
-    public static ArrayList<Course> getAllCourses() {
-        ArrayList<Course> courses = new ArrayList<>();
-        try {
-            con = DriverManager.getConnection(connectionUrl);
-            String SQL = sqlQueries.getAllCourses();
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(SQL);
-            while (rs.next()) {
-                courses.add(new Course(rs.getString("courseName"), rs.getString("topic"), rs.getString("introText"), Level.valueOf(rs.getString("level"))));
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        } finally {
-            if (rs != null) try {
-                rs.close();
-            } catch (Exception e) {
-                System.out.println("Error: " + e);
-            }
-            closeConnection(con);
-        }
-        return courses;
-    }
 
     public static ArrayList<Course> getAllCoursesWhereNotEnrolled(String email) {
         ArrayList<Course> courses = new ArrayList<>();
@@ -77,22 +33,6 @@ public class DatabaseConnection {
             closeConnection(con);
         }
         return courses;
-    }
-
-
-    public static void addUser(User user) {
-        try {
-            con = DriverManager.getConnection(connectionUrl);
-            String SQL = sqlQueries.insertUser();
-            try (PreparedStatement pst = con.prepareStatement(SQL)) {
-                userDatabaseChange(user, pst);
-                pst.executeUpdate();
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        } finally {
-            closeConnection(con);
-        }
     }
 
     public static void enrollUserInCourse(String email, String selectedCourse) {
@@ -144,37 +84,6 @@ public class DatabaseConnection {
         pst.setString(4, course.getLevel());
     }
 
-    public static void updateUser(String selectedUser, User updatedUser) {
-        try {
-            con = DriverManager.getConnection(connectionUrl);
-            String SQL = sqlQueries.updateUser();
-            try (PreparedStatement pst = con.prepareStatement(SQL)) {
-                userDatabaseChange(updatedUser, pst);
-                pst.setString(8, selectedUser);
-                pst.executeUpdate();
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        } finally {
-            closeConnection(con);
-        }
-    }
-
-    public static void deleteUser(String selectedUser) {
-        try {
-            con = DriverManager.getConnection(connectionUrl);
-            String SQL = sqlQueries.removeUser();
-            try (PreparedStatement pst = con.prepareStatement(SQL)) {
-                pst.setString(1, selectedUser);
-                pst.executeUpdate();
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        } finally {
-            closeConnection(con);
-        }
-    }
-
     public static ArrayList<Certificate> getCertificatesForUser(String selectedUser) {
         ArrayList<Certificate> certificates = new ArrayList<>();
         try {
@@ -213,24 +122,6 @@ public class DatabaseConnection {
             closeConnection(con);
         }
         return courses;
-    }
-
-    public static void addCourse(Course course) {
-        try {
-            con = DriverManager.getConnection(connectionUrl);
-            String SQL = sqlQueries.addCourse();
-            try (PreparedStatement pst = con.prepareStatement(SQL)) {
-                pst.setString(1, course.getCourseName());
-                pst.setString(2, course.getIntroText());
-                pst.setString(3, course.getTopic());
-                pst.setString(4, course.getLevel());
-                pst.executeUpdate();
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        } finally {
-            closeConnection(con);
-        }
     }
 
     public static void updateCourse(String selectedCourse, Course course) {
@@ -286,7 +177,6 @@ public class DatabaseConnection {
             closeConnection(con);
         }
         return modules;
-
     }
     public static ArrayList<ArrayList<String>> getAvailableModules() {
         ArrayList<String> availableModules = new ArrayList<>();
