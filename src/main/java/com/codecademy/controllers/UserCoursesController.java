@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,6 +27,7 @@ import java.util.ResourceBundle;
 public class UserCoursesController implements Initializable {
     public ListView<String> modulesList;  // List view for modules
     public Pane topic;
+    public Text user;
     String selectedUser;  // Selected user info
     String selectedCourse;  // Selected course info
     DataSingleton data = DataSingleton.getInstance();  // Instance of DataSingleton
@@ -44,11 +46,12 @@ public class UserCoursesController implements Initializable {
 
         // Fetch database for matching courses and set course information
         Course selectedCoursesObject = DatabaseConnection.getCourseFromName(selectedCourse);
+
         courseNameUser.setText(selectedCoursesObject.getCourseName());
         introTextUser.setText(selectedCoursesObject.getIntroText());
         topicUser.setText(selectedCoursesObject.getTopic());
         levelUser.setText(selectedCoursesObject.getLevel());
-
+        user.setText(selectedUser);
         // Populate course list selection with courses where user is not enrolled
         ArrayList<Course> courses = DatabaseConnection.getAllCoursesWhereNotEnrolled(selectedUser);
         for (Course course : courses) {

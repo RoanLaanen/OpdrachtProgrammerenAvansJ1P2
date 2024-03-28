@@ -20,6 +20,8 @@
 
    <Text layoutX="467.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Courses" wrappingWidth="288.0"><font><Font size="50.0" /></font></Text>
 
+   <Text layoutX="35.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User" fx:id="user"/>
+
    <Text layoutX="367.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Data" />
    <Text layoutX="819.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Modules" />
    <ListView fx:id="modulesList" layoutX="625.0" layoutY="173.0" prefHeight="460.0" prefWidth="463.0" />
@@ -51,5 +53,6 @@
          <Font size="14.0" />
       </font>
    </Label>
+
 
 </Pane>
